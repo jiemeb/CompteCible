@@ -1,0 +1,5 @@
+MainActivity 		: panneau avec l'image de la cible
+Activity_image_resultat	: panneau des résultats
+Activity_maintenance	: panneau de maintenance
+Activity_resultat_round : premier panneau de résultat
+Config_round		: panneau de configuration d'un concours
