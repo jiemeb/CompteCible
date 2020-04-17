@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CompteCible</string>
+    <string name="action_settings">Configuration</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Suivant</string>
+    <string name="previous">Précédent</string>
+    <string name="config_round">Configuration concours</string>
+    <string name="activity_maintenance">maintenance</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="let_sgo">Allons y</string>
+    <string name="roundName">Nom concours</string>
+    <string name="round">Volée</string>
+    <string name="Activity_resultat_round">resultat Concours</string>
+    <string name="configFill">Vous devez remplir tous les champs</string>
+    <string name="impact">impact</string>
+    <string name="repartitionPoint">Repartition flèches</string>
+    <string name="air_TitleGraphe_arrow_by_arrow">Nombre de flèches par valeur</string>
+    <string name="air_Tittle_Axe_Y">Nombre de flèches</string>
+    <string name="air_Tittle_Axe_X">Valeur de flèche</string>
+    <string name="air_select_rounds">Resultat archer</string>
+    <string name="air_TitleGraphe_rounsd">Score par concour</string>
+    <string name="air_Tittle_Axe_X_round">Nom concours</string>
+    <string name="air_Tittle_Axe_Y_Score">score</string>
+    <string name="EndRound">Fin de concours</string>
+    <string name="All">Tous</string>
+    <string name="End">Volée</string>
+    <string name="missing_archer">archer manquant</string>
+    <string name="noElement">pas d\'élément</string>
+    <string name="addArcher">Ajout archer</string>
+    <string name="ArcherToRound">Archer en concours</string>
+    <string name="Noelement">Pas d enregistrement</string>
+    <string name="am_bexport_archer_round">export archer rounds</string>
+    <string name="ClearDataBase">Purge Base donnée</string>
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/name_resultat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:ems="12"
+            android:text="archer_name"
+            android:textAlignment="viewStart"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            app:autoSizeMaxTextSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:ems="6"
+            android:text="Score"
+            android:textAlignment="viewStart"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            app:layout_constraintStart_toEndOf="@+id/name_resultat"
+            app:layout_constraintTop_toTopOf="@+id/name_resultat" />
+
+        <TextView
+            android:id="@+id/Dummy"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="60"
+            android:ems="20"
+            android:text="archer_Information"
+            android:textAlignment="viewStart"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            app:layout_constraintStart_toEndOf="@+id/score"
+            app:layout_constraintTop_toTopOf="@+id/name_resultat" />
+    </TableRow>
+</androidx.constraintlayout.widget.ConstraintLayout>
