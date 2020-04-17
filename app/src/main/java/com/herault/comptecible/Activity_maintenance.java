@@ -39,7 +39,7 @@ public class Activity_maintenance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maintenance);
-        progressBarExport=findViewById(R.id.am_progressBar);
+        progressBarExport = findViewById(R.id.am_progressBar);
 
         archer = findViewById(R.id.am_sArcher);
         stock = new Stockage();             // init de la classe interface de stockage
@@ -94,19 +94,16 @@ public class Activity_maintenance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-    // test Archer
-            if(archer.getCount() != 0 && archer.getSelectedItemId()>=0) {
-                // Start  aSynchrone task
-              // new ExportAsyncTask().execute();
-               String argv[] =  new String[] {archer.getSelectedItem().toString()};
-                ExportAsyncTask task =   new ExportAsyncTask(Activity_maintenance.this) ;
-                task.execute(argv);
+                // test Archer
+                if (archer.getCount() != 0 && archer.getSelectedItemId() >= 0) {
+                    // Start  aSynchrone task
+                    // new ExportAsyncTask().execute();
+                    String argv[] = new String[]{archer.getSelectedItem().toString()};
+                    ExportAsyncTask task = new ExportAsyncTask(Activity_maintenance.this);
+                    task.execute(argv);
                 }
             }
         });
-
-
-
 
 
 //-------------------------------------------------------------------------------------------------
@@ -141,7 +138,6 @@ public class Activity_maintenance extends AppCompatActivity {
         });
 
     }
-
 
 
     /*********************************************************************************/

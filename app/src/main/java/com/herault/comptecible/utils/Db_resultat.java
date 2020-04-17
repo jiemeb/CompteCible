@@ -9,6 +9,66 @@ import android.util.Log;
 public class Db_resultat extends SQLiteOpenHelper {
 
 
+    /**
+     * The static string to create the database.
+     */
+    private static final String DATABASE_CREATE_TABLE_ARCHERS = "create table "
+            + Constants.ARCHERS + "(" + Constants.KEY_ID_COLUMN
+            + " INTEGER primary key autoincrement, " + Constants.KEY_COL_NAME + " TEXT UNIQUE)  ";
+    private static final String DATABASE_CREATE_TABLE_ARCHERS_ROUND = "create table "
+            + Constants.ARCHERS_ROUND + "(" + Constants.KEY_ID_COLUMN
+            + " INTEGER primary key autoincrement, " + Constants.KEY_COL_NAME + " TEXT UNIQUE)  ";
+    private static final String DATABASE_CREATE_TABLE_RESULTATS = "create table "
+            + Constants.RESULTATS + "("
+            + Constants.KEY_COL_ID1
+            + " INTEGER primary key autoincrement, "
+            + Constants.KEY_COL_ROUND + " TEXT  , "
+            + Constants.KEY_COL_ARROW + " INTEGER, "
+            + Constants.KEY_COL_VALUE + " INTEGER, "
+            + Constants.KEY_COL_X + " REAL, "
+            + Constants.KEY_COL_Y + " REAL, "
+            + Constants.KEY_COL_ID_NAME + " INTEGER ,"
+            + " FOREIGN KEY ( " + Constants.KEY_COL_ID_NAME + " ) REFERENCES " + Constants.ARCHERS
+            + " ( " + Constants.KEY_ID_COLUMN + " ))";
+    private static final String DATABASE_CREATE_TABLE_COMPTE_CIBLE_ = "create table "
+            + Constants.COMPTE_CIBLE + "(" + Constants.KEY_ID_COLUMN
+            + " INTEGER primary key autoincrement, " + Constants.KEY_COL_COMPTE_NAME + " TEXT UNIQUE,"
+            + Constants.KEY_COL_COMPTE_VALUE + " TEXT)  ";
+
+    /**
+     * @param context = the context of the caller
+     * @param name    = Database's name
+     * @param factory = null
+     * @param version
+     */
+    public Db_resultat(Context context, String name, SQLiteDatabase.CursorFactory factory,
+                       int version) {
+        super(context, name, factory, version);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        // Create the new database using the SQL string Database_create
+        db.execSQL(DATABASE_CREATE_TABLE_ARCHERS_ROUND);
+        db.execSQL(DATABASE_CREATE_TABLE_ARCHERS);
+        db.execSQL(DATABASE_CREATE_TABLE_RESULTATS);
+        db.execSQL(DATABASE_CREATE_TABLE_COMPTE_CIBLE_);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.w("DBOpenHelper", "Mise à jour de la version " + oldVersion
+                + " vers la version " + newVersion
+                + ", les anciennes données seront détruites ");
+        // Drop the old database
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS_ROUND);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.RESULTATS);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.COMPTE_CIBLE);
+        // Create the new one
+        onCreate(db);
+        // or do a smartest stuff
+    }
 
     /**
      * @goals This class aims to show the constant to use for the DBOpenHelper
@@ -51,21 +111,19 @@ public class Db_resultat extends SQLiteOpenHelper {
         public static final String COMPTE_CIBLE = "compteCible";
         // ## Column name ##
         // My Column ID
-       // public static final String KEY_ID_COLUMN = "_id"; // Mandatory
+        // public static final String KEY_ID_COLUMN = "_id"; // Mandatory
         // My Column round tempory
         public static final String KEY_COL_COMPTE_NAME = "name";
         // Type of round
-         public static final String KEY_COL_COMPTE_VALUE ="value" ;
+        public static final String KEY_COL_COMPTE_VALUE = "value";
 
         // Indexes des colonnes
         // The index of the column ID
-       // public static final int ID_COLUMN = 1;
+        // public static final int ID_COLUMN = 1;
         // The index of the column NAME
         public static final int COL_NAME_COMPTE = 2;
 
         public static final int COL_VALUE_COMPTE = 3;
-
-
 
 
         // The table Name
@@ -103,73 +161,6 @@ public class Db_resultat extends SQLiteOpenHelper {
         public static final int COL_ID_NAME = 7;
 
 
-    }
-
-    /**
-     * The static string to create the database.
-     */
-    private static final String DATABASE_CREATE_TABLE_ARCHERS= "create table "
-            + Constants.ARCHERS + "(" + Constants.KEY_ID_COLUMN
-            + " INTEGER primary key autoincrement, "  + Constants.KEY_COL_NAME + " TEXT UNIQUE)  ";
-
-    private static final String DATABASE_CREATE_TABLE_ARCHERS_ROUND= "create table "
-            + Constants.ARCHERS_ROUND + "(" + Constants.KEY_ID_COLUMN
-            + " INTEGER primary key autoincrement, "  + Constants.KEY_COL_NAME + " TEXT UNIQUE)  ";
-
-    private static final String DATABASE_CREATE_TABLE_RESULTATS = "create table "
-            + Constants.RESULTATS + "("
-            + Constants.KEY_COL_ID1
-            + " INTEGER primary key autoincrement, "
-            + Constants.KEY_COL_ROUND + " TEXT  , "
-            + Constants.KEY_COL_ARROW + " INTEGER, "
-            + Constants.KEY_COL_VALUE + " INTEGER, "
-            + Constants.KEY_COL_X + " REAL, "
-            + Constants.KEY_COL_Y + " REAL, "
-            + Constants.KEY_COL_ID_NAME + " INTEGER ,"
-            + " FOREIGN KEY ( " + Constants.KEY_COL_ID_NAME +" ) REFERENCES "+ Constants.ARCHERS
-            + " ( " + Constants.KEY_ID_COLUMN +" ))";
-
-    private static final String DATABASE_CREATE_TABLE_COMPTE_CIBLE_= "create table "
-            + Constants.COMPTE_CIBLE + "(" + Constants.KEY_ID_COLUMN
-            + " INTEGER primary key autoincrement, "  + Constants.KEY_COL_COMPTE_NAME + " TEXT UNIQUE,"
-            + Constants.KEY_COL_COMPTE_VALUE + " TEXT)  ";
-
-    /**
-     * @param context
-     *            = the context of the caller
-     * @param name
-     *            = Database's name
-     * @param factory
- *            = null
-     * @param version
-     */
-    public Db_resultat(Context context, String name, SQLiteDatabase.CursorFactory factory,
-                       int version) {
-        super(context, name, factory, version);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        // Create the new database using the SQL string Database_create
-        db.execSQL(DATABASE_CREATE_TABLE_ARCHERS_ROUND) ;
-        db.execSQL(DATABASE_CREATE_TABLE_ARCHERS) ;
-        db.execSQL(DATABASE_CREATE_TABLE_RESULTATS);
-        db.execSQL(DATABASE_CREATE_TABLE_COMPTE_CIBLE_);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w("DBOpenHelper", "Mise à jour de la version " + oldVersion
-                + " vers la version " + newVersion
-                + ", les anciennes données seront détruites ");
-        // Drop the old database
-        db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS);
-        db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS_ROUND);
-        db.execSQL("DROP TABLE IF EXISTS " + Constants.RESULTATS);
-        db.execSQL("DROP TABLE IF EXISTS " + Constants.COMPTE_CIBLE);
-        // Create the new one
-        onCreate(db);
-        // or do a smartest stuff
     }
 
 }

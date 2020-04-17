@@ -45,8 +45,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
     <TextView
         android:id="@+id/ArrowValue"
         android:layout_width="61dp"

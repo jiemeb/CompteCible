@@ -14,16 +14,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ListRound extends ArrayAdapter<Resultat_archer> {
-    private static class ViewHolder {
-        TextView viewName;
-        TextView score;
-        TextView dummy;
-    }
     private final Context _context;
-    public ArrayList <Resultat_archer> _AResultat;
-
+    public ArrayList<Resultat_archer> _AResultat;
     public ListRound(Context context, ArrayList<Resultat_archer> AResultat) {
-        super(context,R.layout.resultat, AResultat);
+        super(context, R.layout.resultat, AResultat);
         _context = context;
         _AResultat = AResultat;
     }
@@ -33,7 +27,7 @@ public class ListRound extends ArrayAdapter<Resultat_archer> {
         Resultat_archer resultat_archer = getItem(position);
         final ViewHolder viewHolder; // view lookup cache stored in tag
 
-        if(convertView == null) {
+        if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.resultat, parent, false);
@@ -48,18 +42,15 @@ public class ListRound extends ArrayAdapter<Resultat_archer> {
         }
 
 
-
         viewHolder.viewName.setText(Objects.requireNonNull(resultat_archer).getName());
         viewHolder.score.setText(Long.toString(resultat_archer.getValue()));
 
         viewHolder.dummy.setText(Objects.requireNonNull(resultat_archer).getInformation());
-        if ((position &1 )!= 1)
-        {
+        if ((position & 1) != 1) {
             viewHolder.viewName.setBackgroundColor(0xFFAA84DF);
             viewHolder.score.setBackgroundColor(0xFFAA84DF);
             viewHolder.dummy.setBackgroundColor(0xFFAA84DF);
-        }else
-        {
+        } else {
             viewHolder.viewName.setBackgroundColor(Color.WHITE);
             viewHolder.score.setBackgroundColor(Color.WHITE);
             viewHolder.dummy.setBackgroundColor(Color.WHITE);
@@ -84,6 +75,12 @@ public class ListRound extends ArrayAdapter<Resultat_archer> {
             }
         });*/
         return convertView;
+    }
+
+    private static class ViewHolder {
+        TextView viewName;
+        TextView score;
+        TextView dummy;
     }
 
 }

@@ -46,8 +46,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
     <TextView
         android:id="@+id/ArrowValue"
         android:layout_width="61dp"
@@ -188,18 +186,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="12sp"
                 android:background="#D5CECE"
-                android:text="Manque" />
+                android:text="Manque"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/Annul"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="12sp"
                 android:background="#D5CECE"
-                android:text="Annul" />
+                android:text="Annul"
+                android:textSize="12sp" />
         </TableRow>
 
         <TableRow
@@ -220,9 +218,10 @@
                 android:layout_weight="1"
                 android:background="@drawable/archer_next" />
         </TableRow>
+
         <TableRow
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@id/end"
@@ -232,13 +231,14 @@
                 android:text="@string/End"
                 android:textSize="12sp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/endNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="12sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </TableRow>
     </TableLayout>

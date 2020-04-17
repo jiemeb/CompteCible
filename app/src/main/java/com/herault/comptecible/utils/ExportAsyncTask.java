@@ -1,4 +1,4 @@
-package  com.herault.comptecible.utils;
+package com.herault.comptecible.utils;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -13,18 +13,19 @@ import java.util.function.LongToIntFunction;
 
 import static java.lang.Thread.sleep;
 
-public class ExportAsyncTask extends AsyncTask<String , Integer, Long> {
-private AppCompatActivity myActivity;
-public ExportAsyncTask(AppCompatActivity a) {
-    myActivity= a;
+public class ExportAsyncTask extends AsyncTask<String, Integer, Long> {
+    private AppCompatActivity myActivity;
 
-}
+    public ExportAsyncTask(AppCompatActivity a) {
+        myActivity = a;
+
+    }
 
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        ProgressBar pb = (ProgressBar)myActivity.findViewById(R.id.am_progressBar);
+        ProgressBar pb =  myActivity.findViewById(R.id.am_progressBar);
         pb.setVisibility(View.VISIBLE);
         Log.e("TAG", "AsyncTask is started.");
     }
@@ -32,7 +33,7 @@ public ExportAsyncTask(AppCompatActivity a) {
     @Override
     protected void onPostExecute(Long success) {
         super.onPostExecute(success);
-        ProgressBar pb = (ProgressBar)myActivity.findViewById(R.id.am_progressBar);
+        ProgressBar pb =  myActivity.findViewById(R.id.am_progressBar);
         pb.setVisibility(View.GONE);
 
 
@@ -40,27 +41,25 @@ public ExportAsyncTask(AppCompatActivity a) {
     }
 
     @Override
-    protected Long doInBackground(String ... name) {
-    Long j = 0L;
-    for (int i = 0 ; i < 100; i++)
-    {
-        publishProgress(i);
-        try {
-            sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    protected Long doInBackground(String... name) {
+        Long j = 0L;
+        for (int i = 0; i < 100; i++) {
+            publishProgress(i);
+            try {
+                sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-    }
+        }
         Log.e("TAG", "AsyncTask doing some big work...");
         // 5 - Execute our task
-    return 0l;
+        return 0L;
     }
 
-    protected void onProgressUpdate(Integer ... values)
-    {
+    protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        ProgressBar pb = (ProgressBar)myActivity.findViewById(R.id.am_progressBar);
+        ProgressBar pb =  myActivity.findViewById(R.id.am_progressBar);
         pb.setProgress(values[0]);
     }
 }

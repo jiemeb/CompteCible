@@ -14,10 +14,9 @@
         android:layout_marginStart="50dp"
         android:ems="10"
         android:fontFamily="serif-monospace"
-        android:gravity="start|top"
         android:inputType="textMultiLine"
         android:textAlignment="viewEnd"
-        android:textSize="10dp"
+        android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -44,8 +43,6 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
 
     <TextView
@@ -218,16 +215,18 @@
                 android:layout_weight="1"
                 android:background="@drawable/archer_next" />
         </TableRow>
+
         <TableRow
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
-        <TextView
-            android:id="@+id/endNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/endNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </TableRow>
     </TableLayout>
 

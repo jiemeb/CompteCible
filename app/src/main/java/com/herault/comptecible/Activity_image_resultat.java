@@ -34,13 +34,14 @@ import java.util.List;
 public class Activity_image_resultat extends AppCompatActivity {
     protected Activity context;
 
- private Stockage stock = null;
- private String round ="";
- private String name = "";
- private Spinner choix_resultat = null;
- private ArrayAdapter adapter_choix = null;
- private ImageView imageView = null;
- private LinearLayout chartContainer = null ;
+    private Stockage stock = null;
+    private String round = "";
+    private String name = "";
+    private Spinner choix_resultat = null;
+    private ArrayAdapter adapter_choix = null;
+    private ImageView imageView = null;
+    private LinearLayout chartContainer = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,18 +50,18 @@ public class Activity_image_resultat extends AppCompatActivity {
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
 
-        round=this.getIntent().getStringExtra("round");
-        name=this.getIntent().getStringExtra("name");
+        round = this.getIntent().getStringExtra("round");
+        name = this.getIntent().getStringExtra("name");
 
-        TextView t_round= findViewById(R.id.air_round);
+        TextView t_round = findViewById(R.id.air_round);
         t_round.setText(round);
-        TextView t_name= findViewById(R.id.air_archer);
+        TextView t_name = findViewById(R.id.air_archer);
         t_name.setText(name);
         imageView = findViewById(R.id.air_image);
         chartContainer = findViewById(R.id.air_layoutImage);
 
         // Select image resultat
-         choix_resultat = findViewById(R.id.air_choix_resultat_);
+        choix_resultat = findViewById(R.id.air_choix_resultat_);
 
 
         adapter_choix = new ArrayAdapter(
@@ -79,103 +80,101 @@ public class Activity_image_resultat extends AppCompatActivity {
 
         choix_resultat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-        public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            switch (position) {
-                case 0 :
-                    chartContainer.setVisibility(View.GONE);
-                    imageView.setVisibility(View.VISIBLE);
-                    drawResultRound(round,name);
-                    break;
-                case 1 :
-                    imageView.setVisibility(View.GONE);
-                    chartContainer.setVisibility(View.VISIBLE);
-                    drawResultImpact(round,name);
-                    break ;
-                case 2 :
-                    imageView.setVisibility(View.GONE);
-                    chartContainer.setVisibility(View.VISIBLE);
-                    drawResultArcherRound(name);
-                    break ;
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                switch (position) {
+                    case 0:
+                        chartContainer.setVisibility(View.GONE);
+                        imageView.setVisibility(View.VISIBLE);
+                        drawResultRound(round, name);
+                        break;
+                    case 1:
+                        imageView.setVisibility(View.GONE);
+                        chartContainer.setVisibility(View.VISIBLE);
+                        drawResultImpact(round, name);
+                        break;
+                    case 2:
+                        imageView.setVisibility(View.GONE);
+                        chartContainer.setVisibility(View.VISIBLE);
+                        drawResultArcherRound(name);
+                        break;
                 }
             }
-        @Override
-        public void onNothingSelected(AdapterView<?> parentView) {
-            // your code here
-        }
-    });
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+        });
 
 
     }
 
-    private void drawResultRound(String round, String archer)
-        {
+    private void drawResultRound(String round, String archer) {
 
         //    ImageView imageView = (ImageView) findViewById(R.id.air_layoutImage);
-            imageView.setBackground(getResources().getDrawable(R.drawable.ic_cible));
-            //   ImageView fantomCible=findViewById(R.id.imageCible);
-            Bitmap bitmap;
-            //   double xmax = fantomCible.getWidth() ;
-            double xmax = 1000;
-            //   double ymax = fantomCible.getHeight() ;
-            double ymax = 1000;
-            double Xscale, Yscale;
+        imageView.setBackground(getResources().getDrawable(R.drawable.ic_cible));
+        //   ImageView fantomCible=findViewById(R.id.imageCible);
+        Bitmap bitmap;
+        //   double xmax = fantomCible.getWidth() ;
+        double xmax = 1000;
+        //   double ymax = fantomCible.getHeight() ;
+        double ymax = 1000;
+        double Xscale, Yscale;
 
-            // On récupère la coordonnée sur l'abscisse (X) de l'évènement getWidth()
-            Xscale = 10 / xmax;
+        // On récupère la coordonnée sur l'abscisse (X) de l'évènement getWidth()
+        Xscale = 10 / xmax;
 
 
-            // On récupère la coordonnée sur l'ordonnée (Y) de l'évènement getHeight()
-            Yscale = 10 / ymax;
-            bitmap = Bitmap.createBitmap((int) xmax, (int) ymax, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            canvas.translate((int) xmax / 2, (int) ymax / 2);
-            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            Resultat_archer resultat_archer;
+        // On récupère la coordonnée sur l'ordonnée (Y) de l'évènement getHeight()
+        Yscale = 10 / ymax;
+        bitmap = Bitmap.createBitmap((int) xmax, (int) ymax, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        canvas.translate((int) xmax / 2, (int) ymax / 2);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Resultat_archer resultat_archer;
 
-            double moyX = 0, moyY = 0, nb_valeur_moyenne = 0.;
-            long boucle = stock.getarrowIndex(archer, round);
-            for (int i = 0; i < boucle; i++) {
+        double moyX = 0, moyY = 0, nb_valeur_moyenne = 0.;
+        long boucle = stock.getarrowIndex(archer, round);
+        for (int i = 0; i < boucle; i++) {
 
-                resultat_archer = stock.getResultatArrow(archer, round , i+1);
-                if (resultat_archer.x < 100) {
-                    nb_valeur_moyenne += 1;
-                    moyX += resultat_archer.x;
-                    moyY += resultat_archer.y;
-                    paint.setColor(Color.BLACK);
-                    canvas.drawCircle((float) (resultat_archer.x / Xscale), (float) (resultat_archer.y / Yscale), (float) (0.3 / Xscale), paint);
+            resultat_archer = stock.getResultatArrow(archer, round, i + 1);
+            if (resultat_archer.x < 100) {
+                nb_valeur_moyenne += 1;
+                moyX += resultat_archer.x;
+                moyY += resultat_archer.y;
+                paint.setColor(Color.BLACK);
+                canvas.drawCircle((float) (resultat_archer.x / Xscale), (float) (resultat_archer.y / Yscale), (float) (0.3 / Xscale), paint);
 //                Log.d("CompteCible","trace"+Long.toString(resultat_archer.arrow)+" "+Double.toString(resultat_archer.x)+" "+Double.toString(resultat_archer.y));
-                }
             }
-            paint.setColor(Color.GREEN);
-            canvas.drawCircle((float) (moyX / nb_valeur_moyenne / Xscale), (float) (moyY / nb_valeur_moyenne / Yscale), (float) (0.2 / Xscale), paint);
-            imageView.setImageBitmap(bitmap);
-
         }
+        paint.setColor(Color.GREEN);
+        canvas.drawCircle((float) (moyX / nb_valeur_moyenne / Xscale), (float) (moyY / nb_valeur_moyenne / Yscale), (float) (0.2 / Xscale), paint);
+        imageView.setImageBitmap(bitmap);
 
-     //graphe Impact by arrow
+    }
 
-     private void drawResultImpact(String round, String archer)
-     {
-          String[] xLabel = new String[]{
-                 "0", "1", "2", "3", "4", "5",
-                 "6", "7", "8", "9", "10"
-         };
-        int[] x = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    //graphe Impact by arrow
+
+    private void drawResultImpact(String round, String archer) {
+        String[] xLabel = new String[]{
+                "0", "1", "2", "3", "4", "5",
+                "6", "7", "8", "9", "10"
+        };
+        int[] x = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 
         // Creating an XYSeries for Height
         XYSeries expenseSeries = new XYSeries(getResources().getString(R.string.air_TitleGraphe_arrow_by_arrow));
         // Adding data to Height Series
-         Long archer_id =stock.getArcherId(archer);
-         Double maxValue= 0.;
+        Long archer_id = stock.getArcherId(archer);
+        Double maxValue = 0.;
         for (int i = 0; i < x.length; i++) {
-            String tempo = stock.getResultatRoundCompte(round,Long.toString(archer_id), Integer.toString(i));
-            Double valueTemp = Double.valueOf(tempo) ;
-            expenseSeries.add(i,valueTemp);
+            String tempo = stock.getResultatRoundCompte(round, Long.toString(archer_id), Integer.toString(i));
+            Double valueTemp = Double.valueOf(tempo);
+            expenseSeries.add(i, valueTemp);
 
-            if (valueTemp> maxValue)
-                    maxValue= valueTemp ;
+            if (valueTemp > maxValue)
+                maxValue = valueTemp;
         }
         // Creating a dataset to hold height series
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
@@ -235,7 +234,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         renderer.setInScroll(false);
         // setting to set legend height of the graph
         renderer.setLegendHeight(50);
-         renderer.setLegendTextSize(40);
+        renderer.setLegendTextSize(40);
         // setting x axis label align
         renderer.setXLabelsAlign(Paint.Align.CENTER);
         renderer.setXLabelsColor(Color.WHITE);
@@ -250,7 +249,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         //setting x axis min value
         renderer.setYAxisMin(0);
         // setting y axis max value
-        renderer.setYAxisMax(maxValue+(maxValue/10));
+        renderer.setYAxisMax(maxValue + (maxValue / 10));
         // setting used to move the graph on xaxiz to .5 to the right
         renderer.setXAxisMin(-0.5);
         // setting used to move the graph on xaxiz to .5 to the right
@@ -267,10 +266,10 @@ public class Activity_image_resultat extends AppCompatActivity {
         renderer.setPointSize(1f);
         // setting the margin size for the graph in the order top, left, bottom,
         // right
-        renderer.setMargins(new int[] {60,60,60,60});
+        renderer.setMargins(new int[]{60, 60, 60, 60});
 
 
-         renderer.setXLabelsPadding(10);
+        renderer.setXLabelsPadding(10);
         for (int i = 0; i < x.length; i++) {
             renderer.addXTextLabel(i, xLabel[i]);
 
@@ -290,20 +289,18 @@ public class Activity_image_resultat extends AppCompatActivity {
         chartContainer.removeAllViews();
         //drawing bar chart
 
-         GraphicalView chart = ChartFactory.getBarChartView(Activity_image_resultat.this, dataset, renderer, Type.STACKED);
+        GraphicalView chart = ChartFactory.getBarChartView(Activity_image_resultat.this, dataset, renderer, Type.STACKED);
         // adding the view to the linearlayout
         chartContainer.addView(chart);
 
     }
 
-    private void drawResultArcherRound(String archer)
-    {
+    private void drawResultArcherRound(String archer) {
         List<Resultat_archer> lresultat;
         String[] friends = new String[]{
                 "0", "1", "2", "3", "4", "5",
                 "6", "7", "8", "9", "10"
         };
-
 
 
         // Creating an XYSeries for Height
@@ -313,9 +310,9 @@ public class Activity_image_resultat extends AppCompatActivity {
         int i = 0;
         long value_max = 0;
         for (Resultat_archer r : lresultat) {
-             expenseSeries.add(i,r.value);
-             if (r.value > value_max)
-                 value_max = r.value ;
+            expenseSeries.add(i, r.value);
+            if (r.value > value_max)
+                value_max = r.value;
             i++;
         }
 
@@ -334,7 +331,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         // Creating a XYMultipleSeriesRenderer to customize the whole chart
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
         renderer.setXLabels(0);
-        i= 0;
+        i = 0;
         for (Resultat_archer r : lresultat) {
             renderer.addXTextLabel(i, r.getName());
             renderer.setXLabelsPadding(10);
@@ -397,7 +394,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         //setting x axis min value
         renderer.setYAxisMin(0);
         // setting y axis max value
-        renderer.setYAxisMax(value_max+(value_max/10));
+        renderer.setYAxisMax(value_max + (value_max / 10));
         // setting used to move the graph on xaxiz to .5 to the right
         renderer.setXAxisMin(-0.5);
         // setting used to move the graph on xaxiz to .5 to the right
@@ -414,7 +411,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         renderer.setPointSize(6f);
         // setting the margin size for the graph in the order top, left, bottom,
         // right
-        renderer.setMargins(new int[] { 60,60,60,60});
+        renderer.setMargins(new int[]{60, 60, 60, 60});
 
         // Adding heightRender to multipleRenderer
         // Note: The order of adding dataseries to dataset and renderers to
