@@ -20,19 +20,19 @@ import java.util.List;
 public class Activity_maintenance extends AppCompatActivity {
 
     protected Activity context;
-    Button bSuppresArcher;
-    Button bCleaDataBase;
-    Button bSuppressRound;
-    Button bExportArcherRounds;
-    ProgressBar progressBarExport;
-    Stockage stock = null;
-    Spinner archer = null;
-    Spinner round = null;
-    List<String> lRound;
-    ArrayAdapter adapter;
-    ArrayAdapter adapterRound;
+    private Button bSuppresArcher;
+    private Button bCleaDataBase;
+    private Button bSuppressRound;
+    private Button bExportArcherRounds;
+    private ProgressBar progressBarExport;
+    private Stockage stock = null;
+    private Spinner archer = null;
+    private Spinner round = null;
+    private List<String> lRound;
+    private ArrayAdapter adapter;
+    private ArrayAdapter adapterRound;
 
-    List<String> lArcher;
+    private List<String> lArcher;
     long archer_id;
 
     @Override
@@ -69,7 +69,7 @@ public class Activity_maintenance extends AppCompatActivity {
                     adapter.remove(archer.getSelectedItem());
                     stock.dropArcher(name);
                 } else {
-                    Intent i = new Intent(Activity_maintenance.this, Config_round.class);
+                    Intent i = new Intent(Activity_maintenance.this, Activity_Config_round.class);
                     startActivity(i);
                     Activity_maintenance.this.finish();
                 }
@@ -81,7 +81,7 @@ public class Activity_maintenance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stock.dropArchers(false);
-                Intent i = new Intent(Activity_maintenance.this, Config_round.class);
+                Intent i = new Intent(Activity_maintenance.this, Activity_Config_round.class);
                 startActivity(i);
                 Activity_maintenance.this.finish();
             }
@@ -98,7 +98,7 @@ public class Activity_maintenance extends AppCompatActivity {
                 if (archer.getCount() != 0 && archer.getSelectedItemId() >= 0) {
                     // Start  aSynchrone task
                     // new ExportAsyncTask().execute();
-                    String argv[] = new String[]{archer.getSelectedItem().toString()};
+                    String[] argv = new String[]{archer.getSelectedItem().toString()};
                     ExportAsyncTask task = new ExportAsyncTask(Activity_maintenance.this);
                     task.execute(argv);
                 }
@@ -130,7 +130,7 @@ public class Activity_maintenance extends AppCompatActivity {
                     adapterRound.remove(round.getSelectedItem());
                     stock.supRound(name);
                 } else {
-                    Intent i = new Intent(Activity_maintenance.this, Config_round.class);
+                    Intent i = new Intent(Activity_maintenance.this, Activity_Config_round.class);
                     startActivity(i);
                     Activity_maintenance.this.finish();
                 }

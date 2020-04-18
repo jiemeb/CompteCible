@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.herault.comptecible.MainActivity">
+    tools:context="com.herault.comptecible.Activity_MainActivity">
     <item
         android:id="@+id/config_round"
         android:orderInCategory="100"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Activity_MainActivity">
 
 
     <EditText
@@ -13,7 +13,6 @@
         android:layout_width="183dp"
         android:layout_height="91dp"
         android:layout_marginTop="50dp"
-        android:editable="false"
         android:ems="10"
         android:fontFamily="serif-monospace"
         android:gravity="end"
@@ -64,20 +63,22 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="3"
         android:gravity="center"
+        app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/result">
 
         <ImageView
             android:id="@+id/imageCible"
             android:layout_width="match_parent"
-            android:layout_height="385dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/ic_cible"
             android:contentDescription="DessinCible"
             android:gravity="center"
+            app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +98,7 @@
 
 
         <TableLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="120dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"

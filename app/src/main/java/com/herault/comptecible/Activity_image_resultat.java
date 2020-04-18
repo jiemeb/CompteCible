@@ -160,13 +160,15 @@ public class Activity_image_resultat extends AppCompatActivity {
                 "0", "1", "2", "3", "4", "5",
                 "6", "7", "8", "9", "10"
         };
+        //noinspection MismatchedReadAndWriteOfArray
         int[] x = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 
         // Creating an XYSeries for Height
         XYSeries expenseSeries = new XYSeries(getResources().getString(R.string.air_TitleGraphe_arrow_by_arrow));
         // Adding data to Height Series
-        Long archer_id = stock.getArcherId(archer);
+        long archer_id;
+        archer_id = stock.getArcherId(archer);
         Double maxValue = 0.;
         for (int i = 0; i < x.length; i++) {
             String tempo = stock.getResultatRoundCompte(round, Long.toString(archer_id), Integer.toString(i));

@@ -3,7 +3,6 @@ package com.herault.comptecible;
 import android.app.Activity;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,23 +18,21 @@ import android.widget.Toast;
 
 import com.herault.comptecible.utils.Stockage;
 
-import static android.graphics.BlendMode.COLOR;
 
-
-public class Config_round extends AppCompatActivity {
+public class Activity_Config_round extends AppCompatActivity {
 
     protected Activity context;
-    Stockage stock = null;
-    ListView lArcherBase;
-    ListView lArcherRound;
-    ListArchers adapterBase;
-    ListArchers adapterRound;
-    Button bLertGo = null;
-    Button bAddArcher = null;
-    EditText newArcher = null;
-    EditText roundName = null;
-    EditText INumberArrow = null;
-    EditText INumberEndByRound = null;
+    private Stockage stock = null;
+    private ListView lArcherBase;
+    private ListView lArcherRound;
+    private ListArchers adapterBase;
+    private ListArchers adapterRound;
+    private Button bLertGo = null;
+    private Button bAddArcher = null;
+    private EditText newArcher = null;
+    private EditText roundName = null;
+    private EditText INumberArrow = null;
+    private EditText INumberEndByRound = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class Config_round extends AppCompatActivity {
                 if (adapterRound.getCount() != 0 && roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
                     stock.dropArchers(true);
                     stock.insertArray(adapterRound._archers, true);
-                    Config_round.this.finish(); // Kill config_run
+                    Activity_Config_round.this.finish(); // Kill config_run
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.configFill), Toast.LENGTH_SHORT).show();
                     if (adapterRound.getCount() == 0)

@@ -37,38 +37,38 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class Activity_MainActivity extends AppCompatActivity {
 
-    public static final double CONSTANTE_nbDivisionCible = 10.;
+    private static final double CONSTANTE_nbDivisionCible = 10.;
 
-    TextView arrowValue = null;
-    TextView endNumber = null;
-    Spinner archer = null;
-    long archer_id = 0;
-    EditText result = null;
-    ImageView Cible = null;
-    Stockage stock = null;
-    List<String> lArcher;
-    boolean must_config = false;
-    int resultat_fleche;
-    ArrayAdapter adapter_archer;
-    Button next_archer = null;
-    Button previous_archer = null;
-    Button b10 = null;
-    Button b9 = null;
-    Button b8 = null;
-    Button b7 = null;
-    Button b6 = null;
-    Button b5 = null;
-    Button b4 = null;
-    Button b3 = null;
-    Button b2 = null;
-    Button b1 = null;
-    Button bManque = null;
-    Button bAnnul = null;
-    String roundName = null;
-    int NumberArrow = 0;
-    int NumberEndByRound = 0;
+    private TextView arrowValue = null;
+    private TextView endNumber = null;
+    private Spinner archer = null;
+    private long archer_id = 0;
+    private EditText result = null;
+    private ImageView Cible = null;
+    private Stockage stock = null;
+    private List<String> lArcher;
+    private boolean must_config = false;
+    private int resultat_fleche;
+    private ArrayAdapter adapter_archer;
+    private Button next_archer = null;
+    private Button previous_archer = null;
+    private Button b10 = null;
+    private Button b9 = null;
+    private Button b8 = null;
+    private Button b7 = null;
+    private Button b6 = null;
+    private Button b5 = null;
+    private Button b4 = null;
+    private Button b3 = null;
+    private Button b2 = null;
+    private Button b1 = null;
+    private Button bManque = null;
+    private Button bAnnul = null;
+    private String roundName = null;
+    private int NumberArrow = 0;
+    private int NumberEndByRound = 0;
     private View.OnTouchListener onTouchCible = new View.OnTouchListener() {
 
         public boolean onTouch(View v, MotionEvent event) {
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             double y = ((event.getY() - (ymax / 2.)) * Yscale);
 
             if (y > -CONSTANTE_nbDivisionCible / 2. && y < CONSTANTE_nbDivisionCible / 2. && x > -CONSTANTE_nbDivisionCible / 2. && x < CONSTANTE_nbDivisionCible / 2.) {
-                resultat_fleche = (int) (CONSTANTE_nbDivisionCible - (int) Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)));//
+                resultat_fleche = (int) (CONSTANTE_nbDivisionCible - (int) (Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)) - (0.3)));//
                 // Cible is on 6 to 10
                 if (resultat_fleche < 6)
                     resultat_fleche = 0;
@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (must_config) {
-            Intent i = new Intent(this, Config_round.class);
+            Intent i = new Intent(this, Activity_Config_round.class);
             startActivity(i);
         }
     }
@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
         updateviewOnly();
     }
 
-    void updateviewOnly() {
+    private void updateviewOnly() {
         if (archer.getCount() != 0) {
             int k = archer.getSelectedItemPosition();
             if (archer.getCount() <= k || k < 0)
@@ -388,7 +388,7 @@ public class MainActivity extends AppCompatActivity {
             redraw();
         }
   /*  else { // No archer must condif
-        Intent i = new Intent(this, Config_round.class);
+        Intent i = new Intent(this, Activity_Config_round.class);
         startActivity(i);
     }*/
     }
@@ -445,7 +445,7 @@ public class MainActivity extends AppCompatActivity {
     }
 //--------------------------------
 
-    public void redraw() {
+    private void redraw() {
 
         //   ImageView fantomCible=findViewById(R.id.imageCible);
         Bitmap bitmap;
@@ -534,7 +534,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.config_round) {
 
-            Intent i = new Intent(this, Config_round.class);
+            Intent i = new Intent(this, Activity_Config_round.class);
             startActivity(i);
             return true;
         }
