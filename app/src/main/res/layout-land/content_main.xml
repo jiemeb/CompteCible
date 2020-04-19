@@ -9,10 +9,13 @@
 
     <EditText
         android:id="@+id/result"
-        android:layout_width="108dp"
-        android:layout_height="160dp"
-        android:layout_marginStart="50dp"
+        android:layout_width="213dp"
+        android:layout_height="161dp"
+        android:layout_marginStart="35dp"
+        android:ellipsize="end"
+        android:focusable="false"
         android:ems="10"
+        android:scrollbars="vertical"
         android:fontFamily="serif-monospace"
         android:inputType="textMultiLine"
         android:textAlignment="viewEnd"

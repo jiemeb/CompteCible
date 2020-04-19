@@ -310,13 +310,10 @@ public class Activity_MainActivity extends AppCompatActivity {
 
     private void updateView(int value, double X, double Y) {
         long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);
-        endNumber.setText(Long.toString((arrowIndex / NumberArrow) + 1));
+
         //     Log.d("CompteCible","Stock"+Integer.toString(value)+" "+Double.toString(X)+" "+Double.toString(Y));
         if (arrowIndex < NumberArrow * NumberEndByRound) {
             stock.addResultat(archer.getSelectedItem().toString(), roundName, value, X, Y);
-        } else {
-            endNumber.setText(getResources().getString(R.string.EndRound));
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.EndRound) + " " + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
         }
         updateviewOnly();
     }
@@ -328,6 +325,14 @@ public class Activity_MainActivity extends AppCompatActivity {
                 archer.setSelection(0);
             long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);  // Number of Arrow
             endNumber.setText(Long.toString((arrowIndex / NumberArrow) + 1));
+
+            if (!(arrowIndex < NumberArrow * NumberEndByRound)) {
+                endNumber.setText(getResources().getString(R.string.EndRound));
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.EndRound) + " " + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
+            }
+
+
+
             List<Resultat_archer> resultat_fleches = null;
             resultat_fleches = stock.getResultatArrows(archer.getSelectedItem().toString(), roundName);
 
