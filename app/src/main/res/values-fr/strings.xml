@@ -31,7 +31,7 @@
     <string name="missing_archer">archer manquant</string>
     <string name="noElement">pas d\'élément</string>
     <string name="addArcher">Ajout archer</string>
-    <string name="ArcherToRound">Archer en concours</string>
+    <string name="ArcherToRound">Archers en concours</string>
     <string name="Noelement">Pas d enregistrement</string>
     <string name="am_bexport_archer_round">export archer Concours</string>
     <string name="ClearDataBase">Purge Base donnée</string>
@@ -39,7 +39,7 @@
     <string name="baseAlertClean">voulez-vous vraiment tout effacer</string>
     <string name="yes">oui</string>
     <string name="no">non</string>
-    <string name="archer_base">archer en base</string>
-    <string name="acr_arrowByEnd">Arrow by End</string>
-    <string name="acr_EndByRound">End by round</string>
+    <string name="archer_base">archers en base</string>
+    <string name="acr_arrowByEnd">fleches par volée</string>
+    <string name="acr_EndByRound">Volée par concours</string>
 </resources>

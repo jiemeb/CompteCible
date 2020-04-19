@@ -327,7 +327,7 @@ public class Activity_MainActivity extends AppCompatActivity {
             if (archer.getCount() <= k || k < 0)
                 archer.setSelection(0);
             long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);  // Number of Arrow
-
+            endNumber.setText(Long.toString((arrowIndex / NumberArrow) + 1));
             List<Resultat_archer> resultat_fleches = null;
             resultat_fleches = stock.getResultatArrows(archer.getSelectedItem().toString(), roundName);
 

@@ -9,30 +9,32 @@
 
     <EditText
         android:id="@+id/result"
-        android:layout_width="170dp"
-        android:layout_height="154dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="108dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="50dp"
         android:ems="10"
         android:fontFamily="serif-monospace"
-        android:gravity="top|end"
         android:inputType="textMultiLine"
-        android:textSize="12sp"
+        android:textAlignment="viewEnd"
+        android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageCible"
-        android:layout_width="380dp"
-        android:layout_height="380dp"
-        android:layout_marginStart="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/ic_cible"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toEndOf="@+id/result"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <Spinner
         android:id="@+id/archer"
@@ -59,7 +61,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
-        android:layout_width="110dp"
+        android:layout_width="126dp"
         android:layout_height="378dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
@@ -187,8 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#D5CECE"
-                android:text="Manque"
-                android:textSize="12sp" />
+                android:text="Manque" />
 
             <Button
                 android:id="@+id/Annul"
@@ -196,8 +197,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#D5CECE"
-                android:text="Annul"
-                android:textSize="12sp" />
+                android:text="Annul" />
         </TableRow>
 
         <TableRow
@@ -224,22 +224,12 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@id/end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/End"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <TextView
                 android:id="@+id/endNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="12sp"
+                android:layout_gravity="right"
+                android:textSize="14sp"
                 android:textStyle="bold" />
-
         </TableRow>
     </TableLayout>
 
