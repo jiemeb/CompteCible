@@ -34,4 +34,11 @@
     <string name="ArcherToRound">Archer to round</string>
     <string name="Noelement">"No element found : "</string>
     <string name="am_bexport_archer_round">export archer rounds</string>
+    <string name="baseClean">Clean Database</string>
+    <string name="baseAlertClean">Are you sure to delete Database</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="archer_base">archer in base</string>
+    <string name="acr_arrowByEnd">Arrow by End</string>
+    <string name="acr_EndByRound">End by round</string>
 </resources>

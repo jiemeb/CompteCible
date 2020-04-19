@@ -33,6 +33,13 @@
     <string name="addArcher">Ajout archer</string>
     <string name="ArcherToRound">Archer en concours</string>
     <string name="Noelement">Pas d enregistrement</string>
-    <string name="am_bexport_archer_round">export archer rounds</string>
+    <string name="am_bexport_archer_round">export archer Concours</string>
     <string name="ClearDataBase">Purge Base donnée</string>
+    <string name="baseClean">Supression Base</string>
+    <string name="baseAlertClean">voulez-vous vraiment tout effacer</string>
+    <string name="yes">oui</string>
+    <string name="no">non</string>
+    <string name="archer_base">archer en base</string>
+    <string name="acr_arrowByEnd">Arrow by End</string>
+    <string name="acr_EndByRound">End by round</string>
 </resources>

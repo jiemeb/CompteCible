@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/air_archer"
-        android:layout_width="78dp"
-        android:layout_height="23dp"
+        android:layout_width="141dp"
+        android:layout_height="26dp"
         android:layout_gravity="center"
         android:text="archer"
         android:textAlignment="viewStart"

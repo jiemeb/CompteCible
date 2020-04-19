@@ -1,6 +1,8 @@
 package com.herault.comptecible;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,10 +37,11 @@ public class Activity_maintenance extends AppCompatActivity {
 
     private List<String> lArcher;
     long archer_id;
-
+    private Activity_maintenance localActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        localActivity = this;
         setContentView(R.layout.activity_maintenance);
         progressBarExport = findViewById(R.id.am_progressBar);
 
@@ -80,10 +84,27 @@ public class Activity_maintenance extends AppCompatActivity {
         bCleaDataBase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stock.dropArchers(false);
-                Intent i = new Intent(Activity_maintenance.this, Activity_Config_round.class);
-                startActivity(i);
-                Activity_maintenance.this.finish();
+                AlertDialog.Builder popupValidation = new AlertDialog.Builder(localActivity);
+                popupValidation.setMessage(getResources().getString(R.string.baseAlertClean));
+                popupValidation.setTitle(getResources().getString(R.string.baseClean));
+
+                popupValidation.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        stock.dropArchers(false);
+                        Intent j = new Intent(Activity_maintenance.this, Activity_Config_round.class);
+                        startActivity(j);
+                        Activity_maintenance.this.finish();
+                    }
+                });
+                popupValidation.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ;
+                    }
+                });
+                popupValidation.show();
+
             }
         });
 

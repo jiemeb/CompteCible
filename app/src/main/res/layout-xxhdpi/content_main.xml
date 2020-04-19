@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".Activity_MainActivity">
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="xxhdpi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result" />
+
 
     <EditText
         android:id="@+id/result"
@@ -60,11 +68,23 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="68dp" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="46dp"
+        android:layout_height="24dp"
+        android:text="@string/End"
+        app:layout_constraintStart_toStartOf="@+id/ArrowValue"
+        app:layout_constraintTop_toBottomOf="@+id/archer" />
+
+
     <LinearLayout
         android:id="@+id/linearLayout"
+        android:layout_marginStart="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="5dp"
         android:gravity="center"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +100,7 @@
             android:gravity="center"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_2" />
 
@@ -90,7 +110,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_weight="1"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +119,7 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="110dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,13 +128,13 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_rowWeight="1"
                 android:layout_weight="1">
 
                 <Button
                     android:id="@+id/button10"
-                    style="@android:style/Widget.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="#F8FF3B"
@@ -123,8 +143,8 @@
 
                 <Button
                     android:id="@+id/button9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="#F8FF3B"
@@ -133,8 +153,8 @@
 
                 <Button
                     android:id="@+id/button8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="#D80E2C"
@@ -142,8 +162,8 @@
 
                 <Button
                     android:id="@+id/button7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="#D80E2C"
@@ -152,8 +172,8 @@
 
                 <Button
                     android:id="@+id/button6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="#357BE3"
@@ -164,12 +184,13 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_rowWeight="1"
                 android:layout_weight="1">
 
                 <Button
                     android:id="@+id/button5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="#357BE3"
@@ -177,8 +198,8 @@
 
                 <Button
                     android:id="@+id/button4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="#00050B"
@@ -187,8 +208,8 @@
 
                 <Button
                     android:id="@+id/button3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="#00050B"
@@ -197,8 +218,8 @@
 
                 <Button
                     android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="#FAF6F6"
@@ -207,8 +228,8 @@
 
                 <Button
                     android:id="@+id/button1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="#FAF6F6"
@@ -224,7 +245,7 @@
 
                 <Button
                     android:id="@+id/Manque"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
@@ -232,7 +253,7 @@
 
                 <Button
                     android:id="@+id/Annul"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
@@ -240,7 +261,7 @@
 
                 <Button
                     android:id="@+id/bPreviousArcher"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
@@ -248,24 +269,25 @@
 
                 <Button
                     android:id="@+id/bNextArcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:background="@drawable/archer_next" />
+
+                <Button
+                    android:id="@+id/Dummy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_rowWeight="1"
+                    android:layout_weight="1" />
+
 
             </TableRow>
         </TableLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="46dp"
-        android:layout_height="24dp"
-        android:text="@string/End"
-        app:layout_constraintStart_toStartOf="@+id/ArrowValue"
-        app:layout_constraintTop_toBottomOf="@+id/archer" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
