@@ -9,61 +9,68 @@
 
     <TextView
         android:id="@+id/air_archer"
-        android:layout_width="118dp"
-        android:layout_height="26dp"
+        android:layout_width="452dp"
+        android:layout_height="52dp"
         android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+
         android:text="archer"
         android:textAlignment="viewStart"
-
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/air_round"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/air_round"
+        app:layout_constraintTop_toBottomOf="@+id/air_round"
         tools:ignore="RtlCompat" />
 
     <TextView
         android:id="@+id/air_round"
-        android:layout_width="199dp"
-        android:layout_height="23dp"
+        android:layout_width="456dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="16dp"
         android:text="@string/roundName"
         android:textAlignment="viewStart"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/air_choix_resultat_"
+        app:layout_constraintHorizontal_bias="0.722"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/air_choix_resultat_"
         android:layout_width="119dp"
         android:layout_height="26dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/air_archer" />
 
     <LinearLayout
         android:id="@+id/air_layoutImage"
-        android:layout_width="0dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="120dp"
-        android:orientation="vertical"
-
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/air_round" />
+        app:layout_constraintTop_toBottomOf="@+id/air_choix_resultat_" />
 
     <ImageView
         android:id="@+id/air_image"
-        android:layout_width="0dp"
-        android:layout_height="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/air_round" />
+        app:layout_constraintTop_toBottomOf="@+id/air_choix_resultat_" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
