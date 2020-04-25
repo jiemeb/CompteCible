@@ -7,5 +7,5 @@
     android:layout_height="30dp"
     android:ellipsize="marquee"
     android:singleLine="true"
-    android:textAlignment="inherit" />
+    android:textAlignment="center" />
 

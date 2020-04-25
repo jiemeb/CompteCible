@@ -24,6 +24,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:contentDescription="@string/let_sgo"
+            android:background="@drawable/am_buttonshape_grey"
             android:text="@string/let_sgo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,9 +32,10 @@
 
         <EditText
             android:id="@+id/IRoundName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="372dp"
+            android:layout_height="50dp"
             android:layout_weight="10"
+            android:background="@drawable/it_style"
             android:ems="10"
             android:hint="@string/roundName"
             android:inputType="textPersonName"
@@ -58,11 +60,12 @@
 
         <EditText
             android:id="@+id/INumberArrow"
-            android:hint="@string/acr_arrowByEnd"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
+            android:background="@drawable/it_style"
             android:ems="10"
+            android:hint="@string/acr_arrowByEnd"
             android:inputType="numberDecimal"
             app:layout_constraintTop_toBottomOf="@id/bLetGo"
             tools:layout_editor_absoluteY="0dp" />
@@ -71,8 +74,10 @@
             android:id="@+id/INumberEndByRound"
             android:hint="@string/acr_EndByRound"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
+            android:background="@drawable/it_style"
+
             android:ems="10"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toEndOf="@id/INumberArrow"
@@ -81,8 +86,9 @@
         <EditText
             android:id="@+id/newArcher"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="6"
+            android:background="@drawable/it_style"
             android:contentDescription="Name of new archer"
             android:importantForAutofill="no"
             android:inputType="textCapSentences"
@@ -96,6 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/am_buttonshape_grey"
             android:contentDescription="add archer to base"
             android:text="@string/addArcher"
             app:layout_constraintEnd_toEndOf="parent"
@@ -129,8 +136,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="10"
-
-            android:background="#DAB3B3">
+            android:background="@drawable/it_style">
 
 
         </ListView>
@@ -158,7 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="10"
-            android:background="#BCB5B5">
+            android:background="@drawable/am_buttonshape_grey">
 
 
         </ListView>

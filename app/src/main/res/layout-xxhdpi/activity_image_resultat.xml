@@ -9,42 +9,45 @@
 
     <TextView
         android:id="@+id/air_archer"
-        android:layout_width="452dp"
+        android:layout_width="0dp"
         android:layout_height="52dp"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-
+        android:layout_marginTop="12dp"
         android:text="archer"
         android:textAlignment="viewStart"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:background="@drawable/it_style"
         app:layout_constraintEnd_toEndOf="@+id/air_round"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/air_round"
         app:layout_constraintTop_toBottomOf="@+id/air_round"
         tools:ignore="RtlCompat" />
 
     <TextView
         android:id="@+id/air_round"
-        android:layout_width="456dp"
+        android:layout_width="0dp"
         android:layout_height="29dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         android:text="@string/roundName"
         android:textAlignment="viewStart"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:background="@drawable/it_style"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.722"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/air_choix_resultat_"
-        android:layout_width="119dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="258dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/it_style"
+        app:layout_constraintStart_toStartOf="@+id/air_archer"
         app:layout_constraintTop_toBottomOf="@+id/air_archer" />
 
     <LinearLayout

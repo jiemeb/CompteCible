@@ -12,6 +12,7 @@
         android:layout_height="58dp"
         android:layout_marginTop="32dp"
         android:layout_weight="1"
+        android:background="@drawable/it_style"
         app:layout_constraintEnd_toEndOf="@+id/res_spinner_archer"
         app:layout_constraintStart_toStartOf="@+id/res_spinner_archer"
         app:layout_constraintTop_toBottomOf="@+id/res_spinner_archer" />
@@ -23,6 +24,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_weight="3"
+        android:background="@drawable/it_style"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
+        android:background="@drawable/it_style"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/res_spinner_round" />
 

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="36dp"
-        android:background="@drawable/bp_sup_archer"
+        android:background="@drawable/am_buttonshape_sup_archer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/am_bCleaDataBase"
         tools:text="archer" />
@@ -32,6 +32,8 @@
         android:layout_width="213dp"
         android:layout_height="47dp"
         android:layout_marginStart="40dp"
+        android:background="@drawable/it_style"
+        android:gravity="center_horizontal"
         app:layout_constraintStart_toEndOf="@+id/am_bSuppresArcher"
         app:layout_constraintTop_toTopOf="@+id/am_bSuppresArcher" />
 
@@ -40,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:background="@drawable/bp_sup_round"
+        android:background="@drawable/am_buttonshape_sup_round"
         app:layout_constraintStart_toStartOf="@+id/am_bSuppresArcher"
         app:layout_constraintTop_toBottomOf="@+id/am_bSuppresArcher"
         tools:text="@string/round" />
@@ -50,6 +52,8 @@
         android:layout_width="213dp"
         android:layout_height="47dp"
         android:layout_marginStart="40dp"
+        android:background="@drawable/it_style"
+        android:gravity="center_horizontal"
         app:layout_constraintStart_toEndOf="@+id/am_bSup_round"
         app:layout_constraintTop_toTopOf="@+id/am_bSup_round" />
 

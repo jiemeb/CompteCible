@@ -11,7 +11,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="xhdpi"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/result" />
 
@@ -20,8 +20,10 @@
         android:layout_width="180dp"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
-        android:focusable="false"
+        android:background="@drawable/it_style"
+
         android:ems="10"
+        android:focusable="false"
         android:fontFamily="serif-monospace"
         android:gravity="end"
         android:inputType="textMultiLine"
@@ -33,10 +35,15 @@
     <TextView
         android:id="@+id/ArrowValue"
         android:layout_width="30dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/am_arrow_style"
+        android:gravity="center"
+        android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/result"
         app:layout_constraintTop_toTopOf="@+id/result" />
 
@@ -47,6 +54,8 @@
         android:gravity="center|center_horizontal|center_vertical"
         android:text="archer"
         android:textSize="14sp"
+        android:background="@drawable/it_style"
+        app:layout_constraintBottom_toTopOf="@id/endNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/ArrowValue" />
 
@@ -108,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="#F8FF3B"
+                    android:background="@drawable/am_buttonshape_yellow"
                     android:lineSpacingExtra="8sp"
                     android:text=" 10 " />
 
@@ -118,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="#F8FF3B"
+                    android:background="@drawable/am_buttonshape_yellow"
                     android:lineSpacingExtra="8sp"
                     android:text="  9  " />
 
@@ -128,7 +137,7 @@
                     android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="#D80E2C"
+                    android:background="@drawable/am_buttonshape_red"
                     android:text="  8  " />
 
                 <Button
@@ -137,7 +146,7 @@
                     android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="#D80E2C"
+                    android:background="@drawable/am_buttonshape_red"
                     android:text="  7  "
                     android:textSize="14sp" />
 
@@ -147,7 +156,7 @@
                     android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="#357BE3"
+                    android:background="@drawable/am_buttonshape_blue"
                     android:text="  6  "
                     android:textSize="14sp" />
             </TableRow>
@@ -163,7 +172,7 @@
                     android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="#357BE3"
+                    android:background="@drawable/am_buttonshape_blue"
                     android:text="  5  " />
 
                 <Button
@@ -172,9 +181,9 @@
                     android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="#00050B"
+                    android:background="@drawable/am_buttonshape_black"
                     android:text="  4  "
-                    android:textColor="#FAF6F6" />
+                    android:textColor="@color/BlancCible" />
 
                 <Button
                     android:id="@+id/button3"
@@ -182,9 +191,9 @@
                     android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="#00050B"
+                    android:background="@drawable/am_buttonshape_black"
                     android:text="  3  "
-                    android:textColor="#FAF6F6" />
+                    android:textColor="@color/BlancCible" />
 
                 <Button
                     android:id="@+id/button2"
@@ -192,21 +201,20 @@
                     android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="#FAF6F6"
+                    android:background="@drawable/am_buttonshape_white"
                     android:text="  2  "
                     android:textColor="#00050B" />
 
                 <Button
                     android:id="@+id/button1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="#FAF6F6"
+                    android:background="@drawable/am_buttonshape_white"
                     android:text="  1  "
                     android:textColor="#00050B" />
             </TableRow>
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -219,7 +227,8 @@
                     android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:text="Manque" />
+                    android:background="@drawable/am_buttonshape_grey"
+                    android:text="@string/am_bManque" />
 
                 <Button
                     android:id="@+id/Annul"
@@ -227,23 +236,25 @@
                     android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:text="Annul" />
+                    android:background="@drawable/am_buttonshape_grey"
+                    android:text="@string/am_bAnnul" />
 
                 <Button
                     android:id="@+id/bPreviousArcher"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:background="@drawable/am_buttonshape_previous_archer"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="@drawable/archer_previous" />
+                    app:layout_constraintDimensionRatio="1" />
 
                 <Button
                     android:id="@+id/bNextArcher"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
-                    android:background="@drawable/archer_next" />
+                    android:background="@drawable/am_buttonshape_next_archer" />
 
             </TableRow>
         </TableLayout>
@@ -267,7 +278,7 @@
         android:layout_width="49dp"
         android:layout_height="19dp"
         android:text="@string/End"
-        app:layout_constraintStart_toStartOf="@+id/ArrowValue"
+        app:layout_constraintStart_toStartOf="@+id/archer"
         app:layout_constraintTop_toTopOf="@+id/endNumber" />
 
 

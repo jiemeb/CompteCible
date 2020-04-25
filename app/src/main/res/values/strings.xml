@@ -41,4 +41,6 @@
     <string name="archer_base">archer in base</string>
     <string name="acr_arrowByEnd">Arrow by End</string>
     <string name="acr_EndByRound">End by round</string>
+    <string name="am_bManque">Manque</string>
+    <string name="am_bAnnul">Annul</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.herault.comptecible;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -79,6 +80,7 @@ public class Activity_MainActivity extends AppCompatActivity {
             double xmax = v.getWidth();
             double ymax = v.getHeight();
             double Xscale, Yscale;
+            arrowValue.setVisibility(View.VISIBLE);
             String res = "";
             // On récupère la coordonnée sur l'abscisse (X) de l'évènement getWidth()
             Xscale = 10 / xmax;
@@ -93,20 +95,59 @@ public class Activity_MainActivity extends AppCompatActivity {
                 // Cible is on 6 to 10
                 if (resultat_fleche < 6)
                     resultat_fleche = 0;
-                res = convertColor(resultat_fleche);
-
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     updateView(resultat_fleche, x, y);
                     v.performClick();
-                    res = "";
+                    arrowValue.setVisibility(View.INVISIBLE);
+                } else {
+                    GradientDrawable sd;
+                    switch (resultat_fleche) {
+                        case 0:
+                        case 1:
+                        case 2:
+                            //   arrowValue.setBackgroundColor(Color.WHITE);
+                            sd = (GradientDrawable) arrowValue.getBackground().mutate();
+                            sd.setColor(getResources().getColor(R.color.BlancCible));
+                            sd.invalidateSelf();
+                            break;
+
+                        case 3:
+                        case 4:
+                            //    arrowValue.setBackgroundColor(Color.BLACK);
+                            sd = (GradientDrawable) arrowValue.getBackground().mutate();
+                            sd.setColor(getResources().getColor(R.color.NoirCible));
+                            sd.invalidateSelf();
+                            break;
+
+                        case 5:
+                        case 6:
+                            //arrowValue.setBackgroundColor(getResources().getColor(R.color.BleuCible));
+                            sd = (GradientDrawable) arrowValue.getBackground().mutate();
+                            sd.setColor(getResources().getColor(R.color.BleuCible));
+                            sd.invalidateSelf();
+                            break;
+
+                        case 7:
+                        case 8:
+                            //  arrowValue.setBackgroundColor(getResources().getColor(R.color.RougeCible));
+                            sd = (GradientDrawable) arrowValue.getBackground().mutate();
+                            sd.setColor(getResources().getColor(R.color.RougeCible));
+                            sd.invalidateSelf();
+                            break;
+
+                        case 9:
+                        case 10:
+                            sd = (GradientDrawable) arrowValue.getBackground().mutate();
+                            sd.setColor(getResources().getColor(R.color.JauneCible));
+                            sd.invalidateSelf();
+                            //     arrowValue.setBackgroundColor(getResources().getColor(R.color.JauneCible));
+                            break;
+                    }
+
+                    arrowValue.setText(Integer.toString(resultat_fleche));
                 }
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    arrowValue.setText(Html.fromHtml(res, Html.FROM_HTML_MODE_COMPACT), TextView.BufferType.SPANNABLE);
-                } else {
-                    arrowValue.setText(Html.fromHtml(res), TextView.BufferType.SPANNABLE);
-                }
             }
             return true;
         }
@@ -129,7 +170,6 @@ public class Activity_MainActivity extends AppCompatActivity {
 
 // Initialisation minimun
         if (snumberArrow.length() == 0 || snumberEnd.length() == 0 || roundName.length() == 0) {
-
             snumberArrow = "3";
             stock.updateValue("numberArrow", snumberArrow);
             snumberEnd = "20";
@@ -146,7 +186,6 @@ public class Activity_MainActivity extends AppCompatActivity {
         archer = findViewById(R.id.archer);
         lArcher = stock.getArchers(true);
 
-
         adapter_archer = new ArrayAdapter(
                 this,
                 R.layout.spinner_generale
@@ -156,7 +195,6 @@ public class Activity_MainActivity extends AppCompatActivity {
             adapter_archer.add(lArcher.get(i));
         }
 
-
         /* On definit une présentation du spinner quand il est déroulé         (android.R.layout.simple_spinner_dropdown_item) */
         adapter_archer.setDropDownViewResource(R.layout.spinner_generale);
         //Enfin on passe l'adapter au Spinner et c'est tout
@@ -165,13 +203,10 @@ public class Activity_MainActivity extends AppCompatActivity {
         archer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
                 archer_id = stock.getArcherId((String) archer.getSelectedItem());
                 if (archer_id < 0)
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing_archer) + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
-
 // Init lors du changement Update
-
                 updateviewOnly();
             }
 
@@ -213,6 +248,7 @@ public class Activity_MainActivity extends AppCompatActivity {
 
             }
         });
+
         previous_archer = findViewById(R.id.bPreviousArcher);
         previous_archer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,7 +257,6 @@ public class Activity_MainActivity extends AppCompatActivity {
                 pos -= 1;
                 if (pos >= 0)
                     archer.setSelection(pos);
-
             }
         });
 
@@ -230,9 +265,9 @@ public class Activity_MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 stock.supResultat(archer.getSelectedItem().toString(), roundName);
                 updateviewOnly();
-
             }
         });
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -297,11 +332,9 @@ public class Activity_MainActivity extends AppCompatActivity {
         bManque.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stock.addResultat(archer.getSelectedItem().toString(), roundName, 0, 100, 100);
-                updateviewOnly();
+                updateView(0, 100, 100);
             }
         });
-
 
         if (must_config) {
             Intent i = new Intent(this, Activity_Config_round.class);

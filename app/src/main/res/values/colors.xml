@@ -3,4 +3,15 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+
+    <color name="JauneCible">#fafa0a</color>
+    <color name="RougeCible">#ff0005</color>
+    <color name="BleuCible">#357BE3</color>
+    <color name="NoirCible">#00050B</color>
+    <color name="BlancCible">#FAF6F6</color>
+
+    <color name="GrisBP">#DFDFD8</color>
+
+
 </resources>

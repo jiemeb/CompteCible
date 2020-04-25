@@ -9,57 +9,58 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.herault.comptecible.R;
 
+import java.lang.ref.WeakReference;
 import java.util.function.LongToIntFunction;
 
 import static java.lang.Thread.sleep;
 
 public class ExportAsyncTask extends AsyncTask<String, Integer, Long> {
-    private AppCompatActivity myActivity;
 
-    public ExportAsyncTask(AppCompatActivity a) {
-        myActivity = a;
+    private final WeakReference<Listeners> callback;
 
+    // Constructor
+    public ExportAsyncTask(Listeners callback) {
+        this.callback = new WeakReference<>(callback);
     }
 
+    public void myPublishProgress(int i) {
+        publishProgress(i);
+    }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        ProgressBar pb =  myActivity.findViewById(R.id.am_progressBar);
-        pb.setVisibility(View.VISIBLE);
-        Log.e("TAG", "AsyncTask is started.");
+
+        this.callback.get().onPreExecute(); // Call the related callback method
+
     }
 
     @Override
     protected void onPostExecute(Long success) {
         super.onPostExecute(success);
-        ProgressBar pb =  myActivity.findViewById(R.id.am_progressBar);
-        pb.setVisibility(View.GONE);
+        this.callback.get().onPostExecute(success); // Call the related callback method
 
-
-        Log.e("TAG", "AsyncTask is finished.");
     }
 
     @Override
     protected Long doInBackground(String... name) {
-        Long j = 0L;
-        for (int i = 0; i < 100; i++) {
-            publishProgress(i);
-            try {
-                sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }
-        Log.e("TAG", "AsyncTask doing some big work...");
-        // 5 - Execute our task
-        return 0L;
+        return this.callback.get().doInBackground(name); // Call the related callback method
     }
 
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        ProgressBar pb =  myActivity.findViewById(R.id.am_progressBar);
-        pb.setProgress(values[0]);
+        this.callback.get().onProgressUpdate(values);
+
+    }
+
+
+    public interface Listeners {
+        void onPreExecute();
+
+        Long doInBackground(String... name);
+
+        void onPostExecute(Long success);
+
+        void onProgressUpdate(Integer... values);
     }
 }
