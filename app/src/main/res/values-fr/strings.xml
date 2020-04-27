@@ -33,7 +33,7 @@
     <string name="addArcher">Ajout archer</string>
     <string name="ArcherToRound">Archers en concours</string>
     <string name="Noelement">Pas d\' enregistrement</string>
-    <string name="am_bexport_archer_round">Export archer Concours</string>
+    <string name="am_bexport_archer_round">Export archer par Concours</string>
     <string name="ClearDataBase">Purge Base donnée</string>
     <string name="baseClean">Supression Base</string>
     <string name="baseAlertClean">Voulez-vous vraiment tout effacer</string>
@@ -44,4 +44,6 @@
     <string name="acr_EndByRound">Volée par concours</string>
     <string name="am_bAnnul">Annuler</string>
     <string name="am_bManque">Manqué</string>
+    <string name="am_bexport_round_archers">Export concours par archers</string>
+    <string name="am_bexport_round_archer">"Export  concours  archer  "</string>
 </resources>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_maintenance">
+
+    <Button
+        android:id="@+id/am_bCleaDataBase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/am_buttonshape_red"
+        android:text="@string/ClearDataBase"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/am_bSuppresArcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/am_buttonshape_sup_archer"
+        app:layout_constraintStart_toStartOf="@+id/am_bCleaDataBase"
+        app:layout_constraintTop_toBottomOf="@+id/am_bCleaDataBase"
+        tools:text="archer" />
+
+    <Spinner
+        android:id="@+id/am_sArcher"
+        android:layout_width="213dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/it_style"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toEndOf="@+id/am_bSuppresArcher"
+        app:layout_constraintTop_toTopOf="@+id/am_bSuppresArcher" />
+
+    <Button
+        android:id="@+id/am_bSup_round"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/am_buttonshape_sup_round"
+        app:layout_constraintStart_toStartOf="@+id/am_bSuppresArcher"
+        app:layout_constraintTop_toBottomOf="@+id/am_bSuppresArcher"
+        tools:text="@string/round" />
+
+    <Spinner
+        android:id="@+id/sRound"
+        android:layout_width="213dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/it_style"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toEndOf="@+id/am_bSup_round"
+        app:layout_constraintTop_toTopOf="@+id/am_bSup_round" />
+
+    <Button
+        android:id="@+id/am_bexport_archer_rounds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/am_buttonshape_grey"
+        android:text="@string/am_bexport_archer_round"
+        app:layout_constraintStart_toStartOf="@+id/am_bSup_round"
+        app:layout_constraintTop_toBottomOf="@+id/am_bSup_round" />
+
+    <Button
+        android:id="@+id/am_bexport_round_archers"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/am_buttonshape_grey"
+        android:text="@string/am_bexport_round_archers"
+        app:layout_constraintStart_toEndOf="@+id/am_bexport_archer_rounds"
+        app:layout_constraintTop_toTopOf="@+id/am_bexport_archer_rounds" />
+
+    <Button
+        android:id="@+id/am_bexport_round_archer"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/am_buttonshape_grey"
+        android:text="@string/am_bexport_round_archer"
+        app:layout_constraintStart_toEndOf="@+id/am_bexport_round_archers"
+        app:layout_constraintTop_toTopOf="@+id/am_bexport_round_archers" />
+
+
+    <ProgressBar
+        android:id="@+id/am_progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="360dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="36dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/am_bexport_archer_rounds" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="41dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

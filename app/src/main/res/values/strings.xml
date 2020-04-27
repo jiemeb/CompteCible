@@ -43,4 +43,6 @@
     <string name="acr_EndByRound">End by round</string>
     <string name="am_bManque">Manque</string>
     <string name="am_bAnnul">Annul</string>
+    <string name="am_bexport_round_archers">Export round archers</string>
+    <string name="am_bexport_round_archer">Export round archer</string>
 </resources>
