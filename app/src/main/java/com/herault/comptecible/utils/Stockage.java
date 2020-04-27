@@ -67,7 +67,9 @@ public class Stockage {
         String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ARCHERS;
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_VALUE,
-                Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ARROW};
+                Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ARROW,
+                Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_X,
+                Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_Y};
 
         String selection = Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ROUND + " =? AND "
                 + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_COL_NAME + " = ? AND "
@@ -94,15 +96,19 @@ public class Stockage {
 
         // The associated index within the cursor
         int indexValue = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_VALUE);
+        int indexArrow = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ARROW);
+        int indexX = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_X);
+        int indexY = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_Y);
         if (cursor.moveToFirst()) {
             // Browse the results list:
 
             int count = 0;
             do {
                 Resultat_archer rArcher = new Resultat_archer();
+                rArcher.name = cursor.getString(indexArrow);
                 rArcher.value = cursor.getInt(indexValue);
-                //      rArcher.x = cursor.getDouble(indexX);
-                //      rArcher.y = cursor.getDouble(indexY);
+                rArcher.x = cursor.getDouble(indexX);
+                rArcher.y = cursor.getDouble(indexY);
                 rValue.add(rArcher);
                 count++;
             } while (cursor.moveToNext());

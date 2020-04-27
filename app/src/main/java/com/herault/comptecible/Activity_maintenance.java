@@ -5,9 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,14 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.os.AsyncTask;
 import com.herault.comptecible.utils.ExportAsyncTask;
 import com.herault.comptecible.utils.Stockage;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -43,6 +39,8 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     private Button bCleaDataBase;
     private Button bSuppressRound;
     private Button bExportArcherRounds;
+    private Button bExportRoundArchers;
+    private Button bExportRoundArcher;
     private ProgressBar progressBarExport;
     private Stockage stock = null;
     private Spinner archer = null;
@@ -55,13 +53,14 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     private List<String> lArcher;
     long archer_id;
     private Activity_maintenance localActivity;
+    private List<Resultat_archer> lresultat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         localActivity = this;
         setContentView(R.layout.activity_maintenance);
 
-        if (Build.VERSION.SDK_INT >= 23) {
+   /*     if (Build.VERSION.SDK_INT >= 23) {
             if (checkPermission()) {
                 // Code for above or equal 23 API Oriented Device
                 // Your Permission granted already .Do next code
@@ -71,7 +70,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         } else {
             // Code for Below 23 API Oriented Device
             // Do next code
-        }
+        } */
 
 
         progressBarExport = findViewById(R.id.am_progressBar);
@@ -137,6 +136,45 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
             }
         });
+        // export in file Round for all archers
+
+        bExportRoundArchers = findViewById(R.id.am_bexport_round_archers);
+        bExportRoundArchers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // test Archer
+                if (round.getCount() != 0 && round.getSelectedItemId() >= 0) {
+                    // 3 - We create and start our AsyncTask
+                    String[] argv = new String[]{round.getSelectedItem().toString()};
+                    lresultat = stock.getResultatAll(argv[0]);
+                    task = new ExportAsyncTask(Activity_maintenance.this);
+                    task.execute(argv);
+
+                }
+            }
+        });
+
+// Export resultat for one archer for a round
+
+        bExportRoundArcher = findViewById(R.id.am_bexport_round_archer);
+        bExportRoundArcher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // test Archer
+                if (round.getCount() != 0 && round.getSelectedItemId() >= 0 && archer.getCount() != 0 && archer.getSelectedItemId() >= 0) {
+
+                    String[] argv = new String[]{archer.getSelectedItem().toString() + "_" + round.getSelectedItem().toString()};
+                    lresultat = stock.getResultatArrows(archer.getSelectedItem().toString(), round.getSelectedItem().toString());
+                    task = new ExportAsyncTask(Activity_maintenance.this);
+                    task.execute(argv);
+
+                }
+            }
+        });
+
+
 
 // export in file Archer for all Rounds
 
@@ -147,9 +185,11 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
                 // test Archer
                 if (archer.getCount() != 0 && archer.getSelectedItemId() >= 0) {
-                    // Start  aSynchrone task
-                    // new ExportAsyncTask().execute();
-                    startAsyncTask();
+                    // 3 - We create and start our AsyncTask
+                    String[] argv = new String[]{archer.getSelectedItem().toString()};
+                    lresultat = stock.getResultatAllRound(argv[0]);
+                    task = new ExportAsyncTask(Activity_maintenance.this);
+                    task.execute(argv);
 
                 }
             }
@@ -196,12 +236,6 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
     // ------
 
-    // 3 - We create and start our AsyncTask
-    private void startAsyncTask() {
-        String[] argv = new String[]{archer.getSelectedItem().toString()};
-        task = new ExportAsyncTask(Activity_maintenance.this);
-        task.execute(argv);
-    }
 
     // 2 - Override methods of callback
     @Override
@@ -215,41 +249,34 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
         // Create a path where we will place our private file on external
         // storage.
-        File file = new File(getExternalFilesDir(null), "DemoFile.txt");
+        File file = new File(getExternalFilesDir(""), name[0] + ".csv");
+
 
         try {
-            // Very simple code to copy a picture from the application's
-            // resource into the external file.  Note that this code does
-            // no error checking, and assumes the picture is small (does not
-            // try to copy it in chunks).  Note that if external storage is
-            // not currently mounted this will silently fail.
-            //           InputStream is = getResources().openRawResource(R.drawable.ic_android_black_24dp);
             OutputStream os = new FileOutputStream(file);
             //          byte[] data = new byte[is.available()];
-            byte[] data = new byte[10];
-            data[0] = 't';
-            data[1] = 'o';
-            data[2] = '1';
 
-            //            is.read(data);
-            os.write(data);
-            //           is.close();
+            String formCsv = "";
+            Double current;
+            Double ratio = lresultat.size() / 100.;
+            int i = 0;
+            for (Resultat_archer r : lresultat) {
+                formCsv = r.getName() + "," + r.getValue() +
+                        "," + r.getY() + "," + r.getX() + "\n\r";
+                os.write(formCsv.getBytes());
+                i++;
+                current = i / ratio;
+                if (0 == (current - ((int) Math.round(current)))) {
+                    task.myPublishProgress((int) Math.round(current));
+                }
+            }
+
             os.close();
         } catch (IOException e) {
             // Unable to create file, likely because external storage is
             // not currently mounted.
             Log.w("ExternalStorage", "Error writing " + file, e);
-        }
 
-
-        Long j = 0L;
-        for (int i = 0; i < 100; i++) {
-            task.myPublishProgress(i);
-            try {
-                sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
         return 0L;
     }
@@ -275,7 +302,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
     public void updateUIAfterTask(Long taskEnd) {
         progressBarExport.setVisibility(View.GONE);
-        Toast.makeText(this, "Task is finally finished at : " + taskEnd + " !", Toast.LENGTH_SHORT).show();
+        //   Toast.makeText(this, "Task is finally finished at : " + taskEnd + " !", Toast.LENGTH_SHORT).show();
     }
 
     //-----------------fin call back ExportASyncTAsk
