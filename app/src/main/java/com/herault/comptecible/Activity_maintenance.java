@@ -35,22 +35,14 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     protected Activity context;
     private static final int PERMISSION_REQUEST_CODE = 1;
 
-    private Button bSuppresArcher;
-    private Button bCleaDataBase;
-    private Button bSuppressRound;
-    private Button bExportArcherRounds;
-    private Button bExportRoundArchers;
-    private Button bExportRoundArcher;
     private ProgressBar progressBarExport;
     private Stockage stock = null;
     private Spinner archer = null;
     private Spinner round = null;
-    private List<String> lRound;
     private ArrayAdapter adapter;
     private ArrayAdapter adapterRound;
 
     private ExportAsyncTask task;
-    private List<String> lArcher;
     long archer_id;
     private Activity_maintenance localActivity;
     private List<Resultat_archer> lresultat;
@@ -79,7 +71,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
 
-        lArcher = stock.getArchers(false);
+        List<String> lArcher = stock.getArchers(false);
         adapter = new ArrayAdapter(
                 this,
                 R.layout.spinner_generale);
@@ -92,7 +84,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
 // Suppress Archer
 
-        bSuppresArcher = findViewById(R.id.am_bSuppresArcher);
+        Button bSuppresArcher = findViewById(R.id.am_bSuppresArcher);
         bSuppresArcher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +101,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
             }
         });
 
-        bCleaDataBase = findViewById(R.id.am_bCleaDataBase);
+        Button bCleaDataBase = findViewById(R.id.am_bCleaDataBase);
         bCleaDataBase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +121,6 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
                 popupValidation.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ;
                     }
                 });
                 popupValidation.show();
@@ -138,7 +129,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         });
         // export in file Round for all archers
 
-        bExportRoundArchers = findViewById(R.id.am_bexport_round_archers);
+        Button bExportRoundArchers = findViewById(R.id.am_bexport_round_archers);
         bExportRoundArchers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +148,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
 // Export resultat for one archer for a round
 
-        bExportRoundArcher = findViewById(R.id.am_bexport_round_archer);
+        Button bExportRoundArcher = findViewById(R.id.am_bexport_round_archer);
         bExportRoundArcher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +169,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
 // export in file Archer for all Rounds
 
-        bExportArcherRounds = findViewById(R.id.am_bexport_archer_rounds);
+        Button bExportArcherRounds = findViewById(R.id.am_bexport_archer_rounds);
         bExportArcherRounds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,7 +189,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
 //-------------------------------------------------------------------------------------------------
         round = findViewById(R.id.sRound);
-        lRound = stock.getRounds();
+        List<String> lRound = stock.getRounds();
         adapterRound = new ArrayAdapter(
                 this,
                 R.layout.spinner_generale
@@ -210,7 +201,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         adapterRound.setDropDownViewResource(R.layout.spinner_generale);
         round.setAdapter(adapterRound);
 
-        bSuppressRound = findViewById(R.id.am_bSup_round);
+        Button bSuppressRound = findViewById(R.id.am_bSup_round);
         bSuppressRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -296,11 +287,11 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     // UPDATE UI
     // -----------------
 
-    public void updateUIBeforeTask() {
+    private void updateUIBeforeTask() {
         progressBarExport.setVisibility(View.VISIBLE);
     }
 
-    public void updateUIAfterTask(Long taskEnd) {
+    private void updateUIAfterTask(Long taskEnd) {
         progressBarExport.setVisibility(View.GONE);
         //   Toast.makeText(this, "Task is finally finished at : " + taskEnd + " !", Toast.LENGTH_SHORT).show();
     }
@@ -308,11 +299,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     //-----------------fin call back ExportASyncTAsk
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(Activity_maintenance.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermission() {
@@ -325,7 +312,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

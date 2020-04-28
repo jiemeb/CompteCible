@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
 
-public class Db_resultat extends SQLiteOpenHelper {
+class Db_resultat extends SQLiteOpenHelper {
 
 
     /**

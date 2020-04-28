@@ -45,4 +45,5 @@
     <string name="am_bAnnul">Annul</string>
     <string name="am_bexport_round_archers">Export round archers</string>
     <string name="am_bexport_round_archer">Export round archer</string>
+    <string name="name_archer">archer\'s name</string>
 </resources>

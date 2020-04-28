@@ -13,9 +13,9 @@ import androidx.annotation.ColorRes;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ListRound extends ArrayAdapter<Resultat_archer> {
+class ListRound extends ArrayAdapter<Resultat_archer> {
     private final Context _context;
-    public ArrayList<Resultat_archer> _AResultat;
+    private ArrayList<Resultat_archer> _AResultat;
     public ListRound(Context context, ArrayList<Resultat_archer> AResultat) {
         super(context, R.layout.resultat, AResultat);
         _context = context;

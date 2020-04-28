@@ -20,7 +20,7 @@ import java.util.List;
 
 public class Stockage {
 
-    protected Activity context;
+    private Activity context;
     private SQLiteDatabase db = null;
     private Db_resultat base;
 
@@ -666,7 +666,7 @@ public class Stockage {
     }
 
     //---------
-    public String getArcher(int colId) {
+    private String getArcher(int colId) {
 
         //select name fron archers where id=colId
         //Using man made query

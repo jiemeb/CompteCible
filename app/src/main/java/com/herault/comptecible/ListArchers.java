@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListArchers extends ArrayAdapter<String> {
+class ListArchers extends ArrayAdapter<String> {
     private final Context _context;
     public ArrayList<String> _archers;
     public ListArchers(Context context, ArrayList<String> Archers) {

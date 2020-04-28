@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.Html;
-import android.text.method.ScrollingMovementMethod;
+
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,22 +52,7 @@ public class Activity_MainActivity extends AppCompatActivity {
     private Stockage stock = null;
     private List<String> lArcher;
     private boolean must_config = false;
-    private int resultat_fleche;
     private ArrayAdapter adapter_archer;
-    private Button next_archer = null;
-    private Button previous_archer = null;
-    private Button b10 = null;
-    private Button b9 = null;
-    private Button b8 = null;
-    private Button b7 = null;
-    private Button b6 = null;
-    private Button b5 = null;
-    private Button b4 = null;
-    private Button b3 = null;
-    private Button b2 = null;
-    private Button b1 = null;
-    private Button bManque = null;
-    private Button bAnnul = null;
     private String roundName = null;
     private int NumberArrow = 0;
     private int NumberEndByRound = 0;
@@ -91,7 +76,7 @@ public class Activity_MainActivity extends AppCompatActivity {
             double y = ((event.getY() - (ymax / 2.)) * Yscale);
 
             if (y > -CONSTANTE_nbDivisionCible / 2. && y < CONSTANTE_nbDivisionCible / 2. && x > -CONSTANTE_nbDivisionCible / 2. && x < CONSTANTE_nbDivisionCible / 2.) {
-                resultat_fleche = (int) (CONSTANTE_nbDivisionCible - (int) (Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)) - (0.3)));//
+                int resultat_fleche = (int) (CONSTANTE_nbDivisionCible - (int) (Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)) - (0.3)));//
                 // Cible is on 6 to 10
                 if (resultat_fleche < 6)
                     resultat_fleche = 0;
@@ -220,24 +205,24 @@ public class Activity_MainActivity extends AppCompatActivity {
         arrowValue = findViewById(R.id.ArrowValue);
         endNumber = findViewById(R.id.endNumber);
         result = findViewById(R.id.result);
-        b1 = findViewById(R.id.button1);
-        b2 = findViewById(R.id.button2);
-        b3 = findViewById(R.id.button3);
-        b4 = findViewById(R.id.button4);
-        b5 = findViewById(R.id.button5);
-        b6 = findViewById(R.id.button6);
-        b7 = findViewById(R.id.button7);
-        b8 = findViewById(R.id.button8);
-        b9 = findViewById(R.id.button9);
-        b10 = findViewById(R.id.button10);
-        bAnnul = findViewById(R.id.Annul);
-        bManque = findViewById(R.id.Manque);
+        Button b1 = findViewById(R.id.button1);
+        Button b2 = findViewById(R.id.button2);
+        Button b3 = findViewById(R.id.button3);
+        Button b4 = findViewById(R.id.button4);
+        Button b5 = findViewById(R.id.button5);
+        Button b6 = findViewById(R.id.button6);
+        Button b7 = findViewById(R.id.button7);
+        Button b8 = findViewById(R.id.button8);
+        Button b9 = findViewById(R.id.button9);
+        Button b10 = findViewById(R.id.button10);
+        Button bAnnul = findViewById(R.id.Annul);
+        Button bManque = findViewById(R.id.Manque);
 
         Cible = findViewById(R.id.imageCible);
         Cible.setOnTouchListener(onTouchCible);
         //stock.showArchers();
 
-        next_archer = findViewById(R.id.bNextArcher);
+        Button next_archer = findViewById(R.id.bNextArcher);
         next_archer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,7 +234,7 @@ public class Activity_MainActivity extends AppCompatActivity {
             }
         });
 
-        previous_archer = findViewById(R.id.bPreviousArcher);
+        Button previous_archer = findViewById(R.id.bPreviousArcher);
         previous_archer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -570,7 +555,6 @@ public class Activity_MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.config_round) {
 
             Intent i = new Intent(this, Activity_Config_round.class);

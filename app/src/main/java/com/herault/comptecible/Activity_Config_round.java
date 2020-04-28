@@ -23,12 +23,9 @@ public class Activity_Config_round extends AppCompatActivity {
 
     protected Activity context;
     private Stockage stock = null;
-    private ListView lArcherBase;
     private ListView lArcherRound;
     private ListArchers adapterBase;
     private ListArchers adapterRound;
-    private Button bLertGo = null;
-    private Button bAddArcher = null;
     private EditText newArcher = null;
     private EditText roundName = null;
     private EditText INumberArrow = null;
@@ -44,7 +41,7 @@ public class Activity_Config_round extends AppCompatActivity {
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
 
-        bLertGo = findViewById(R.id.bLetGo);
+        Button bLertGo = findViewById(R.id.bLetGo);
         bLertGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,18 +78,18 @@ public class Activity_Config_round extends AppCompatActivity {
         });
 
 
-        lArcherBase = findViewById(R.id.archersBase);
+        ListView lArcherBase = findViewById(R.id.archersBase);
         lArcherRound = findViewById(R.id.archersRound);
         newArcher = findViewById(R.id.newArcher);
 
-        bAddArcher = findViewById(R.id.bAddArcher);
+        Button bAddArcher = findViewById(R.id.bAddArcher);
 
         bAddArcher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String nArcher = null;
-                nArcher = newArcher.getText().toString();
+                nArcher = newArcher.getText().toString().trim();
                 if (!nArcher.isEmpty()) {
                     stock.addArcher(nArcher, false); //If Ok in Base
                     adapterRound.add(nArcher);  // put in list
@@ -109,8 +106,9 @@ public class Activity_Config_round extends AppCompatActivity {
         roundName.setText(round);
         roundName.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                String name = roundName.getText().toString();
-                stock.updateValue("roundName", name);// you can call or do what you want with your EditText here
+                String name = roundName.getText().toString().trim();
+                if (!name.isEmpty())
+                    stock.updateValue("roundName", name);// you can call or do what you want with your EditText here
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

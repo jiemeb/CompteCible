@@ -27,7 +27,6 @@ public class Activity_resultat_round extends AppCompatActivity {
     private Spinner archer = null;
     private Spinner round = null;
     private List<String> lArcher;
-    private List<String> lRound;
 
     private String roundName = "";
     private ArrayAdapter adapter_archer;
@@ -35,9 +34,7 @@ public class Activity_resultat_round extends AppCompatActivity {
 
     private Stockage stock = null;
 
-    private ArrayList<Resultat_archer> resultat_archers;
     private List<Resultat_archer> lresultat;
-    private ListView resultat;
     private ListRound adapter_resultat;
 
     @Override
@@ -50,7 +47,7 @@ public class Activity_resultat_round extends AppCompatActivity {
 
         //spinner Rounds
         round = findViewById(R.id.res_spinner_round);
-        lRound = stock.getRounds();
+        List<String> lRound = stock.getRounds();
         adapter_round = new ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item
@@ -130,10 +127,10 @@ public class Activity_resultat_round extends AppCompatActivity {
 
 // ------- Get resultat for round
 
-        resultat = findViewById(R.id.res_lis_resultat);
+        ListView resultat = findViewById(R.id.res_lis_resultat);
         lresultat = stock.getResultatAll(roundName);
 
-        resultat_archers = new ArrayList<Resultat_archer>();
+        ArrayList<Resultat_archer> resultat_archers = new ArrayList<Resultat_archer>();
         adapter_resultat = new ListRound(
                 this, resultat_archers
         );

@@ -37,8 +37,6 @@ public class Activity_image_resultat extends AppCompatActivity {
     private Stockage stock = null;
     private String round = "";
     private String name = "";
-    private Spinner choix_resultat = null;
-    private ArrayAdapter adapter_choix = null;
     private ImageView imageView = null;
     private LinearLayout chartContainer = null;
 
@@ -61,10 +59,10 @@ public class Activity_image_resultat extends AppCompatActivity {
         chartContainer = findViewById(R.id.air_layoutImage);
 
         // Select image resultat
-        choix_resultat = findViewById(R.id.air_choix_resultat_);
+        Spinner choix_resultat = findViewById(R.id.air_choix_resultat_);
 
 
-        adapter_choix = new ArrayAdapter(
+        ArrayAdapter adapter_choix = new ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item
         );
@@ -297,6 +295,7 @@ public class Activity_image_resultat extends AppCompatActivity {
 
     }
 
+    @SuppressWarnings("unused")
     private void drawResultArcherRound(String archer) {
         List<Resultat_archer> lresultat;
         String[] friends = new String[]{
