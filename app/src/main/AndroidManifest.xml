@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity_Config_round"
+            android:name=".Activity_config_round"
             android:label="CompteCible"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -35,6 +35,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity_image_resultat"
+            android:label="CompteCible"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity_apropos"
             android:label="CompteCible"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

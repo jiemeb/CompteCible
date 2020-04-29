@@ -14,7 +14,12 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/resultat_round"
-        android:orderInCategory="101"
+        android:orderInCategory="102"
         android:title="@string/Activity_resultat_round"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/apropos"
+        android:orderInCategory="103"
+        android:title="@string/Apropos"
         app:showAsAction="never" />
 </menu>

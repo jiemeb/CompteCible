@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.herault.comptecible.utils.Stockage;
 
 
-public class Activity_Config_round extends AppCompatActivity {
+public class Activity_config_round extends AppCompatActivity {
 
     protected Activity context;
     private Stockage stock = null;
@@ -49,7 +49,7 @@ public class Activity_Config_round extends AppCompatActivity {
                 if (adapterRound.getCount() != 0 && roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
                     stock.dropArchers(true);
                     stock.insertArray(adapterRound._archers, true);
-                    Activity_Config_round.this.finish(); // Kill config_run
+                    Activity_config_round.this.finish(); // Kill config_run
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.configFill), Toast.LENGTH_SHORT).show();
                     if (adapterRound.getCount() == 0)
@@ -127,8 +127,9 @@ public class Activity_Config_round extends AppCompatActivity {
         INumberArrow.setText(NumberArrow);
         INumberArrow.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                String NumberArrow = INumberArrow.getText().toString();
-                stock.updateValue("numberArrow", NumberArrow); // you can call or do what you want with your EditText here
+                String NumberArrow = INumberArrow.getText().toString().trim();
+                if (!NumberArrow.isEmpty())
+                    stock.updateValue("numberArrow", NumberArrow); // you can call or do what you want with your EditText here
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -145,8 +146,9 @@ public class Activity_Config_round extends AppCompatActivity {
         INumberEndByRound.setText(NumberEnd);
         INumberEndByRound.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                String NumberEnd = INumberEndByRound.getText().toString();
-                stock.updateValue("numberEnd", NumberEnd);// you can call or do what you want with your EditText here
+                String NumberEnd = INumberEndByRound.getText().toString().trim();
+                if (!NumberEnd.isEmpty())
+                    stock.updateValue("numberEnd", NumberEnd);// you can call or do what you want with your EditText here
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

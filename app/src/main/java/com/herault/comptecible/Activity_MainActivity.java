@@ -2,6 +2,7 @@ package com.herault.comptecible;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -154,7 +155,7 @@ public class Activity_MainActivity extends AppCompatActivity {
         String snumberEnd = stock.getValue("numberEnd");
 
 // Initialisation minimun
-        if (snumberArrow.length() == 0 || snumberEnd.length() == 0 || roundName.length() == 0) {
+        if (snumberArrow.isEmpty() || snumberEnd.isEmpty() || roundName.isEmpty()) {
             snumberArrow = "3";
             stock.updateValue("numberArrow", snumberArrow);
             snumberEnd = "20";
@@ -188,7 +189,8 @@ public class Activity_MainActivity extends AppCompatActivity {
         archer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                archer_id = stock.getArcherId((String) archer.getSelectedItem());
+                String ArcherSel = (String) archer.getSelectedItem();
+                archer_id = stock.getArcherId(ArcherSel);
                 if (archer_id < 0)
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing_archer) + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
 // Init lors du changement Update
@@ -322,7 +324,7 @@ public class Activity_MainActivity extends AppCompatActivity {
         });
 
         if (must_config) {
-            Intent i = new Intent(this, Activity_Config_round.class);
+            Intent i = new Intent(this, Activity_config_round.class);
             startActivity(i);
         }
     }
@@ -412,7 +414,7 @@ public class Activity_MainActivity extends AppCompatActivity {
             redraw();
         }
   /*  else { // No archer must condif
-        Intent i = new Intent(this, Activity_Config_round.class);
+        Intent i = new Intent(this, Activity_config_round.class);
         startActivity(i);
     }*/
     }
@@ -528,8 +530,10 @@ public class Activity_MainActivity extends AppCompatActivity {
         roundName = stock.getValue("roundName");
         String snumberArrow = stock.getValue("numberArrow");
         String snumberEnd = stock.getValue("numberEnd");
+
         NumberArrow = Integer.parseInt(snumberArrow);
         NumberEndByRound = Integer.parseInt(snumberEnd);
+
         updateviewOnly();
     }
 
@@ -557,7 +561,7 @@ public class Activity_MainActivity extends AppCompatActivity {
 
         if (id == R.id.config_round) {
 
-            Intent i = new Intent(this, Activity_Config_round.class);
+            Intent i = new Intent(this, Activity_config_round.class);
             startActivity(i);
             return true;
         }
@@ -573,6 +577,21 @@ public class Activity_MainActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         }
+
+        if (id == R.id.apropos) {
+            Intent i = new Intent(this, Activity_apropos.class);
+            startActivity(i);
+            return true;
+        }
+
+        /*
+          if (id == R.id.apropos) {
+            Uri webpage = Uri.parse("file:///android_asset/img0.html");
+            Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

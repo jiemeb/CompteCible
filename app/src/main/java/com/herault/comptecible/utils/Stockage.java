@@ -60,21 +60,21 @@ public class Stockage {
     /*-----------------------------------record-------------------------------------------------*/
 // Get all resultat for one archer for one Round
     public List<Resultat_archer> getResultatArrows(String archer, String roundName) {
-        int value = 0;
-        long Id = getArcherId(archer);
-        final int cursorIdColNumber = 0;
 
-        String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ARCHERS;
+        String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ARCHERS + "," + Db_resultat.Constants.ROUNDS;
+
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_VALUE,
                 Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ARROW,
                 Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_X,
                 Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_Y};
 
-        String selection = Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ROUND + " =? AND "
+        String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =? AND "
                 + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_COL_NAME + " = ? AND "
                 + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME + " = "
-                + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_ID_COLUMN;
+                + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_ID_COLUMN + " AND "
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND + " = "
+                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS;
         String[] selectionArg = new String[]{roundName, archer};
         // The groupBy clause:
         //String groupBy = Constants.KEY_COL_EYES_COLOR;
@@ -113,10 +113,6 @@ public class Stockage {
                 count++;
             } while (cursor.moveToNext());
 
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
-
         }
 
         cursor.close();
@@ -132,9 +128,14 @@ public class Stockage {
         String[] projections = new String[]{Db_resultat.Constants.KEY_COL_VALUE, Db_resultat.Constants.KEY_COL_X, Db_resultat.Constants.KEY_COL_Y};
         final int cursorIdColNumber = 0;
 
-        String selection = Db_resultat.Constants.KEY_COL_ROUND + " =? AND " + Db_resultat.Constants.KEY_COL_ID_NAME + " = ? AND "
-                + Db_resultat.Constants.KEY_COL_ARROW + " =?";
-        String[] selectionArg = new String[]{roundName, String.valueOf(Id), String.valueOf(arrow)};
+        String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =? AND "
+                + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_COL_NAME + " = ? AND "
+                + Db_resultat.Constants.KEY_COL_ARROW + " =? AND "
+                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + " = "
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND + " AND "
+                + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_ID_COLUMN + "="
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME;
+        String[] selectionArg = new String[]{roundName, archer, String.valueOf(arrow)};
         // The groupBy clause:
         //String groupBy = Constants.KEY_COL_EYES_COLOR;
         // The having clause
@@ -145,8 +146,8 @@ public class Stockage {
         //  String maxResultsListSize = "60";
         //Cursor cursor = db.query(db_resultat.Constants.ARCHERS, projections, selection,
         //	selectionArg, groupBy, having, orderBy, maxResultsListSize);
-
-        Cursor cursor = db.query(Db_resultat.Constants.RESULTATS, projections, selection,
+        String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ARCHERS + "," + Db_resultat.Constants.ROUNDS;
+        Cursor cursor = db.query(table, projections, selection,
                 selectionArg, null, null, null, null);
         // The elements to retrieve
         Resultat_archer rArcher = new Resultat_archer();
@@ -165,10 +166,6 @@ public class Stockage {
                 count++;
             } while (cursor.moveToNext());
 
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
-
         }
 
 
@@ -176,29 +173,32 @@ public class Stockage {
         return rArcher;
     }
 //-------------------------------------------------------------------
-    // get for all archer  result for all round
+    // get for  archer  result for all round
 
     public List<Resultat_archer> getResultatAllRound(String name_archer) {
         Long archer_id = getArcherId(name_archer);
 
         // The projection define what are the column you want to retrieve
-        String[] projections = new String[]{"SUM (" + Db_resultat.Constants.KEY_COL_VALUE + " )", Db_resultat.Constants.KEY_COL_ROUND};
+        String[] projections = new String[]{"SUM (" + Db_resultat.Constants.KEY_COL_VALUE + " )",
+                Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME};
         final int cursorIdColNumber = 0;
 
-        String selection = Db_resultat.Constants.KEY_COL_ID_NAME + " =?  ";
+        String selection = Db_resultat.Constants.KEY_COL_ID_NAME + " =? AND "
+                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + "="
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND;
         String[] selectionArg = new String[]{Long.toString(archer_id)};
         // The groupBy clause:
-        String groupBy = Db_resultat.Constants.KEY_COL_ROUND;
+        String groupBy = Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND;
         // The having clause
         String having = null;
         // The order by clause (column name followed by Asc or DESC)
-        String orderBy = Db_resultat.Constants.KEY_COL_ROUND + "  ASC";
+        String orderBy = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + "  ASC";
         // Maximal size of the results list
         //  String maxResultsListSize = "60";
         //Cursor cursor = db.query(db_resultat.Constants.ARCHERS, projections, selection,
         //	selectionArg, groupBy, having, orderBy, maxResultsListSize);
-
-        Cursor cursor = db.query(Db_resultat.Constants.RESULTATS, projections, selection,
+        String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ROUNDS;
+        Cursor cursor = db.query(table, projections, selection,
                 selectionArg, groupBy, null, orderBy, null);
         // The elements to retrieve
         List<Resultat_archer> rArcher = new ArrayList<Resultat_archer>();
@@ -206,7 +206,7 @@ public class Stockage {
         if (cursor.moveToFirst()) {
 
             // The associated index within the cursor
-            int indexName = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ROUND);
+            int indexName = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ROUND_NAME);
             Resultat_archer rowArcher;
             // Browse the results list:
             int count = 0;
@@ -221,9 +221,6 @@ public class Stockage {
                 count++;
             } while (cursor.moveToNext());
 
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
         }
         cursor.close();
         return rArcher;
@@ -234,25 +231,28 @@ public class Stockage {
     public String getResultatRoundCompte(String roundName, String Archer_ID, String RefValue) {
         int value = 0;
         // The projection define what are the column you want to retrieve
-        String[] projections = new String[]{"COUNT (" + Db_resultat.Constants.KEY_COL_VALUE + " )"};
+        String[] projections = new String[]{"COUNT (" + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_VALUE + " )"};
         final int cursorIdColNumber = 0;
 
-        String selection = Db_resultat.Constants.KEY_COL_ROUND + " =?  AND " + Db_resultat.Constants.KEY_COL_ID_NAME + " =? AND "
-                + Db_resultat.Constants.KEY_COL_VALUE + " =? ";
+        String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =?  AND "
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME + " =? AND "
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_VALUE + " =? AND "
+                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + "="
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND;
         String[] selectionArg = new String[]{roundName, Archer_ID, RefValue};
 
         // The groupBy clause:
-        String groupBy = Db_resultat.Constants.KEY_COL_ROUND;
+        // String groupBy = Db_resultat.Constants.RESULTATS+"."+Db_resultat.Constants.KEY_COL_ID_ROUND;
         // The having clause
-        String having = null;
+        //String having = null;
         // The order by clause (column name followed by Asc or DESC)
-        String orderBy = "COUNT (" + Db_resultat.Constants.KEY_COL_VALUE + " ) Desc";
+        //String orderBy = "COUNT (" +Db_resultat.Constants.RESULTATS+"."+Db_resultat.Constants.KEY_COL_VALUE + " ) Desc";
         // Maximal size of the results list
         //  String maxResultsListSize = "60";
         //Cursor cursor = db.query(db_resultat.Constants.ARCHERS, projections, selection,
         //	selectionArg, groupBy, having, orderBy, maxResultsListSize);
-
-        Cursor cursor = db.query(Db_resultat.Constants.RESULTATS, projections, selection,
+        String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ROUNDS;
+        Cursor cursor = db.query(table, projections, selection,
                 selectionArg, null, null, null, null);
         // The elements to retrieve
         String numberOf = "";
@@ -264,11 +264,6 @@ public class Stockage {
             int count = 0;
             numberOf = String.valueOf(cursor.getInt(0));
             count++;
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
-
-
         }
         cursor.close();
         return numberOf;
@@ -281,10 +276,13 @@ public class Stockage {
         String[] projections = new String[]{"SUM (" + Db_resultat.Constants.KEY_COL_VALUE + " )", Db_resultat.Constants.KEY_COL_ID_NAME};
         final int cursorIdColNumber = 0;
 
-        String selection = Db_resultat.Constants.KEY_COL_ROUND + " =?  ";
+        String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =?  AND "
+                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + "="
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND;
         String[] selectionArg = new String[]{roundName};
+
         // The groupBy clause:
-        String groupBy = Db_resultat.Constants.KEY_COL_ID_NAME;
+        String groupBy = Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME;
         // The having clause
         String having = null;
         // The order by clause (column name followed by Asc or DESC)
@@ -293,8 +291,8 @@ public class Stockage {
         //  String maxResultsListSize = "60";
         //Cursor cursor = db.query(db_resultat.Constants.ARCHERS, projections, selection,
         //	selectionArg, groupBy, having, orderBy, maxResultsListSize);
-
-        Cursor cursor = db.query(Db_resultat.Constants.RESULTATS, projections, selection,
+        String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ROUNDS;
+        Cursor cursor = db.query(table, projections, selection,
                 selectionArg, groupBy, null, orderBy, null);
         // The elements to retrieve
         List<Resultat_archer> rArcher = new ArrayList<Resultat_archer>();
@@ -319,10 +317,6 @@ public class Stockage {
                 count++;
             } while (cursor.moveToNext());
 
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
-
         }
         cursor.close();
         return rArcher;
@@ -332,16 +326,21 @@ public class Stockage {
     public long getarrowIndex(String archer, String roundName) {
         int arrow = 0;
         // get flecheIndex
-        //select round from resultat where round=roundname and _id1 =archer(id)
+        //select arrow  from resultat,round where rounds.name=roundname and _id1 =archer(id) and round.id=resultat.roundid
         long Id = getArcherId(archer);
         // The projection define what are the column you want to retrieve
-        String[] projections = new String[]{"MAX (" + Db_resultat.Constants.KEY_COL_ARROW + ")"};
+        String[] projections = new String[]{"MAX (" + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ARROW + ")"};
         final int cursorIdColNumber = 0;
         // To add a Where clause you can either do that:
         //qb.appendWhere(Db_resultat.Constants.KEY_COL_ROUND+ "=?"+Db_resultat.Constants.KEY_COL_ID1 +" = ?");
         // Or that:
-        String selection = Db_resultat.Constants.KEY_COL_ROUND + " =? AND " + Db_resultat.Constants.KEY_COL_ID_NAME + " = ?";
-        String[] selectionArg = new String[]{roundName, String.valueOf(Id)};
+        String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =? AND "
+                + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_COL_NAME + " = ? AND "
+                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + " ="
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND + " AND "
+                + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_ID_COLUMN + " ="
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME;
+        String[] selectionArg = new String[]{roundName, archer};
         // The groupBy clause:
         //String groupBy = Constants.KEY_COL_EYES_COLOR;
         // The having clause
@@ -352,8 +351,8 @@ public class Stockage {
         //  String maxResultsListSize = "60";
         //Cursor cursor = db.query(db_resultat.Constants.ARCHERS, projections, selection,
         //	selectionArg, groupBy, having, orderBy, maxResultsListSize);
-
-        Cursor cursor = db.query(Db_resultat.Constants.RESULTATS, projections, selection,
+        String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ARCHERS + "," + Db_resultat.Constants.ROUNDS;
+        Cursor cursor = db.query(table, projections, selection,
                 selectionArg, null, null, null, null);
         // The elements to retrieve
 
@@ -366,20 +365,27 @@ public class Stockage {
         return (arrow);
     }
 
-    //---------------------------------- supression archer for pone Round
+    //---------------------------------- supression archer for one Round
     public void supResultat(String archer, String roundName) {
         int arrow = 0;
         // get flecheIndex
         //select round from resultat where round=roundname and _id1 =archer(id)
         long Id = getArcherId(archer);
+
         // The projection define what are the column you want to retrieve
-        String[] projections = new String[]{"MAX (" + Db_resultat.Constants.KEY_COL_ARROW + ")"};
+        String[] projections = new String[]{"MAX (" + Db_resultat.Constants.KEY_COL_ARROW + ")", Db_resultat.Constants.KEY_COL_ID1};
         final int cursorIdColNumber = 0;
         // To add a Where clause you can either do that:
         //qb.appendWhere(Db_resultat.Constants.KEY_COL_ROUND+ "=?"+Db_resultat.Constants.KEY_COL_ID1 +" = ?");
         // Or that:
-        String selection = Db_resultat.Constants.KEY_COL_ROUND + " =? AND " + Db_resultat.Constants.KEY_COL_ID_NAME + " = ?";
-        String[] selectionArg = new String[]{roundName, String.valueOf(Id)};
+        String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =? AND "
+                + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_COL_NAME + " = ? AND "
+                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + " ="
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND + " AND "
+                + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_ID_COLUMN + " = "
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME;
+
+        String[] selectionArg = new String[]{roundName, archer};
         // The groupBy clause:
         //String groupBy = Constants.KEY_COL_EYES_COLOR;
         // The having clause
@@ -390,19 +396,22 @@ public class Stockage {
         //  String maxResultsListSize = "60";
         //Cursor cursor = db.query(db_resultat.Constants.ARCHERS, projections, selection,
         //	selectionArg, groupBy, having, orderBy, maxResultsListSize);
-
-        Cursor cursor = db.query(Db_resultat.Constants.RESULTATS, projections, selection,
+        String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ARCHERS + "," + Db_resultat.Constants.ROUNDS;
+        int resutat_id = 0;
+        Cursor cursor = db.query(table, projections, selection,
                 selectionArg, null, null, null, null);
         // The elements to retrieve
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             arrow = cursor.getInt(0);
+            resutat_id = cursor.getInt(1);
         }
-        selection = Db_resultat.Constants.KEY_COL_ROUND + " =? AND " + Db_resultat.Constants.KEY_COL_ID_NAME + " = ? AND " +
+
+        selection = Db_resultat.Constants.KEY_COL_ID1 + " =? AND " +
                 Db_resultat.Constants.KEY_COL_ARROW + " =? ";
 
-        selectionArg = new String[]{roundName, String.valueOf(Id), String.valueOf(arrow)};
+        selectionArg = new String[]{String.valueOf(resutat_id), String.valueOf(arrow)};
 
         // Insert the line in the database
 
@@ -417,14 +426,20 @@ public class Stockage {
         // get flecheIndex
         //select round from resultat where round=roundname and _id1 =archer(id)
         long Id = getArcherId(archer);
+        Long idRound = getRoundId(roundName);
+        if (idRound < 0)          // Create Round
+        {
+            idRound = addRound(roundName);
+        }
+        idRound = getRoundId(roundName);
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{"MAX (" + Db_resultat.Constants.KEY_COL_ARROW + ")"};
         final int cursorIdColNumber = 0;
         // To add a Where clause you can either do that:
         //qb.appendWhere(Db_resultat.Constants.KEY_COL_ROUND+ "=?"+Db_resultat.Constants.KEY_COL_ID1 +" = ?");
         // Or that:
-        String selection = Db_resultat.Constants.KEY_COL_ROUND + " =? AND " + Db_resultat.Constants.KEY_COL_ID_NAME + " = ?";
-        String[] selectionArg = new String[]{roundName, String.valueOf(Id)};
+        String selection = Db_resultat.Constants.KEY_COL_ID_ROUND + " =? AND " + Db_resultat.Constants.KEY_COL_ID_NAME + " = ?";
+        String[] selectionArg = new String[]{String.valueOf(idRound), String.valueOf(Id)};
         // The groupBy clause:
         //String groupBy = Constants.KEY_COL_EYES_COLOR;
         // The having clause
@@ -448,7 +463,7 @@ public class Stockage {
 
         // -------------------
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Db_resultat.Constants.KEY_COL_ROUND, roundName);
+        contentValues.put(Db_resultat.Constants.KEY_COL_ID_ROUND, idRound);
         contentValues.put(Db_resultat.Constants.KEY_COL_ARROW, arrow);
         contentValues.put(Db_resultat.Constants.KEY_COL_VALUE, value);
         contentValues.put(Db_resultat.Constants.KEY_COL_X, X);
@@ -520,9 +535,6 @@ public class Stockage {
                 count++;
             } while (cursor.moveToNext());
 
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
         }
         cursor.close();
         return (value);
@@ -557,7 +569,6 @@ public class Stockage {
     public void dropArcher(String name) {
 
         long id_name = getArcherId(name);
-
         db.delete(Db_resultat.Constants.RESULTATS, Db_resultat.Constants.KEY_COL_ID_NAME + "= ?", new String[]{Integer.toString((int) id_name)});
         db.delete(Db_resultat.Constants.ARCHERS_ROUND, Db_resultat.Constants.KEY_COL_NAME + "= ?", new String[]{name});
         db.delete(Db_resultat.Constants.ARCHERS, Db_resultat.Constants.KEY_COL_NAME + "= ?", new String[]{name});
@@ -616,6 +627,7 @@ public class Stockage {
     }
 
 
+    //---------
     public long getArcherId(String name) {
 
         //select id fron archers where name=name
@@ -640,7 +652,7 @@ public class Stockage {
         //  String maxResultsListSize = "60";
         //Cursor cursor = db.query(db_resultat.Constants.ARCHERS, projections, selection,
         //	selectionArg, groupBy, having, orderBy, maxResultsListSize);
-        @SuppressLint("Recycle") Cursor cursor = db.query(Db_resultat.Constants.ARCHERS, projections, selection,
+        Cursor cursor = db.query(Db_resultat.Constants.ARCHERS, projections, selection,
                 selectionArg, null, null, orderBy, null);
         // The elements to retrieve
         int colId = -1;
@@ -657,9 +669,6 @@ public class Stockage {
                 count++;
             } while (cursor.moveToNext());
 
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
         }
         cursor.close();
         return (colId);
@@ -690,7 +699,7 @@ public class Stockage {
         //  String maxResultsListSize = "60";
         //Cursor cursor = db.query(db_resultat.Constants.ARCHERS, projections, selection,
         //	selectionArg, groupBy, having, orderBy, maxResultsListSize);
-        @SuppressLint("Recycle") Cursor cursor = db.query(Db_resultat.Constants.ARCHERS, projections, selection,
+        Cursor cursor = db.query(Db_resultat.Constants.ARCHERS, projections, selection,
                 selectionArg, null, null, null, null);
         // The elements to retrieve
         String name = "";
@@ -707,9 +716,6 @@ public class Stockage {
                 count++;
             } while (cursor.moveToNext());
 
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
         }
         cursor.close();
         return (name);
@@ -719,6 +725,7 @@ public class Stockage {
     public ArrayList getArchers(Boolean round) {
         ArrayList retour = new ArrayList();
         Cursor cursor = null;
+
 // Using man made query
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{Db_resultat.Constants.KEY_ID_COLUMN,
@@ -755,9 +762,6 @@ public class Stockage {
                 count++;
             } while (cursor.moveToNext());
 
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
         }
         cursor.close();
         return (retour);
@@ -767,18 +771,27 @@ public class Stockage {
     public ArrayList getArchers(String round) {
         ArrayList retour = new ArrayList();
         Cursor cursor = null;
+
 // Using man made query
         // The projection define what are the column you want to retrieve
-        String[] projections = new String[]{Db_resultat.Constants.KEY_COL_ID_NAME};
-        String selection = Db_resultat.Constants.KEY_COL_ROUND + " =? ";
+        String[] projections = new String[]{Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_COL_NAME};
+        String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =? AND "
+                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + " ="
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND + " AND "
+                + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_ID_COLUMN + " = "
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME;
+
         String[] selectionArg = new String[]{round};
-        String groupBy = Db_resultat.Constants.KEY_COL_ID_NAME;
+        String groupBy = Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME;
+
         // And then store the column index answered by the request (we present
+
         // an other way to
         // retireve data)
         final int cursorIdColNumber = 0, cursorNameColNumber = 1;
+        String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ARCHERS + "," + Db_resultat.Constants.ROUNDS;
 
-        cursor = db.query(Db_resultat.Constants.RESULTATS, projections, selection, selectionArg, groupBy, null, null, null);
+        cursor = db.query(table, projections, selection, selectionArg, groupBy, null, null, null);
         // displayResults(cursor);
 
 
@@ -787,21 +800,15 @@ public class Stockage {
             int colId;
 
             // The associated index within the cursor
-            int indexId = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ID_NAME);
+            int indexId = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_NAME);
 
             // Browse the results list:
             int count = 0;
             do {
-                colId = cursor.getInt(indexId);
-
-                retour.add(getArcher(colId));
-
+                retour.add(cursor.getString(indexId));
                 count++;
             } while (cursor.moveToNext());
 
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
         }
         cursor.close();
         return (retour);
@@ -845,22 +852,66 @@ public class Stockage {
 
 //------------------------------------------------------------------------------------------------------------
     // Round method
+public long getRoundId(String name) {
 
+    //select id fron archers where name=name
+    //Using man made query
+    // The projection define what are the column you want to retrieve
+    String[] projections = new String[]{Db_resultat.Constants.KEY_ID_ROUNDS,
+            Db_resultat.Constants.KEY_COL_ROUND_NAME};
+
+    final int cursorIdColNumber = 0, cursorNameColNumber = 1;
+    // To add a Where clause you can either do that:
+    // qb.appendWhere(Constants.KEY_COL_HAIR_COLOR+ "=blond");
+    // Or that:
+    String selection = Db_resultat.Constants.KEY_COL_ROUND_NAME + "=?";
+    String[] selectionArg = new String[]{name};
+    // The groupBy clause:
+    //String groupBy = Constants.KEY_COL_EYES_COLOR;
+    // The having clause
+    String having = null;
+    // The order by clause (column name followed by Asc or DESC)
+    String orderBy = Db_resultat.Constants.KEY_COL_ROUND_NAME + "  ASC";
+    // Maximal size of the results list
+    //  String maxResultsListSize = "60";
+    //Cursor cursor = db.query(db_resultat.Constants.ARCHERS, projections, selection,
+    //	selectionArg, groupBy, having, orderBy, maxResultsListSize);
+    Cursor cursor = db.query(Db_resultat.Constants.ROUNDS, projections, selection,
+            selectionArg, null, null, orderBy, null);
+    // The elements to retrieve
+    int colId = -1;
+    if (cursor.moveToFirst()) {
+
+        // The associated index within the cursor
+        int indexId = cursor.getColumnIndex(Db_resultat.Constants.KEY_ID_ROUNDS);
+        int indexName = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ROUND_NAME);
+        // Browse the results list:
+        int count = 0;
+        do {
+            colId = cursor.getInt(indexId);
+            name = cursor.getString(indexName);
+            count++;
+        } while (cursor.moveToNext());
+
+    }
+    cursor.close();
+    return (colId);
+}
 
     public ArrayList getRounds() {
         ArrayList retour = new ArrayList();
         Cursor cursor = null;
 // Using man made query
         // The projection define what are the column you want to retrieve
-        String[] projections = new String[]{Db_resultat.Constants.KEY_COL_ROUND,
-                Db_resultat.Constants.KEY_COL_ID1};
-        String groupBy = Db_resultat.Constants.KEY_COL_ROUND;
+        String[] projections = new String[]{Db_resultat.Constants.KEY_COL_ROUND_NAME,
+                Db_resultat.Constants.KEY_ID_ROUNDS};
+        String groupBy = Db_resultat.Constants.KEY_COL_ROUND_NAME;
         // And then store the column index answered by the request (we present
         // an other way to
-        // retireve data)
+        // retrieve data)
         final int cursorIdColNumber = 0, cursorNameColNumber = 1;
 
-        cursor = db.query(Db_resultat.Constants.RESULTATS, projections, null,
+        cursor = db.query(Db_resultat.Constants.ROUNDS, projections, null,
                 null, groupBy, null, null, null);
         // displayResults(cursor);     }
 
@@ -870,8 +921,8 @@ public class Stockage {
             String name;
 
             // The associated index within the cursor
-            int indexId = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ID1);
-            int indexName = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ROUND);
+            int indexId = cursor.getColumnIndex(Db_resultat.Constants.KEY_ID_ROUNDS);
+            int indexName = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ROUND_NAME);
             // Browse the results list:
             int count = 0;
             do {
@@ -882,27 +933,35 @@ public class Stockage {
                 count++;
             } while (cursor.moveToNext());
 
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.Noelement), Toast.LENGTH_LONG)
-                    .show();
-
         }
         cursor.close();
         return (retour);
     }
 
     public void supRound(String roundName) {
-
+        long idRound = getRoundId(roundName);
         String selection;
         String[] selectionArg;
 
-        selection = Db_resultat.Constants.KEY_COL_ROUND + " =?  ";
-
-        selectionArg = new String[]{roundName};
+        selection = Db_resultat.Constants.KEY_COL_ID_ROUND + " =?  ";
+        selectionArg = new String[]{String.valueOf(idRound)};
 
         // Insert the line in the database
 
         db.delete(Db_resultat.Constants.RESULTATS, selection, selectionArg);
+        selection = Db_resultat.Constants.KEY_ID_ROUNDS + " =?  ";
+        db.delete(Db_resultat.Constants.ROUNDS, selection, selectionArg);
+
+    }
+
+    public long addRound(String roundName) {
+
+        // -------------------
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Db_resultat.Constants.KEY_COL_ROUND_NAME, roundName);
+
+        // Insert the line in the database
+        return (db.insert(Db_resultat.Constants.ROUNDS, null, contentValues));
 
     }
 

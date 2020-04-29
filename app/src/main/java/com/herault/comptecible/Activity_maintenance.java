@@ -94,7 +94,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
                     adapter.remove(archer.getSelectedItem());
                     stock.dropArcher(name);
                 } else {
-                    Intent i = new Intent(Activity_maintenance.this, Activity_Config_round.class);
+                    Intent i = new Intent(Activity_maintenance.this, Activity_config_round.class);
                     startActivity(i);
                     Activity_maintenance.this.finish();
                 }
@@ -113,7 +113,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         stock.dropArchers(false);
-                        Intent j = new Intent(Activity_maintenance.this, Activity_Config_round.class);
+                        Intent j = new Intent(Activity_maintenance.this, Activity_config_round.class);
                         startActivity(j);
                         Activity_maintenance.this.finish();
                     }
@@ -211,7 +211,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
                     adapterRound.remove(round.getSelectedItem());
                     stock.supRound(name);
                 } else {
-                    Intent i = new Intent(Activity_maintenance.this, Activity_Config_round.class);
+                    Intent i = new Intent(Activity_maintenance.this, Activity_config_round.class);
                     startActivity(i);
                     Activity_maintenance.this.finish();
                 }

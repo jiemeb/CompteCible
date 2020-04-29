@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_Config_round">
+    tools:context=".Activity_config_round">
 
 
     <TableRow
@@ -79,6 +79,7 @@
             android:background="@drawable/it_style"
             android:contentDescription="@string/acr_EndByRound"
             android:ems="10"
+            android:hint="@string/acr_EndByRound"
             android:inputType="numberDecimal"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/INumberArrow"
