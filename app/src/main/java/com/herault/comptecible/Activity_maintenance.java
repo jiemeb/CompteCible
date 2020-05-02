@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -52,7 +54,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         localActivity = this;
         setContentView(R.layout.activity_maintenance);
 
-   /*     if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 23) {
             if (checkPermission()) {
                 // Code for above or equal 23 API Oriented Device
                 // Your Permission granted already .Do next code
@@ -62,7 +64,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         } else {
             // Code for Below 23 API Oriented Device
             // Do next code
-        } */
+        }
 
 
         progressBarExport = findViewById(R.id.am_progressBar);
@@ -240,9 +242,11 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
         // Create a path where we will place our private file on external
         // storage.
-        File file = new File(getExternalFilesDir(""), name[0] + ".csv");
 
-
+        //      File file = new File(getExternalFilesDir(""), name[0] + ".csv");
+        File file;
+        file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath(), name[0] + ".cvs");
+        //  file = new File(getExternalFilesDir(""),name[0] + ".csv");
         try {
             OutputStream os = new FileOutputStream(file);
             //          byte[] data = new byte[is.available()];
