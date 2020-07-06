@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
-import static java.lang.Thread.sleep;
-
 
 public class Activity_maintenance extends AppCompatActivity implements ExportAsyncTask.Listeners {
 

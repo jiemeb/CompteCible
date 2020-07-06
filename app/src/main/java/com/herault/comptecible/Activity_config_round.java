@@ -7,29 +7,45 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.herault.comptecible.utils.Stockage;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import static androidx.constraintlayout.solver.widgets.ConstraintWidget.GONE;
+import static androidx.constraintlayout.solver.widgets.ConstraintWidget.VISIBLE;
 
 
 public class Activity_config_round extends AppCompatActivity {
 
     protected Activity context;
     private Stockage stock = null;
-    private ListView lArcherRound;
+    Button bLertGo;
     private ListArchers adapterBase;
     private ListArchers adapterRound;
     private EditText newArcher = null;
     private EditText roundName = null;
     private EditText INumberArrow = null;
     private EditText INumberEndByRound = null;
+    Button bAddArcher;
+    private ListView lArcherRound, lArcherBase;
+    private Spinner SRoundName = null;
+    private List<String> lRoundName;
+    private ArrayAdapter adapterRoundName;
+    private Handler h;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +57,11 @@ public class Activity_config_round extends AppCompatActivity {
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
 
-        Button bLertGo = findViewById(R.id.bLetGo);
+        bLertGo = findViewById(R.id.bLetGo);
         bLertGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // sauvegarde archer_round database
+                // sauvegarde archer_round database and test value before ending
                 if (adapterRound.getCount() != 0 && roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
                     stock.dropArchers(true);
                     stock.insertArray(adapterRound._archers, true);
@@ -72,17 +88,17 @@ public class Activity_config_round extends AppCompatActivity {
                     else
                         INumberEndByRound.setBackgroundColor(Color.WHITE);
 
-
                 }
             }
         });
 
+        h = new Handler();
 
-        ListView lArcherBase = findViewById(R.id.archersBase);
+        lArcherBase = findViewById(R.id.archersBase);
         lArcherRound = findViewById(R.id.archersRound);
         newArcher = findViewById(R.id.newArcher);
 
-        Button bAddArcher = findViewById(R.id.bAddArcher);
+        bAddArcher = findViewById(R.id.bAddArcher);
 
         bAddArcher.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +124,7 @@ public class Activity_config_round extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String name = roundName.getText().toString().trim();
                 if (!name.isEmpty())
-                    stock.updateValue("roundName", name);// you can call or do what you want with your EditText here
+                    stock.updateValue("roundName", name);
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -116,6 +132,57 @@ public class Activity_config_round extends AppCompatActivity {
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        Button bConcours = findViewById(R.id.bConcours);
+        bConcours.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // set spinner visible and roundName non Visible
+        /*           roundName.setVisibility(View.VISIBLE);
+                SRoundName.setVisibility(View.INVISIBLE);
+
+           SRoundName.setFocusable(true);
+                SRoundName.setFocusableInTouchMode(true);
+                SRoundName.requestFocusFromTouch();
+                SRoundName.requestFocus(View.FOCUS_DOWN); */
+
+
+                SRoundName.performClick();
+
+
+            }
+        });
+
+        SRoundName = findViewById(R.id.SRoundName);
+        lRoundName = stock.getRounds();
+
+        adapterRoundName = new ArrayAdapter(
+                this,
+                R.layout.spinner_generale
+        );
+
+        for (int i = 0; i < lRoundName.size(); i++) {
+            adapterRoundName.add(lRoundName.get(i));
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 1");
+        adapterRoundName.add(sdf.format(new Date()));
+
+        adapterRoundName.setDropDownViewResource(R.layout.spinner_generale);
+        //Enfin on passe l'adapter au Spinner et c'est tout
+        SRoundName.setAdapter(adapterRoundName);
+        SRoundName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                roundName.setText((String) SRoundName.getSelectedItem());
+             /*                                    roundName.setVisibility(View.VISIBLE);
+                                                 SRoundName.setVisibility(View.INVISIBLE); */
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                ;  // your code here
             }
         });
 

@@ -13,6 +13,8 @@
         android:text="archer_name"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:typeface="normal" />
+        android:typeface="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

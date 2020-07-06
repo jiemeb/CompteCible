@@ -48,4 +48,5 @@
     <string name="am_bexport_round_archer">"Export  concours  archer  "</string>
     <string name="name_archer">Nom archer</string>
     <string name="Apropos">A propos</string>
+    <string name="Concours">Concours</string>
 </resources>

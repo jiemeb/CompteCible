@@ -11,7 +11,7 @@
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_weight="6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -26,21 +26,62 @@
             android:contentDescription="@string/let_sgo"
             android:background="@drawable/am_buttonshape_grey"
             android:text="@string/let_sgo"
+            android:ems="7"
+            android:gravity="center"
+            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
-
-        <EditText
-            android:id="@+id/IRoundName"
-            android:layout_width="372dp"
-            android:layout_height="50dp"
-            android:layout_weight="10"
-            android:background="@drawable/it_style"
-            android:ems="10"
-            android:hint="@string/roundName"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toEndOf="@id/bLetGo"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="70"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/IRoundName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/it_style"
+                android:ems="10"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:hint="@string/roundName"
+                android:inputType="textPersonName"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@id/bConcours"
+                app:layout_constraintStart_toEndOf="@id/bLetGo"
+                app:layout_constraintTop_toTopOf="@id/bLetGo" />
+
+            <Spinner
+                android:id="@+id/SRoundName"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:animationCache="false"
+                android:background="@drawable/it_style_spinner"
+                android:ems="1"
+                android:gravity="center"
+                android:hint="@string/roundName"
+                android:longClickable="true"
+                android:orientation="horizontal"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@id/bConcours"
+                app:layout_constraintStart_toEndOf="@id/bLetGo"
+                app:layout_constraintTop_toTopOf="@id/bLetGo" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bConcours"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="8"
+            android:background="@drawable/am_buttonshape_grey"
+            android:ems="7"
+            android:gravity="center"
+            android:nextFocusDown="@id/SRoundName"
+            android:text="@string/Concours"
+            app:layout_constraintStart_toEndOf="@id/IRoundName"
+            app:layout_constraintTop_toTopOf="@id/bLetGo" />
 
 
     </TableRow>
@@ -55,7 +96,7 @@
         app:layout_constraintLeft_toLeftOf="@id/tableRow1"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow1">
+        app:layout_constraintTop_toBottomOf="@id/tableRow1">
 
 
         <EditText
@@ -84,6 +125,7 @@
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/INumberArrow"
             app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
             tools:text="@string/acr_EndByRound" />
 
         <EditText
@@ -109,7 +151,7 @@
             android:contentDescription="@string/addArcher"
             android:text="@string/addArcher"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/newArcher"
+            app:layout_constraintStart_toEndOf="@id/newArcher"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -139,7 +181,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="10"
-            android:background="@drawable/it_style">
+            android:background="@drawable/it_style"
+            android:visibility="visible">
 
 
         </ListView>
@@ -153,13 +196,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow2">
+        app:layout_constraintTop_toBottomOf="@id/tableRow2">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+
             android:text="@string/ArcherToRound" />
 
         <ListView
@@ -168,7 +212,6 @@
             android:layout_height="match_parent"
             android:layout_weight="10"
             android:background="@drawable/am_buttonshape_grey">
-
 
         </ListView>
     </TableRow>
