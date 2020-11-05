@@ -1,6 +1,7 @@
 package com.herault.comptecible;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.text.Html;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +46,13 @@ public class Activity_MainActivity extends AppCompatActivity {
 
     private static final double CONSTANTE_nbDivisionCible = 10.;
 
+    double xoffset = 0;
+    double yoffset = 0;
+    double xold = 0.;
+    double yold = 0.;
+    double Xdecallage;
+    double Ydecallage;
+
     private TextView arrowValue = null;
     private TextView endNumber = null;
     private Spinner archer = null;
@@ -57,83 +66,103 @@ public class Activity_MainActivity extends AppCompatActivity {
     private String roundName = null;
     private int NumberArrow = 0;
     private int NumberEndByRound = 0;
-    private View.OnTouchListener onTouchCible = new View.OnTouchListener() {
+    private final View.OnTouchListener onTouchCible = new View.OnTouchListener() {
 
         public boolean onTouch(View v, MotionEvent event) {
 
             Bitmap bitmap;
-
             double xmax = v.getWidth();
             double ymax = v.getHeight();
             double Xscale, Yscale;
+            double x, y;
+            int resultat_fleche = 0;
+/*            bitmap = Bitmap.createBitmap((int) xmax, (int) ymax, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            //  canvas.translate((float) (xmax / 2), (float) ymax / 2);
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+     */
             arrowValue.setVisibility(View.VISIBLE);
-            String res = "";
+
+
             // On récupère la coordonnée sur l'abscisse (X) de l'évènement getWidth()
             Xscale = 10 / xmax;
-            double x = ((event.getX() - (xmax / 2.)) * Xscale);
-
-            // On récupère la coordonnée sur l'ordonnée (Y) de l'évènement getHeight()
             Yscale = 10 / ymax;
-            double y = ((event.getY() - (ymax / 2.)) * Yscale);
+            double xcurrent = event.getX() - xmax / 2.;
+            double ycurrent = event.getY() - ymax / 2.;
+
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
+                if (Ydecallage == 0.0) {
+                    if (xcurrent * Xscale < -1.0)
+                        Xdecallage = -2.0;
+                    else
+                        Xdecallage = 2.0;
+                }
+            }
+
+            x = (xcurrent * Xscale) - Xdecallage;
+            y = (ycurrent * Yscale) - Ydecallage;
 
             if (y > -CONSTANTE_nbDivisionCible / 2. && y < CONSTANTE_nbDivisionCible / 2. && x > -CONSTANTE_nbDivisionCible / 2. && x < CONSTANTE_nbDivisionCible / 2.) {
-                int resultat_fleche = (int) (CONSTANTE_nbDivisionCible - (int) (Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)) - (0.3)));//
+                resultat_fleche = (int) (CONSTANTE_nbDivisionCible - (int) (Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)) - (0.3)));//
                 // Cible is on 6 to 10
                 if (resultat_fleche < 6)
                     resultat_fleche = 0;
+            }
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                updateView(resultat_fleche, x, y);
+                v.performClick();
+                arrowValue.setVisibility(View.INVISIBLE);
+            } else {
+                GradientDrawable sd;
 
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    updateView(resultat_fleche, x, y);
-                    v.performClick();
-                    arrowValue.setVisibility(View.INVISIBLE);
-                } else {
-                    GradientDrawable sd;
-                    switch (resultat_fleche) {
-                        case 0:
-                        case 1:
-                        case 2:
-                            //   arrowValue.setBackgroundColor(Color.WHITE);
-                            sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                            sd.setColor(getResources().getColor(R.color.BlancCible));
-                            sd.invalidateSelf();
-                            break;
+                switch (resultat_fleche) {
+                    case 0:
+                    case 1:
+                    case 2:
+                        //   arrowValue.setBackgroundColor(Color.WHITE);
+                        sd = (GradientDrawable) arrowValue.getBackground().mutate();
+                        sd.setColor(getResources().getColor(R.color.BlancCible));
+                        sd.invalidateSelf();
+                        break;
 
-                        case 3:
-                        case 4:
-                            //    arrowValue.setBackgroundColor(Color.BLACK);
-                            sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                            sd.setColor(getResources().getColor(R.color.NoirCible));
-                            sd.invalidateSelf();
-                            break;
+                    case 3:
+                    case 4:
+                        //    arrowValue.setBackgroundColor(Color.BLACK);
+                        sd = (GradientDrawable) arrowValue.getBackground().mutate();
+                        sd.setColor(getResources().getColor(R.color.NoirCible));
+                        sd.invalidateSelf();
+                        break;
 
-                        case 5:
-                        case 6:
-                            //arrowValue.setBackgroundColor(getResources().getColor(R.color.BleuCible));
-                            sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                            sd.setColor(getResources().getColor(R.color.BleuCible));
-                            sd.invalidateSelf();
-                            break;
+                    case 5:
+                    case 6:
+                        //arrowValue.setBackgroundColor(getResources().getColor(R.color.BleuCible));
+                        sd = (GradientDrawable) arrowValue.getBackground().mutate();
+                        sd.setColor(getResources().getColor(R.color.BleuCible));
+                        sd.invalidateSelf();
+                        break;
 
-                        case 7:
-                        case 8:
-                            //  arrowValue.setBackgroundColor(getResources().getColor(R.color.RougeCible));
-                            sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                            sd.setColor(getResources().getColor(R.color.RougeCible));
-                            sd.invalidateSelf();
-                            break;
+                    case 7:
+                    case 8:
+                        //  arrowValue.setBackgroundColor(getResources().getColor(R.color.RougeCible));
+                        sd = (GradientDrawable) arrowValue.getBackground().mutate();
+                        sd.setColor(getResources().getColor(R.color.RougeCible));
+                        sd.invalidateSelf();
+                        break;
 
-                        case 9:
-                        case 10:
-                            sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                            sd.setColor(getResources().getColor(R.color.JauneCible));
-                            sd.invalidateSelf();
-                            //     arrowValue.setBackgroundColor(getResources().getColor(R.color.JauneCible));
-                            break;
-                    }
-
-                    arrowValue.setText(Integer.toString(resultat_fleche));
+                    case 9:
+                    case 10:
+                        sd = (GradientDrawable) arrowValue.getBackground().mutate();
+                        sd.setColor(getResources().getColor(R.color.JauneCible));
+                        sd.invalidateSelf();
+                        //     arrowValue.setBackgroundColor(getResources().getColor(R.color.JauneCible));
+                        break;
                 }
 
+
+                Log.d("CompteCible", "onTouch " + Double.toString(x) + " " + Double.toString(y) + " " + Integer.toString(resultat_fleche));
+                arrowValue.setText(Integer.toString(resultat_fleche));
+                drawImpact(x, y);
             }
             return true;
         }
@@ -145,6 +174,17 @@ public class Activity_MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        int iorientation = getResources().getConfiguration().orientation;
+        if (iorientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // "Land"
+            Xdecallage = 2.0;
+            Ydecallage = 0.0;
+        } else {
+            //Portrait
+            Xdecallage = 0.0;
+            Ydecallage = 2.0;
+        }
 
 
         stock = new Stockage();             // init de la classe interface de stockage
@@ -353,7 +393,6 @@ public class Activity_MainActivity extends AppCompatActivity {
             }
 
 
-
             List<Resultat_archer> resultat_fleches = null;
             resultat_fleches = stock.getResultatArrows(archer.getSelectedItem().toString(), roundName);
 
@@ -475,18 +514,16 @@ public class Activity_MainActivity extends AppCompatActivity {
 
         //   ImageView fantomCible=findViewById(R.id.imageCible);
         Bitmap bitmap;
-        //   double xmax = fantomCible.getWidth() ;
-        double xmax = 1000;
-        //   double ymax = fantomCible.getHeight() ;
-        double ymax = 1000;
+
         double Xscale, Yscale;
+        double xmax = Cible.getWidth();
+        double ymax = Cible.getHeight();
+        if (xmax == 0) {
+            xmax = ymax = 100;
+        }
 
-        // On récupère la coordonnée sur l'abscisse (X) de l'évènement getWidth()
-        Xscale = 10 / xmax;
-
-
-        // On récupère la coordonnée sur l'ordonnée (Y) de l'évènement getHeight()
-        Yscale = 10 / ymax;
+        Xscale = 10.00 / xmax;
+        Yscale = 10.00 / ymax;
         bitmap = Bitmap.createBitmap((int) xmax, (int) ymax, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         canvas.translate((int) xmax / 2, (int) ymax / 2);
@@ -510,6 +547,35 @@ public class Activity_MainActivity extends AppCompatActivity {
         }
         paint.setColor(Color.GREEN);
         canvas.drawCircle((float) (moyX / nb_valeur_moyenne / Xscale), (float) (moyY / nb_valeur_moyenne / Yscale), (float) (0.2 / Xscale), paint);
+        Cible.setImageBitmap(bitmap);
+
+
+    }
+
+    private void drawImpact(double x, double y) {
+
+        //   ImageView fantomCible=findViewById(R.id.imageCible);
+        Bitmap bitmap;
+
+        double Xscale, Yscale;
+        double xmax = Cible.getWidth();
+        double ymax = Cible.getHeight();
+        if (xmax == 0) {
+            xmax = ymax = 100;
+        }
+
+        Xscale = 10.00 / xmax;
+        Yscale = 10.00 / ymax;
+
+        bitmap = Bitmap.createBitmap((int) xmax, (int) ymax, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        //    canvas.translate((int) xmax / 2, (int) ymax / 2);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        paint.setColor(Color.CYAN);
+        //      canvas.drawCircle((float) ((x) / Xscale), (float) ((y) / Yscale), (float) (0.3 / Xscale), paint);
+        canvas.drawCircle((float) ((x + CONSTANTE_nbDivisionCible / 2.) / Xscale), (float) ((y + CONSTANTE_nbDivisionCible / 2.) / Yscale), (float) (0.3 / Xscale), paint);
+
         Cible.setImageBitmap(bitmap);
 
 

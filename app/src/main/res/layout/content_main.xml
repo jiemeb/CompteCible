@@ -106,6 +106,8 @@
             android:layout_weight="1"
             android:background="@drawable/ic_cible"
             android:contentDescription="DessinCible"
+            app:layout_collapseMode="parallax"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
