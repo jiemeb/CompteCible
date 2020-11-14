@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -79,6 +80,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         choix_resultat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
                 switch (position) {
                     case 0:
                         chartContainer.setVisibility(View.GONE);
@@ -154,6 +156,17 @@ public class Activity_image_resultat extends AppCompatActivity {
     //graphe Impact by arrow
 
     private void drawResultImpact(String round, String archer) {
+        // Get density in dpi
+        DisplayMetrics metrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        float density = metrics.density;
+
+        int SCALE = 1;
+        if (density > 2) {
+            SCALE = 3;
+        }
+        int TEXTSIZE = 14 * SCALE;
+
         String[] xLabel = new String[]{
                 "0", "1", "2", "3", "4", "5",
                 "6", "7", "8", "9", "10"
@@ -164,18 +177,36 @@ public class Activity_image_resultat extends AppCompatActivity {
 
         // Creating an XYSeries for Height
         XYSeries expenseSeries = new XYSeries(getResources().getString(R.string.air_TitleGraphe_arrow_by_arrow));
+        //    XYSeries expenseSeries = new XYSeries("toto");
         // Adding data to Height Series
         long archer_id;
         archer_id = stock.getArcherId(archer);
         Double maxValue = 0.;
+        int nombreFleches = 0;
         for (int i = 0; i < x.length; i++) {
             String tempo = stock.getResultatRoundCompte(round, Long.toString(archer_id), Integer.toString(i));
             Double valueTemp = Double.valueOf(tempo);
             expenseSeries.add(i, valueTemp);
+            nombreFleches += valueTemp;
 
-            if (valueTemp > maxValue)
-                maxValue = valueTemp;
+            //          if (valueTemp > maxValue)
+            //              maxValue = valueTemp;
+
         }
+        maxValue = expenseSeries.getMaxY();
+
+        // cercle réussite = 80 % fleches dans zone
+        nombreFleches = (nombreFleches * 80) / 100;
+        int sommefleche = 0;
+        int i = x[x.length - 1];
+        for (; i > 0; i--) {
+            sommefleche += expenseSeries.getY(i);
+            if (sommefleche >= nombreFleches)
+                break;
+        }
+        expenseSeries.setTitle(getResources().getString(R.string.circle_of_success) + " :" + Integer.toString(i));
+        // i = cercle reussite
+
         // Creating a dataset to hold height series
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
         // Adding Height Series to dataset
@@ -186,7 +217,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         heightRenderer.setColor(Color.GREEN);
         heightRenderer.setFillPoints(true);
         heightRenderer.setDisplayChartValues(true);
-        heightRenderer.setChartValuesTextSize(40);
+        heightRenderer.setChartValuesTextSize(TEXTSIZE);
 
         // Creating a XYMultipleSeriesRenderer to customize the whole chart
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
@@ -199,14 +230,16 @@ public class Activity_image_resultat extends AppCompatActivity {
          * Customizing graphs
          */
         // setting text size of the title
-        renderer.setChartTitleTextSize(30);
 
-        renderer.setLabelsColor(Color.BLACK);
+
+        renderer.setChartTitleTextSize(TEXTSIZE);
+
+        renderer.setLabelsColor(Color.YELLOW);
         renderer.setGridColor(Color.GRAY);
         // setting text size of the axis title
-        renderer.setAxisTitleTextSize(50);
+        renderer.setAxisTitleTextSize(TEXTSIZE);
         // setting text size of the graph lable
-        renderer.setLabelsTextSize(30);
+        renderer.setLabelsTextSize(TEXTSIZE);
         // setting zoom buttons visiblity
         renderer.setZoomButtonsVisible(true);
         // setting pan enablity which uses graph to move on both axis
@@ -233,8 +266,8 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting to in scroll to false
         renderer.setInScroll(false);
         // setting to set legend height of the graph
-        renderer.setLegendHeight(50);
-        renderer.setLegendTextSize(40);
+        renderer.setLegendHeight(10);
+        renderer.setLegendTextSize(TEXTSIZE);
         // setting x axis label align
         renderer.setXLabelsAlign(Paint.Align.CENTER);
         renderer.setXLabelsColor(Color.WHITE);
@@ -266,11 +299,12 @@ public class Activity_image_resultat extends AppCompatActivity {
         renderer.setPointSize(1f);
         // setting the margin size for the graph in the order top, left, bottom,
         // right
-        renderer.setMargins(new int[]{60, 60, 60, 60});
 
+        renderer.setMargins(new int[]{30 * SCALE, 30 * SCALE, 25 * SCALE, 10 * SCALE});
 
         renderer.setXLabelsPadding(10);
-        for (int i = 0; i < x.length; i++) {
+        i = 0;
+        for (; i < x.length; i++) {
             renderer.addXTextLabel(i, xLabel[i]);
 
 
@@ -297,6 +331,17 @@ public class Activity_image_resultat extends AppCompatActivity {
 
     @SuppressWarnings("unused")
     private void drawResultArcherRound(String archer) {
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        float density = metrics.density;
+
+        int SCALE = 1;
+        if (density > 2) {
+            SCALE = 3;
+        }
+        int TEXTSIZE = 12 * SCALE;
+
         List<Resultat_archer> lresultat;
         String[] friends = new String[]{
                 "0", "1", "2", "3", "4", "5",
@@ -317,6 +362,7 @@ public class Activity_image_resultat extends AppCompatActivity {
             i++;
         }
 
+        //    value_max=Double.doubleToLongBits(expenseSeries.getMaxY());
 
         // Creating a dataset to hold height series
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
@@ -328,7 +374,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         heightRenderer.setColor(Color.GREEN);
         heightRenderer.setFillPoints(true);
         heightRenderer.setDisplayChartValues(true);
-        heightRenderer.setChartValuesTextSize(40);
+        heightRenderer.setChartValuesTextSize(TEXTSIZE);
         // Creating a XYMultipleSeriesRenderer to customize the whole chart
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
         renderer.setXLabels(0);
@@ -347,13 +393,13 @@ public class Activity_image_resultat extends AppCompatActivity {
          * Customizing graphs
          */
         // setting text size of the title
-        renderer.setChartTitleTextSize(40);
+        renderer.setChartTitleTextSize(TEXTSIZE);
         renderer.setLabelsColor(Color.WHITE);
         renderer.setGridColor(Color.YELLOW);
         // setting text size of the axis title
-        renderer.setAxisTitleTextSize(40);
+        renderer.setAxisTitleTextSize(TEXTSIZE);
         // setting text size of the graph lable
-        renderer.setLabelsTextSize(40);
+        renderer.setLabelsTextSize(TEXTSIZE);
         // setting zoom buttons visiblity
         renderer.setZoomButtonsVisible(true);
         // setting pan enablity which uses graph to move on both axis
@@ -367,7 +413,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting lines to display on x axis
         renderer.setShowGridX(true);
         // setting legend to fit the screen size
-        renderer.setFitLegend(true);
+        renderer.setFitLegend(false);
         // setting displaying line on grid
         renderer.setShowGrid(true);
         // setting zoom to false
@@ -380,8 +426,8 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting to in scroll to false
         renderer.setInScroll(false);
         // setting to set legend height of the graph
-        renderer.setLegendHeight(40);
-        renderer.setLegendTextSize(40);
+        renderer.setLegendHeight(20);
+        renderer.setLegendTextSize(TEXTSIZE);
         // setting x axis label align
         renderer.setXLabelsAlign(Paint.Align.CENTER);
         renderer.setXLabelsColor(Color.WHITE);
@@ -412,7 +458,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         renderer.setPointSize(6f);
         // setting the margin size for the graph in the order top, left, bottom,
         // right
-        renderer.setMargins(new int[]{60, 60, 60, 60});
+        renderer.setMargins(new int[]{30 * SCALE, 30 * SCALE, 25 * SCALE, 10 * SCALE});
 
         // Adding heightRender to multipleRenderer
         // Note: The order of adding dataseries to dataset and renderers to

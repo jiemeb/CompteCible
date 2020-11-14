@@ -92,6 +92,7 @@ public class Activity_config_round extends AppCompatActivity {
             }
         });
 
+
         h = new Handler();
 
         lArcherBase = findViewById(R.id.archersBase);
@@ -298,5 +299,36 @@ public class Activity_config_round extends AppCompatActivity {
         stock.closeDB();
     }
 
+    public void onBackPressed() {
+       /* if (adapterRound.getCount() != 0 && roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
+            stock.dropArchers(true);
+            stock.insertArray(adapterRound._archers, true);
+            Activity_config_round.this.finish(); // Kill config_run
+        } else {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.configFill), Toast.LENGTH_SHORT).show();
+            if (adapterRound.getCount() == 0)
+                lArcherRound.setBackgroundColor(Color.YELLOW);
+            else
+                lArcherRound.setBackgroundColor(Color.WHITE);
+
+            if (roundName.getText().toString().trim().length() == 0)
+                roundName.setBackgroundColor(Color.YELLOW);
+            else
+                roundName.setBackgroundColor(Color.WHITE);
+
+            if (INumberArrow.getText().toString().trim().length() == 0)
+                INumberArrow.setBackgroundColor(Color.YELLOW);
+            else
+                INumberArrow.setBackgroundColor(Color.WHITE);
+
+            if (INumberEndByRound.getText().toString().trim().length() == 0)
+                INumberEndByRound.setBackgroundColor(Color.YELLOW);
+            else
+                INumberEndByRound.setBackgroundColor(Color.WHITE);
+
+        } */
+        Toast.makeText(this, getResources().getString(R.string.useButton) + " : \"" + getResources().getString(R.string.let_sgo) + "\"",
+                Toast.LENGTH_SHORT).show();
+    }
 
 }

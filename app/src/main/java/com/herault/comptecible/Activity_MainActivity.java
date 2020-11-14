@@ -193,9 +193,12 @@ public class Activity_MainActivity extends AppCompatActivity {
         roundName = stock.getValue("roundName");
         String snumberArrow = stock.getValue("numberArrow");
         String snumberEnd = stock.getValue("numberEnd");
+        archer = findViewById(R.id.archer);
+        lArcher = stock.getArchers(true);
 
+        int countArcher = lArcher.size();
 // Initialisation minimun
-        if (snumberArrow.isEmpty() || snumberEnd.isEmpty() || roundName.isEmpty()) {
+        if (snumberArrow.isEmpty() || snumberEnd.isEmpty() || roundName.isEmpty() || countArcher == 0) {
             snumberArrow = "3";
             stock.updateValue("numberArrow", snumberArrow);
             snumberEnd = "20";
@@ -206,12 +209,6 @@ public class Activity_MainActivity extends AppCompatActivity {
             must_config = true;
         }
 
-        NumberArrow = Integer.parseInt(snumberArrow);
-        NumberEndByRound = Integer.parseInt(snumberEnd);
-
-        archer = findViewById(R.id.archer);
-        lArcher = stock.getArchers(true);
-
         adapter_archer = new ArrayAdapter(
                 this,
                 R.layout.spinner_generale
@@ -220,6 +217,13 @@ public class Activity_MainActivity extends AppCompatActivity {
         for (int i = 0; i < lArcher.size(); i++) {
             adapter_archer.add(lArcher.get(i));
         }
+
+        NumberArrow = Integer.parseInt(snumberArrow);
+        NumberEndByRound = Integer.parseInt(snumberEnd);
+
+
+
+
 
         /* On definit une présentation du spinner quand il est déroulé         (android.R.layout.simple_spinner_dropdown_item) */
         adapter_archer.setDropDownViewResource(R.layout.spinner_generale);
@@ -380,42 +384,47 @@ public class Activity_MainActivity extends AppCompatActivity {
     }
 
     private void updateviewOnly() {
-        if (archer.getCount() != 0) {
+        if ((archer.getCount()) >= 0) {
             int k = archer.getSelectedItemPosition();
-            if (archer.getCount() <= k || k < 0)
-                archer.setSelection(0);
-            long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);  // Number of Arrow
-            endNumber.setText(Long.toString((arrowIndex / NumberArrow) + 1));
+            if (k < 0) { // pas d'archer dans la base'
+                must_config = true;
+            } else {
+                if (archer.getCount() <= k || k < 0)
+                    archer.setSelection(0);
+                Log.d("CompteCible", "updateview " + Integer.toString(k) + " " + roundName);
 
-            if (!(arrowIndex < NumberArrow * NumberEndByRound)) {
-                endNumber.setText(getResources().getString(R.string.EndRound));
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.EndRound) + " " + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
-            }
+                long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);  // Number of Arrow
+                endNumber.setText(Long.toString((arrowIndex / NumberArrow) + 1));
 
-
-            List<Resultat_archer> resultat_fleches = null;
-            resultat_fleches = stock.getResultatArrows(archer.getSelectedItem().toString(), roundName);
-
-            Resultat_archer resultat_archer;
-            StringBuilder resultTemp = new StringBuilder();
-            result.setText("");
-
-            int sumTotal = 0;
-            for (int i = 0; i <= (arrowIndex / NumberArrow); i++) {
-                int sumVole = 0;
-                long boucle = 0;
-                List<Long> end; //End
-                end = new ArrayList<Long>();
-                boucle = (i == arrowIndex / NumberArrow) ? arrowIndex % NumberArrow : NumberArrow;
-                for (int j = 0; j < boucle; j++) {
-
-                    resultat_archer = resultat_fleches.get((i * NumberArrow) + j);
-                    sumVole += resultat_archer.getValue();
-                    end.add(resultat_archer.getValue());
+                if (!(arrowIndex < NumberArrow * NumberEndByRound)) {
+                    endNumber.setText(getResources().getString(R.string.EndRound));
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.EndRound) + " " + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
                 }
-                Collections.sort(end, Collections.reverseOrder());
-                for (int j = 0; j < boucle; j++) {
-                    resultTemp.append(convertColor(end.get(j).intValue()));
+
+
+                List<Resultat_archer> resultat_fleches = null;
+                resultat_fleches = stock.getResultatArrows(archer.getSelectedItem().toString(), roundName);
+
+                Resultat_archer resultat_archer;
+                StringBuilder resultTemp = new StringBuilder();
+                result.setText("");
+
+                int sumTotal = 0;
+                for (int i = 0; i <= (arrowIndex / NumberArrow); i++) {
+                    int sumVole = 0;
+                    long boucle = 0;
+                    List<Long> end; //End
+                    end = new ArrayList<Long>();
+                    boucle = (i == arrowIndex / NumberArrow) ? arrowIndex % NumberArrow : NumberArrow;
+                    for (int j = 0; j < boucle; j++) {
+
+                        resultat_archer = resultat_fleches.get((i * NumberArrow) + j);
+                        sumVole += resultat_archer.getValue();
+                        end.add(resultat_archer.getValue());
+                    }
+                    Collections.sort(end, Collections.reverseOrder());
+                    for (int j = 0; j < boucle; j++) {
+                        resultTemp.append(convertColor(end.get(j).intValue()));
 
             /*
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
@@ -424,38 +433,39 @@ public class Activity_MainActivity extends AppCompatActivity {
                 result.append(Html.fromHtml(fleche));
                 */
 
-                }
-                if (boucle != 0) {
-                    sumTotal += sumVole;
-                    if (sumVole < 10)
-                        resultTemp.append("= " + "0").append(Long.toString(sumVole, 10)).append("<br />");
-                    else
-                        resultTemp.append("= ").append(Long.toString(sumVole, 10)).append("<br />");
+                    }
+                    if (boucle != 0) {
+                        sumTotal += sumVole;
+                        if (sumVole < 10)
+                            resultTemp.append("= " + "0").append(Long.toString(sumVole, 10)).append("<br />");
+                        else
+                            resultTemp.append("= ").append(Long.toString(sumVole, 10)).append("<br />");
             /*
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 result.append(Html.fromHtml(" = " + Long.toString(sumVole) + "<br />", Html.FROM_HTML_MODE_COMPACT));
             else
                 result.append(Html.fromHtml(" = " + Long.toString(sumVole) + "<br />")); */
+                    }
                 }
-            }
-            resultTemp.append(Long.toString(sumTotal)).append("<br />");
+                resultTemp.append(Long.toString(sumTotal)).append("<br />");
   /*   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
          result.append(Html.fromHtml(Long.toString(sumTotal)+"<br />", Html.FROM_HTML_MODE_COMPACT));
      else
          result.append(Html.fromHtml(Long.toString(sumTotal)+"<br />")); */
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                result.append(Html.fromHtml(resultTemp.toString(), Html.FROM_HTML_MODE_COMPACT));
-            else
-                result.append(Html.fromHtml(resultTemp.toString()));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    result.append(Html.fromHtml(resultTemp.toString(), Html.FROM_HTML_MODE_COMPACT));
+                else
+                    result.append(Html.fromHtml(resultTemp.toString()));
 
 
-            redraw();
+                redraw();
+            }
+        } else {                                                              // No archer must condif
+      /*  Intent i = new Intent(this, Activity_config_round.class);
+        startActivity(i); */
+            must_config = true;
         }
-  /*  else { // No archer must condif
-        Intent i = new Intent(this, Activity_config_round.class);
-        startActivity(i);
-    }*/
     }
 
     private String convertColor(int value) {

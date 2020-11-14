@@ -70,9 +70,9 @@ class Db_resultat extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w("DBOpenHelper", "Mise à jour de la version " + oldVersion
+     /*  Log.w("DBOpenHelper", "Mise à jour de la version " + oldVersion
                 + " vers la version " + newVersion
-                + ", les anciennes données seront détruites ");
+                + ", les anciennes données seront détruites "); */
         // Drop the old database
         db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS_ROUND);

@@ -20,11 +20,10 @@
         android:id="@+id/result"
         android:layout_width="183dp"
         android:layout_height="91dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/it_style"
         android:focusable="false"
         android:ems="10"
-
         android:fontFamily="serif-monospace"
         android:gravity="end"
         android:inputType="textMultiLine"
@@ -72,13 +71,13 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/archer"
+        app:layout_constraintStart_toEndOf="@id/textEnd"
         app:layout_constraintTop_toBottomOf="@id/archer"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="68dp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textEnd"
         android:layout_width="46dp"
         android:layout_height="24dp"
         android:layout_marginStart="12dp"
@@ -283,9 +282,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/am_buttonshape_next_archer"
-                    android:bottom="0dp"
-                    android:left="0dp"
-                    android:right="0dp"
                     app:layout_constraintDimensionRatio="1"
                     android:layout_rowWeight="1"
                     android:layout_weight="1"

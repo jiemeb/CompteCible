@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/air_archer"
         android:layout_width="141dp"
-        android:layout_height="26dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="archer"
         android:textAlignment="viewStart"
@@ -24,8 +24,8 @@
 
     <TextView
         android:id="@+id/air_round"
-        android:layout_width="160dp"
-        android:layout_height="39dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/roundName"
         android:textAlignment="viewStart"
@@ -49,8 +49,9 @@
 
     <ImageView
         android:id="@+id/air_image"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="300dp"
+        app:layout_constraintDimensionRatio="1"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,9 +60,10 @@
 
     <LinearLayout
         android:id="@+id/air_layoutImage"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintDimensionRatio="1.2"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"

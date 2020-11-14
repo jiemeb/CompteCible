@@ -12,16 +12,17 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="ClearDataBase">Clear DataBase</string>
     <string name="let_sgo">let\'s GO</string>
+    <string name="useButton">Use button</string>
     <string name="roundName">round Name</string>
     <string name="round">round</string>
     <string name="Activity_resultat_round">resultat Round</string>
     <string name="configFill">You must fill all Item !</string>
     <string name="impact">impact</string>
-    <string name="repartitionPoint">Arrow Repartition</string>
+    <string name="repartitionPoint">distribution arrow</string>
     <string name="air_TitleGraphe_arrow_by_arrow">Number arrow by Value</string>
     <string name="air_Tittle_Axe_Y">Number of arrow</string>
     <string name="air_Tittle_Axe_X">Value of arrow</string>
-    <string name="air_select_rounds">archer resultat</string>
+    <string name="air_select_rounds">archer result</string>
     <string name="air_TitleGraphe_rounsd">Score by round</string>
     <string name="air_Tittle_Axe_X_round">round Name</string>
     <string name="air_Tittle_Axe_Y_Score">score</string>
@@ -48,4 +49,7 @@
     <string name="name_archer">archer\'s name</string>
     <string name="Apropos">A propos</string>
     <string name="Concours">Round</string>
+    <string name="archer">archer</string>
+    <string name="arrow">Arrow</string>
+    <string name="circle_of_success">circle of success</string>
 </resources>

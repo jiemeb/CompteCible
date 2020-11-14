@@ -268,7 +268,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         } catch (IOException e) {
             // Unable to create file, likely because external storage is
             // not currently mounted.
-            Log.w("ExternalStorage", "Error writing " + file, e);
+            // Log.w("ExternalStorage", "Error writing " + file, e);
 
         }
         return 0L;

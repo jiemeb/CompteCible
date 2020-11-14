@@ -12,6 +12,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="let_sgo">Allons-y</string>
+    <string name="useButton">Utiliser le bouton</string>
     <string name="roundName">Nom concours</string>
     <string name="round">Volée</string>
     <string name="Activity_resultat_round">Résultat Concours</string>
@@ -25,7 +26,7 @@
     <string name="air_TitleGraphe_rounsd">Score par concour</string>
     <string name="air_Tittle_Axe_X_round">Nom concours</string>
     <string name="air_Tittle_Axe_Y_Score">Score</string>
-    <string name="EndRound">Fin de concours</string>
+    <string name="EndRound">concours fini</string>
     <string name="All">Tous</string>
     <string name="End">Volée</string>
     <string name="missing_archer">Archer manquant</string>
@@ -49,4 +50,7 @@
     <string name="name_archer">Nom archer</string>
     <string name="Apropos">A propos</string>
     <string name="Concours">Concours</string>
+    <string name="archer">archer</string>
+    <string name="arrow">flèche</string>
+    <string name="circle_of_success">cercle de réussite</string>
 </resources>
