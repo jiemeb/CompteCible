@@ -118,14 +118,12 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/it_style"
-            android:contentDescription="@string/acr_EndByRound"
             android:ems="10"
             android:hint="@string/acr_EndByRound"
             android:inputType="numberDecimal"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/INumberArrow"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
             tools:text="@string/acr_EndByRound" />
 
         <EditText
@@ -145,7 +143,7 @@
         <Button
             android:id="@+id/bAddArcher"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/am_buttonshape_grey"
             android:contentDescription="@string/addArcher"
@@ -181,6 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="10"
+            android:contentDescription="@string/archer_base"
             android:background="@drawable/it_style"
             android:visibility="visible">
 
@@ -203,7 +202,6 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
             android:text="@string/ArcherToRound" />
 
         <ListView
@@ -211,6 +209,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="10"
+            android:contentDescription="@string/ArcherToRound"
             android:background="@drawable/am_buttonshape_grey">
 
         </ListView>

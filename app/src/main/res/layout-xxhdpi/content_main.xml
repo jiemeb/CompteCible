@@ -24,7 +24,6 @@
         android:background="@drawable/it_style"
         android:focusable="false"
         android:ems="10"
-        android:fontFamily="serif-monospace"
         android:gravity="end"
         android:inputType="textMultiLine"
         android:textSize="12sp"
