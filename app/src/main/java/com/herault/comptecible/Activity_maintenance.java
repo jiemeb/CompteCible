@@ -93,7 +93,8 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
                     adapter.remove(archer.getSelectedItem());
                     stock.dropArcher(name);
-                } else {
+                }
+                if (archer.getCount() == 0) {
                     Intent i = new Intent(Activity_maintenance.this, Activity_config_round.class);
                     startActivity(i);
                     Activity_maintenance.this.finish();

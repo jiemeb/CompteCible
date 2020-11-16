@@ -161,17 +161,20 @@ public class Activity_image_resultat extends AppCompatActivity {
         this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float density = metrics.density;
 
-        int SCALE = 1;
-        if (density > 2) {
+        double SCALE = 1;
+
+        if (density > 2)
+            SCALE = 2.5;
+
+        if (density > 3)
             SCALE = 3;
-        }
-        int TEXTSIZE = 14 * SCALE;
+        SCALE = density * 0.8;
+        int TEXTSIZE = (int) (14 * SCALE);
 
         String[] xLabel = new String[]{
                 "0", "1", "2", "3", "4", "5",
                 "6", "7", "8", "9", "10"
         };
-        //noinspection MismatchedReadAndWriteOfArray
         int[] x = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 
@@ -181,11 +184,11 @@ public class Activity_image_resultat extends AppCompatActivity {
         // Adding data to Height Series
         long archer_id;
         archer_id = stock.getArcherId(archer);
-        Double maxValue = 0.;
+        double maxValue = 0.;
         int nombreFleches = 0;
         for (int i = 0; i < x.length; i++) {
             String tempo = stock.getResultatRoundCompte(round, Long.toString(archer_id), Integer.toString(i));
-            Double valueTemp = Double.valueOf(tempo);
+            double valueTemp = Double.parseDouble(tempo);
             expenseSeries.add(i, valueTemp);
             nombreFleches += valueTemp;
 
@@ -205,6 +208,7 @@ public class Activity_image_resultat extends AppCompatActivity {
                 break;
         }
         expenseSeries.setTitle(getResources().getString(R.string.circle_of_success) + " :" + Integer.toString(i));
+
         // i = cercle reussite
 
         // Creating a dataset to hold height series
@@ -221,11 +225,13 @@ public class Activity_image_resultat extends AppCompatActivity {
 
         // Creating a XYMultipleSeriesRenderer to customize the whole chart
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+
         renderer.setXLabels(0);
         renderer.setChartTitle(getResources().getString(R.string.air_TitleGraphe_arrow_by_arrow));
         renderer.setXTitle(getResources().getString(R.string.air_Tittle_Axe_X));
         renderer.setYTitle(getResources().getString(R.string.air_Tittle_Axe_Y));
 
+        renderer.setShowLegend(true);
         /***
          * Customizing graphs
          */
@@ -245,11 +251,11 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting pan enablity which uses graph to move on both axis
         renderer.setPanEnabled(true, true);
         // setting click false on graph
-        renderer.setClickEnabled(false);
+        renderer.setClickEnabled(true);
         // setting zoom to false on both axis
         renderer.setZoomEnabled(false, false);
         // setting lines to display on y axis
-        renderer.setShowGridY(true);
+        renderer.setShowGridY(false);
         // setting lines to display on x axis
         renderer.setShowGridX(true);
         // setting legend to fit the screen size
@@ -257,7 +263,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting displaying line on grid
         renderer.setShowGrid(true);
         // setting zoom to false
-        renderer.setZoomEnabled(true);
+        renderer.setZoomEnabled(false);
         // setting external zoom functions to false
         renderer.setExternalZoomEnabled(false);
         // setting displaying lines on graph to be formatted(like using
@@ -266,8 +272,8 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting to in scroll to false
         renderer.setInScroll(false);
         // setting to set legend height of the graph
-        renderer.setLegendHeight(10);
-        renderer.setLegendTextSize(TEXTSIZE);
+        renderer.setLegendHeight(TEXTSIZE * 2);
+        renderer.setLegendTextSize((float) (TEXTSIZE * 1.5));
         // setting x axis label align
         renderer.setXLabelsAlign(Paint.Align.CENTER);
         renderer.setXLabelsColor(Color.WHITE);
@@ -277,8 +283,8 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting text style
         renderer.setTextTypeface("sans_serif", Typeface.BOLD);
         // setting number of values to display in y axis
-        renderer.setYLabels(40);
-        renderer.setYAxisColor(Color.BLACK);
+        renderer.setYLabels((int) maxValue);
+        renderer.setYAxisColor(Color.WHITE);
         //setting x axis min value
         renderer.setYAxisMin(0);
         // setting y axis max value
@@ -300,15 +306,14 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting the margin size for the graph in the order top, left, bottom,
         // right
 
-        renderer.setMargins(new int[]{30 * SCALE, 30 * SCALE, 25 * SCALE, 10 * SCALE});
+        renderer.setMargins(new int[]{(int) (4 * TEXTSIZE), (int) (4 * TEXTSIZE), (int) (3 * TEXTSIZE), (int) (TEXTSIZE)});
 
         renderer.setXLabelsPadding(10);
+
         i = 0;
         for (; i < x.length; i++) {
             renderer.addXTextLabel(i, xLabel[i]);
-
-
-            //renderer.setYLabelsPadding(10);
+            renderer.setYLabelsPadding(10);
         }
 
         // Adding heightRender to multipleRenderer
@@ -336,11 +341,11 @@ public class Activity_image_resultat extends AppCompatActivity {
         this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float density = metrics.density;
 
-        int SCALE = 1;
-        if (density > 2) {
-            SCALE = 3;
-        }
-        int TEXTSIZE = 12 * SCALE;
+        double SCALE = 1;
+
+        SCALE = density * 0.8;
+        int TEXTSIZE = (int) (14 * SCALE);
+
 
         List<Resultat_archer> lresultat;
         String[] friends = new String[]{
@@ -426,7 +431,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting to in scroll to false
         renderer.setInScroll(false);
         // setting to set legend height of the graph
-        renderer.setLegendHeight(20);
+        renderer.setLegendHeight((int) (TEXTSIZE * 1.5));
         renderer.setLegendTextSize(TEXTSIZE);
         // setting x axis label align
         renderer.setXLabelsAlign(Paint.Align.CENTER);
@@ -437,11 +442,11 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting text style
         renderer.setTextTypeface("sans_serif", Typeface.BOLD);
         // setting number of values to display in y axis
-        renderer.setYLabels(40);
+        renderer.setYLabels((int) value_max);
         //setting x axis min value
         renderer.setYAxisMin(0);
         // setting y axis max value
-        renderer.setYAxisMax(value_max + (value_max / 10));
+        renderer.setYAxisMax((double) (value_max + (value_max / 10)));
         // setting used to move the graph on xaxiz to .5 to the right
         renderer.setXAxisMin(-0.5);
         // setting used to move the graph on xaxiz to .5 to the right
@@ -458,8 +463,8 @@ public class Activity_image_resultat extends AppCompatActivity {
         renderer.setPointSize(6f);
         // setting the margin size for the graph in the order top, left, bottom,
         // right
-        renderer.setMargins(new int[]{30 * SCALE, 30 * SCALE, 25 * SCALE, 10 * SCALE});
-
+        //   renderer.setMargins(new int[]{30 * SCALE, 30 * SCALE, 25 * SCALE, 10 * SCALE});
+        renderer.setMargins(new int[]{(int) (4 * TEXTSIZE), (int) (4 * TEXTSIZE), (int) (3.2 * TEXTSIZE), (int) (TEXTSIZE)});
         // Adding heightRender to multipleRenderer
         // Note: The order of adding dataseries to dataset and renderers to
         // multipleRenderer
