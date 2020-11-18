@@ -283,7 +283,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting text style
         renderer.setTextTypeface("sans_serif", Typeface.BOLD);
         // setting number of values to display in y axis
-        renderer.setYLabels((int) maxValue);
+        renderer.setYLabels((int) 20);
         renderer.setYAxisColor(Color.WHITE);
         //setting x axis min value
         renderer.setYAxisMin(0);
@@ -442,7 +442,8 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting text style
         renderer.setTextTypeface("sans_serif", Typeface.BOLD);
         // setting number of values to display in y axis
-        renderer.setYLabels((int) value_max);
+        //    renderer.setYLabels((int) value_max);
+        renderer.setYLabels((int) (10));
         //setting x axis min value
         renderer.setYAxisMin(0);
         // setting y axis max value
@@ -450,7 +451,8 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting used to move the graph on xaxiz to .5 to the right
         renderer.setXAxisMin(-0.5);
         // setting used to move the graph on xaxiz to .5 to the right
-        renderer.setXAxisMax(lresultat.size());
+        //       renderer.setXAxisMax(lresultat.size());
+        renderer.setXAxisMax(5);
         // setting bar size or space between two bars
         renderer.setBarSpacing(0.5);
         // Setting background color of the graph to transparent

@@ -118,6 +118,7 @@ public class Activity_config_round extends AppCompatActivity {
 
 
         /* Get Round Name */
+
         roundName = findViewById(R.id.IRoundName);
         String round = stock.getValue("roundName");
         roundName.setText(round);
@@ -149,10 +150,7 @@ public class Activity_config_round extends AppCompatActivity {
                 SRoundName.requestFocusFromTouch();
                 SRoundName.requestFocus(View.FOCUS_DOWN); */
 
-
                 SRoundName.performClick();
-
-
             }
         });
 
@@ -163,9 +161,11 @@ public class Activity_config_round extends AppCompatActivity {
                 this,
                 R.layout.spinner_generale
         );
-
+        int indexRound = 0;
         for (int i = 0; i < lRoundName.size(); i++) {
             adapterRoundName.add(lRoundName.get(i));
+            if (lRoundName.get(i).equals(round))
+                indexRound = i;
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 1");
         adapterRoundName.add(sdf.format(new Date()));
@@ -173,6 +173,10 @@ public class Activity_config_round extends AppCompatActivity {
         adapterRoundName.setDropDownViewResource(R.layout.spinner_generale);
         //Enfin on passe l'adapter au Spinner et c'est tout
         SRoundName.setAdapter(adapterRoundName);
+        // force item select whith round
+
+        SRoundName.setSelection(indexRound);
+
         SRoundName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
