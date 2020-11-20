@@ -2,25 +2,19 @@ package com.herault.comptecible;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.text.Html;
-
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import android.graphics.Bitmap;
-
 import android.view.MotionEvent;
-
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,11 +22,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.herault.comptecible.utils.Stockage;
 
@@ -46,10 +39,6 @@ public class Activity_MainActivity extends AppCompatActivity {
 
     private static final double CONSTANTE_nbDivisionCible = 10.;
 
-    double xoffset = 0;
-    double yoffset = 0;
-    double xold = 0.;
-    double yold = 0.;
     double Xdecallage;
     double Ydecallage;
 
@@ -70,7 +59,6 @@ public class Activity_MainActivity extends AppCompatActivity {
 
         public boolean onTouch(View v, MotionEvent event) {
 
-            Bitmap bitmap;
             double xmax = v.getWidth();
             double ymax = v.getHeight();
             double Xscale, Yscale;
@@ -653,21 +641,16 @@ public class Activity_MainActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         }
-
+        if (id == R.id.Exit) {
+            this.finish();
+            return true;
+        }
         if (id == R.id.apropos) {
             Intent i = new Intent(this, Activity_apropos.class);
             startActivity(i);
             return true;
         }
 
-        /*
-          if (id == R.id.apropos) {
-            Uri webpage = Uri.parse("file:///android_asset/img0.html");
-            Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            }
-        }*/
 
         return super.onOptionsItemSelected(item);
     }

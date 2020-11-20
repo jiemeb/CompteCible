@@ -1,5 +1,6 @@
 package com.herault.comptecible;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -52,17 +53,6 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         localActivity = this;
         setContentView(R.layout.activity_maintenance);
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkPermission()) {
-                // Code for above or equal 23 API Oriented Device
-                // Your Permission granted already .Do next code
-            } else {
-                requestPermission(); // Code for permission
-            }
-        } else {
-            // Code for Below 23 API Oriented Device
-            // Do next code
-        }
 
 
         progressBarExport = findViewById(R.id.am_progressBar);
@@ -219,6 +209,20 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
             }
         });
 
+// request write protection external memory
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkPermission()) {
+                // Code for above or equal 23 API Oriented Device
+                // Your Permission granted already .Do next code
+            } else {
+                requestPermission(); // Code for permission
+            }
+        } else {
+            // Code for Below 23 API Oriented Device
+            // Do next code
+        }
+
     }
     //-------------------------------------------------------------------
     // -------------------------------------------
@@ -295,13 +299,14 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     }
 
     private void updateUIAfterTask(Long taskEnd) {
-        progressBarExport.setVisibility(View.GONE);
+        progressBarExport.setVisibility(View.INVISIBLE);
         //   Toast.makeText(this, "Task is finally finished at : " + taskEnd + " !", Toast.LENGTH_SHORT).show();
     }
 
     //-----------------fin call back ExportASyncTAsk
+
     private boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(Activity_maintenance.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int result = ContextCompat.checkSelfPermission(getBaseContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -310,7 +315,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         if (ActivityCompat.shouldShowRequestPermissionRationale(Activity_maintenance.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Toast.makeText(Activity_maintenance.this, "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions(Activity_maintenance.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(Activity_maintenance.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
     }
 

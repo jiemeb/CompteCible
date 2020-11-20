@@ -18,8 +18,13 @@
         android:title="@string/Activity_resultat_round"
         app:showAsAction="never" />
     <item
+        android:id="@+id/Exit"
+        android:orderInCategory="104"
+        android:title="@string/Exit"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/apropos"
-        android:orderInCategory="103"
+        android:orderInCategory="104"
         android:title="@string/Apropos"
         app:showAsAction="never" />
 </menu>

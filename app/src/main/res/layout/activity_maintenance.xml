@@ -6,105 +6,186 @@
     android:layout_height="match_parent"
     tools:context=".Activity_maintenance">
 
+
     <Button
         android:id="@+id/am_bCleaDataBase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
         android:background="@drawable/am_buttonshape_red"
         android:text="@string/ClearDataBase"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/am_bSuppresArcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/am_buttonshape_sup_archer"
-        app:layout_constraintStart_toStartOf="@+id/am_bCleaDataBase"
-        app:layout_constraintTop_toBottomOf="@+id/am_bCleaDataBase"
-        tools:text="archer" />
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        app:layout_constraintBottom_toTopOf="@id/table1"
+        app:layout_constraintStart_toStartOf="@id/am_bCleaDataBase"
+        app:layout_constraintTop_toBottomOf="@id/am_bCleaDataBase"
+        app:layout_constraintVertical_bias="0.0">
 
-    <Spinner
-        android:id="@+id/am_sArcher"
-        android:layout_width="213dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="40dp"
-        android:background="@drawable/it_style"
-        android:gravity="center_horizontal"
-        app:layout_constraintStart_toEndOf="@+id/am_bSuppresArcher"
-        app:layout_constraintTop_toTopOf="@+id/am_bSuppresArcher" />
 
-    <Button
-        android:id="@+id/am_bSup_round"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/am_buttonshape_sup_round"
-        app:layout_constraintStart_toStartOf="@+id/am_bSuppresArcher"
-        app:layout_constraintTop_toBottomOf="@+id/am_bSuppresArcher"
-        tools:text="@string/round" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-    <Spinner
-        android:id="@+id/sRound"
-        android:layout_width="213dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="40dp"
-        android:background="@drawable/it_style"
-        android:gravity="center_horizontal"
-        app:layout_constraintStart_toEndOf="@+id/am_bSup_round"
-        app:layout_constraintTop_toTopOf="@+id/am_bSup_round" />
+            <Button
+                android:id="@+id/am_bSuppresArcher"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/am_buttonshape_sup_archer"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                tools:text="archer" />
 
-    <Button
-        android:id="@+id/am_bexport_archer_rounds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/am_buttonshape_grey"
-        android:text="@string/am_bexport_archer_round"
-        app:layout_constraintStart_toStartOf="@+id/am_bSup_round"
-        app:layout_constraintTop_toBottomOf="@+id/am_bSup_round" />
+            <Spinner
+                android:id="@+id/am_sArcher"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/it_style"
+                app:layout_constraintStart_toEndOf="@id/am_bSuppresArcher"
+                app:layout_constraintTop_toTopOf="@+id/am_bSuppresArcher" />
+        </TableRow>
 
-    <Button
-        android:id="@+id/am_bexport_round_archers"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/am_buttonshape_grey"
-        android:text="@string/am_bexport_round_archers"
-        app:layout_constraintStart_toStartOf="@+id/am_bexport_archer_rounds"
-        app:layout_constraintTop_toBottomOf="@+id/am_bexport_archer_rounds" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-    <Button
-        android:id="@+id/am_bexport_round_archer"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/am_buttonshape_grey"
-        android:text="@string/am_bexport_round_archer"
-        app:layout_constraintStart_toStartOf="@+id/am_bexport_round_archers"
-        app:layout_constraintTop_toBottomOf="@+id/am_bexport_round_archers" />
+            <Button
+                android:id="@+id/am_bSup_round"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/am_buttonshape_sup_round"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                tools:text="@string/round" />
 
-    <ProgressBar
-        android:id="@+id/am_progressBar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="360dp"
-        android:layout_height="53dp"
-        android:layout_marginBottom="36dp"
-        android:indeterminate="false"
-        android:max="100"
-        android:visibility="gone"
+            <Spinner
+                android:id="@+id/sRound"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/it_style"
+                app:layout_constraintStart_toEndOf="@id/am_bSup_round"
+                app:layout_constraintTop_toTopOf="@id/am_bSup_round" />
+        </TableRow>
+    </TableLayout>
+
+
+    <TableLayout
+        android:id="@+id/table1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/am_bexport_archer_rounds" />
+        app:layout_constraintTop_toBottomOf="@id/table">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="41dp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/am_bexport_archer_rounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="2"
+                android:background="@drawable/am_buttonshape_grey"
+                android:text="@string/am_bexport_archer_round"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/am_bexport_round_archers"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="2"
+                android:background="@drawable/am_buttonshape_grey"
+                android:text="@string/am_bexport_round_archers"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/am_bexport_round_archer"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="2"
+                android:background="@drawable/am_buttonshape_grey"
+                android:text="@string/am_bexport_round_archer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="41dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/am_progressBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="53dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:indeterminate="false"
+                android:max="100"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </TableRow>
+    </TableLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

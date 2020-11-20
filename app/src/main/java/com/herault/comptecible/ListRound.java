@@ -8,19 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.ColorRes;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 class ListRound extends ArrayAdapter<Resultat_archer> {
     private final Context _context;
-    private ArrayList<Resultat_archer> _AResultat;
+
     public ListRound(Context context, ArrayList<Resultat_archer> AResultat) {
         super(context, R.layout.resultat, AResultat);
         _context = context;
-        _AResultat = AResultat;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -42,10 +39,10 @@ class ListRound extends ArrayAdapter<Resultat_archer> {
         }
 
 
-        viewHolder.viewName.setText(Objects.requireNonNull(resultat_archer).getName());
+        viewHolder.viewName.setText(resultat_archer.getName());
         viewHolder.score.setText(Long.toString(resultat_archer.getValue()));
 
-        viewHolder.dummy.setText(Objects.requireNonNull(resultat_archer).getInformation());
+        viewHolder.dummy.setText(resultat_archer.getInformation());
         if ((position & 1) != 1) {
             viewHolder.viewName.setBackgroundColor(0xFFAA84DF);
             viewHolder.score.setBackgroundColor(0xFFAA84DF);
