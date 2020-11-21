@@ -334,7 +334,7 @@ public class Activity_image_resultat extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
+   //--  archer by concours
     private void drawResultArcherRound(String archer) {
 
         DisplayMetrics metrics = new DisplayMetrics();
@@ -348,10 +348,7 @@ public class Activity_image_resultat extends AppCompatActivity {
 
 
         List<Resultat_archer> lresultat;
-        String[] friends = new String[]{
-                "0", "1", "2", "3", "4", "5",
-                "6", "7", "8", "9", "10"
-        };
+
 
 
         // Creating an XYSeries for Height
@@ -408,11 +405,11 @@ public class Activity_image_resultat extends AppCompatActivity {
         // setting zoom buttons visiblity
         renderer.setZoomButtonsVisible(true);
         // setting pan enablity which uses graph to move on both axis
-        renderer.setPanEnabled(true, true);
+        renderer.setPanEnabled(true, false);
         // setting click false on graph
-        renderer.setClickEnabled(false);
+        renderer.setClickEnabled(true);
         // setting zoom to false on both axis
-        renderer.setZoomEnabled(false, false);
+        renderer.setZoomEnabled(true, false);
         // setting lines to display on y axis
         renderer.setShowGridY(true);
         // setting lines to display on x axis
@@ -452,7 +449,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         renderer.setXAxisMin(-0.5);
         // setting used to move the graph on xaxiz to .5 to the right
         //       renderer.setXAxisMax(lresultat.size());
-        renderer.setXAxisMax(5);
+        renderer.setXAxisMax(4);
         // setting bar size or space between two bars
         renderer.setBarSpacing(0.5);
         // Setting background color of the graph to transparent
