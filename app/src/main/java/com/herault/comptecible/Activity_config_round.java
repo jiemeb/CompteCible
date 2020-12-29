@@ -304,7 +304,13 @@ public class Activity_config_round extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-       /* if (adapterRound.getCount() != 0 && roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
+
+        if ( roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
+            if (adapterRound.isEmpty())
+            {
+                stock.addArcher(getResources().getString(R.string.me), false); //If Ok in Base
+                adapterRound.add(getResources().getString(R.string.me));  // put in list
+            }
             stock.dropArchers(true);
             stock.insertArray(adapterRound._archers, true);
             Activity_config_round.this.finish(); // Kill config_run
@@ -330,9 +336,9 @@ public class Activity_config_round extends AppCompatActivity {
             else
                 INumberEndByRound.setBackgroundColor(Color.WHITE);
 
-        } */
-        Toast.makeText(this, getResources().getString(R.string.useButton) + " : \"" + getResources().getString(R.string.let_sgo) + "\"",
-                Toast.LENGTH_SHORT).show();
+        }
+   //     Toast.makeText(this, getResources().getString(R.string.useButton) + " : \"" + getResources().getString(R.string.let_sgo) + "\"",
+    //            Toast.LENGTH_SHORT).show();
     }
 
 }
