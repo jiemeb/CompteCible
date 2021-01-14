@@ -6,22 +6,77 @@
     android:layout_height="match_parent"
     tools:context=".Activity_apropos">
 
-    <TextView
-        android:id="@+id/app_version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="Version"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <WebView
-        android:id="@+id/apropos_webview"
+
+
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@+id/app_version"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+   >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/app_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Version"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.534"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </TableRow>
+
+
+        <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_rowWeight="20"
+        android:layout_weight="20">
+
+     <ImageView
+     android:id="@+id/apropos_doc"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/app_version" />
+
+
+
+</TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_rowWeight="1"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/bPreviousArcher"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintDimensionRatio="1"
+            android:layout_rowWeight="1"
+            android:layout_weight="1"
+            android:background="@drawable/am_buttonshape_previous_archer" />
+
+        <Button
+            android:id="@+id/bNextArcher"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/am_buttonshape_next_archer"
+            app:layout_constraintDimensionRatio="1"
+            android:layout_rowWeight="1"
+            android:layout_weight="1"
+            android:top="0dp" />
+
+     </TableRow>
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

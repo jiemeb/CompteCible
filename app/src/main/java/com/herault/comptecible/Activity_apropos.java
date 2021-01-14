@@ -1,17 +1,29 @@
 package com.herault.comptecible;
 
-import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Activity_apropos extends AppCompatActivity {
 
+    int index = 0 ;
+    int pageId[] = {R.drawable.doc_page1 ,
+            R.drawable.doc_page2 ,
+            R.drawable.doc_page3 ,
+            R.drawable.doc_page4 ,
+            R.drawable.doc_page5 ,
+            R.drawable.doc_page6 ,
+            R.drawable.doc_page7
+    } ;
+    ImageView docView ;
+    Button bp_next;
+    Button bp_previous;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +44,41 @@ public class Activity_apropos extends AppCompatActivity {
         TextView Version = findViewById(R.id.app_version);
         Version.setText(version);
 
-        WebView mywebView = (WebView) findViewById(R.id.apropos_webview);
-        mywebView.loadUrl("file:///android_asset/guide.html");
+        bp_next = findViewById(R.id.bNextArcher);
 
-        mywebView.setWebViewClient(new WebViewClient() {
+        bp_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            public boolean shouldOverrideUrlLoading(WebView view, String urlx) {
-                view.loadUrl(urlx);
-                return false;
+            index ++ ;
+            if  (index >= pageId.length)
+                    index = pageId.length -1 ;
+                docView.setBackground(getResources().getDrawable(pageId[index]));
+
             }
-
         });
+
+
+
+        bp_previous = findViewById(R.id.bPreviousArcher);
+        bp_previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                index -- ;
+                if  (index <= 0)
+                    index = 0 ;
+                docView.setBackground(getResources().getDrawable(pageId[index]));
+            }
+        });
+
+
+         docView =  findViewById(R.id.apropos_doc);
+    //    WebView  = (WebView) findViewById(R.id.apropos_webview);
+        docView.setBackground(getResources().getDrawable(pageId[index]));
+
+
+
 
 
     }
