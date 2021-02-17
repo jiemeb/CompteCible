@@ -54,4 +54,7 @@
     <string name="circle_of_success">circle of success</string>
     <string name="Exit">exit</string>
     <string name="me">Me</string>
+    <string name="note">note</string>
+    <string name="archers">archers</string>
+    <string name="archersNotes">Notes of archers</string>
 </resources>

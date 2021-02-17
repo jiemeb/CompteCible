@@ -55,4 +55,7 @@
     <string name="circle_of_success">cercle de réussite</string>
     <string name="Exit">Sortie</string>
     <string name="me">Moi</string>
+    <string name="note">note</string>
+    <string name="archers">archers</string>
+    <string name="archersNotes">Notes de l\'archer</string>
 </resources>

@@ -19,14 +19,14 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_weight="1">
 
             <TextView
                 android:id="@+id/app_version"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:contentDescription="Version"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -38,14 +38,14 @@
 
         <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_rowWeight="20"
         android:layout_weight="20">
 
      <ImageView
      android:id="@+id/apropos_doc"
      android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
+     android:layout_height="match_parent"
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toBottomOf="@+id/app_version" />
 
@@ -54,14 +54,23 @@
 </TableRow>
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_rowWeight="1"
         android:layout_weight="1">
+        <Button
+            android:id="@+id/CibleG"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintDimensionRatio="1"
+            android:layout_rowWeight="1"
+            android:layout_weight=".8"
+            android:background="@drawable/ic_cible" />
+
 
         <Button
             android:id="@+id/bPreviousArcher"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintDimensionRatio="1"
             android:layout_rowWeight="1"
             android:layout_weight="1"
@@ -69,14 +78,23 @@
 
         <Button
             android:id="@+id/bNextArcher"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/am_buttonshape_next_archer"
             app:layout_constraintDimensionRatio="1"
             android:layout_rowWeight="1"
             android:layout_weight="1"
             android:top="0dp" />
+        <Button
+            android:id="@+id/CibleD"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintDimensionRatio="1"
+            android:layout_rowWeight=".8"
+            android:layout_weight=".8"
+            android:background="@drawable/ic_cible" />
 
-     </TableRow>
+
+    </TableRow>
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

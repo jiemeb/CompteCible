@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Handler;
+//import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -45,7 +45,7 @@ public class Activity_config_round extends AppCompatActivity {
     private Spinner SRoundName = null;
     private List<String> lRoundName;
     private ArrayAdapter adapterRoundName;
-    private Handler h;
+    //   private Handler h;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class Activity_config_round extends AppCompatActivity {
         });
 
 
-        h = new Handler();
+        //      h = new Handler();
 
         lArcherBase = findViewById(R.id.archersBase);
         lArcherRound = findViewById(R.id.archersRound);
@@ -305,9 +305,8 @@ public class Activity_config_round extends AppCompatActivity {
 
     public void onBackPressed() {
 
-        if ( roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
-            if (adapterRound.isEmpty())
-            {
+        if (roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
+            if (adapterRound.isEmpty()) {
                 stock.addArcher(getResources().getString(R.string.me), false); //If Ok in Base
                 adapterRound.add(getResources().getString(R.string.me));  // put in list
             }
@@ -337,8 +336,8 @@ public class Activity_config_round extends AppCompatActivity {
                 INumberEndByRound.setBackgroundColor(Color.WHITE);
 
         }
-   //     Toast.makeText(this, getResources().getString(R.string.useButton) + " : \"" + getResources().getString(R.string.let_sgo) + "\"",
-    //            Toast.LENGTH_SHORT).show();
+        //     Toast.makeText(this, getResources().getString(R.string.useButton) + " : \"" + getResources().getString(R.string.let_sgo) + "\"",
+        //            Toast.LENGTH_SHORT).show();
     }
 
 }

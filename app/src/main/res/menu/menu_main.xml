@@ -8,6 +8,11 @@
         android:title="@string/config_round"
         app:showAsAction="never" />
     <item
+        android:id="@+id/archerMenu"
+        android:orderInCategory="101"
+        android:title="@string/archersNotes"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/maintenance"
         android:orderInCategory="101"
         android:title="@string/activity_maintenance"

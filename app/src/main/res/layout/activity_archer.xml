@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_archer">
+
+    <Spinner
+        android:id="@+id/sp_archer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:focusable="true"
+        android:background="@drawable/it_style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/archer_information"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="4"
+        android:ems="8"
+        android:textSize="14sp"
+        android:inputType="textMultiLine|text"
+        android:background="#EADCB1"
+        android:text="Information"
+        app:layout_constraintStart_toEndOf="@id/sp_archer"
+        app:layout_constraintTop_toBottomOf="@id/sp_archer" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/archer_information"
+        app:layout_constraintTop_toBottomOf="@id/archer_information">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9">
+
+            <ListView
+                android:id="@+id/note"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/note"
+                android:visibility="visible" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <TextView
+
+                android:id="@+id/dummy1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="7"
+                android:layout_weight="7"
+                android:top="0dp" />
+            <Button
+                android:id="@+id/bPlus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ar_buttonshape_add"
+                app:layout_constraintDimensionRatio="1"
+                android:layout_rowWeight="1"
+                android:layout_weight="1"
+                android:top="0dp" />
+
+        </TableRow>
+    </TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

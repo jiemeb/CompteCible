@@ -44,6 +44,7 @@ public class Activity_MainActivity extends AppCompatActivity {
 
     private TextView arrowValue = null;
     private TextView endNumber = null;
+    private TextView end = null;
     private Spinner archer = null;
     private long archer_id = 0;
     private EditText result = null;
@@ -211,8 +212,6 @@ public class Activity_MainActivity extends AppCompatActivity {
 
 
 
-
-
         /* On definit une présentation du spinner quand il est déroulé         (android.R.layout.simple_spinner_dropdown_item) */
         adapter_archer.setDropDownViewResource(R.layout.spinner_generale);
         //Enfin on passe l'adapter au Spinner et c'est tout
@@ -237,6 +236,7 @@ public class Activity_MainActivity extends AppCompatActivity {
         });
 
         arrowValue = findViewById(R.id.ArrowValue);
+        end = findViewById(R.id.textEnd);
         endNumber = findViewById(R.id.endNumber);
         result = findViewById(R.id.result);
         Button b1 = findViewById(R.id.button1);
@@ -382,14 +382,17 @@ public class Activity_MainActivity extends AppCompatActivity {
                 Log.d("CompteCible", "updateview " + Integer.toString(k) + " " + roundName);
 
                 long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);  // Number of Arrow
-                endNumber.setText(Long.toString((arrowIndex / NumberArrow) + 1));
+
 
                 if (!(arrowIndex < NumberArrow * NumberEndByRound)) {
-                    endNumber.setText(getResources().getString(R.string.EndRound));
+                    end.setText(getResources().getString(R.string.EndRound));
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.EndRound) + " " + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
                 }
-
-
+                else
+                {
+                    end.setText(getResources().getString(R.string.End));
+                    endNumber.setText(Long.toString((arrowIndex / NumberArrow) + 1));
+                }
                 List<Resultat_archer> resultat_fleches = null;
                 resultat_fleches = stock.getResultatArrows(archer.getSelectedItem().toString(), roundName);
 
@@ -626,6 +629,12 @@ public class Activity_MainActivity extends AppCompatActivity {
         if (id == R.id.config_round) {
 
             Intent i = new Intent(this, Activity_config_round.class);
+            startActivity(i);
+            return true;
+        }
+        if (id == R.id.archerMenu) {
+
+            Intent i = new Intent(this, Activity_archer.class);
             startActivity(i);
             return true;
         }

@@ -19,7 +19,9 @@ public class Activity_apropos extends AppCompatActivity {
             R.drawable.doc_page4 ,
             R.drawable.doc_page5 ,
             R.drawable.doc_page6 ,
-            R.drawable.doc_page7
+            R.drawable.doc_page7 ,
+            R.drawable.doc_page8 ,
+
     } ;
     ImageView docView ;
     Button bp_next;
@@ -77,9 +79,23 @@ public class Activity_apropos extends AppCompatActivity {
     //    WebView  = (WebView) findViewById(R.id.apropos_webview);
         docView.setBackground(getResources().getDrawable(pageId[index]));
 
+    Button bpCibleG = findViewById(R.id.CibleG);
 
+        bpCibleG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity_apropos.this.finish();
+            }
+        });
 
+        Button bpCibleD = findViewById(R.id.CibleD);
 
+        bpCibleD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity_apropos.this.finish();
+            }
+        });
 
     }
 

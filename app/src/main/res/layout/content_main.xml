@@ -4,134 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".Activity_MainActivity">
 
+
+        <EditText
+            android:id="@+id/result"
+            android:layout_width="183dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="3dp"
+            android:autofillHints=" "
+            android:background="@drawable/it_style"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="end"
+            android:inputType="textMultiLine"
+            android:labelFor="@id/result"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/linearLayout"/>
+
+        <TextView
+            android:id="@+id/ArrowValue"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/am_arrow_style"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toRightOf="@id/result"
+            app:layout_constraintTop_toTopOf="@id/result" />
+
+        <Spinner
+            android:id="@+id/archer"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/it_style"
+            android:text="@string/archer"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/endNumber"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toEndOf="@id/ArrowValue"
+            app:layout_constraintTop_toTopOf="@id/ArrowValue"
+            app:layout_constraintVertical_bias="0.0" />
+
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textEnd"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/result" />
-
-
-    <EditText
-        android:id="@+id/result"
-        android:autofillHints=" "
-        android:layout_width="183dp"
-        android:layout_height="91dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/it_style"
-        android:focusable="false"
-        android:ems="10"
-        android:gravity="end"
-        android:inputType="textMultiLine"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        android:labelFor="@id/result"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/ArrowValue"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/am_arrow_style"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintLeft_toRightOf="@id/result"
-        app:layout_constraintTop_toTopOf="@id/result" />
-
-    <Spinner
-        android:id="@+id/archer"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
-        android:text="@string/archer"
+        android:text="@string/End"
         android:textSize="14sp"
-        android:background="@drawable/it_style"
-        app:layout_constraintBottom_toTopOf="@id/endNumber"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toEndOf="@id/ArrowValue"
-        app:layout_constraintTop_toTopOf="@id/ArrowValue"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/ArrowValue"
+        app:layout_constraintTop_toBottomOf="@id/archer" />
+
 
     <TextView
         android:id="@+id/endNumber"
-        android:layout_width="179dp"
+        android:layout_width="40dp"
         android:layout_height="23dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toEndOf="@id/textEnd"
-        app:layout_constraintTop_toBottomOf="@id/archer"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="68dp" />
-
-    <TextView
-        android:id="@+id/textEnd"
-        android:layout_width="46dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="12dp"
-        android:text="@string/End"
-        app:layout_constraintStart_toEndOf="@+id/ArrowValue"
         app:layout_constraintTop_toBottomOf="@id/archer" />
-
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_marginBottom="3dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/linearLayout3"
+        app:layout_constraintStart_toStartOf="@id/result"
         app:layout_constraintTop_toBottomOf="@id/result">
 
         <ImageView
             android:id="@+id/imageCible"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:background="@drawable/ic_cible"
             android:contentDescription="DessinCible"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout"
-        app:layout_constraintVertical_bias="0.060000002">
 
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
+
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:id="@+id/linearLayout3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout3">
-
+            app:layout_constraintTop_toBottomOf="@id/linearLayout">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -271,7 +258,7 @@
 
                 <Button
                     android:id="@+id/bPreviousArcher"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:layout_constraintDimensionRatio="1"
                     android:layout_rowWeight="1"
@@ -280,7 +267,7 @@
 
                 <Button
                     android:id="@+id/bNextArcher"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/am_buttonshape_next_archer"
                     app:layout_constraintDimensionRatio="1"
@@ -291,7 +278,7 @@
             </TableRow>
         </TableLayout>
 
-    </LinearLayout>
+
 
 
 
