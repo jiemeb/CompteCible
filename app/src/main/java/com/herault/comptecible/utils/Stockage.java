@@ -744,11 +744,11 @@ public class Stockage {
         final int cursorIdColNumber = 0, cursorNameColNumber = 1;
         if (round) {
             cursor = db.query(Db_resultat.Constants.ARCHERS_ROUND, projections, null,
-                    null, null, null, null, null);
+                    null, null, null, Db_resultat.Constants.KEY_ID_ARCHERS, null);
             //displayResults(cursor);
         } else {
             cursor = db.query(Db_resultat.Constants.ARCHERS, projections, null,
-                    null, null, null, null, null);
+                    null, null, null, Db_resultat.Constants.KEY_COL_NAME, null);
             // displayResults(cursor);
         }
 

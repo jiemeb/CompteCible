@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity_apropos">
 
 
@@ -24,14 +25,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-
+        android:contentDescription="Target"
         app:layout_constraintDimensionRatio="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_version" />
+        app:layout_constraintStart_toStartOf="@id/app_version"
+        app:layout_constraintTop_toBottomOf="@+id/app_version"
+        app:layout_constraintEnd_toStartOf="@id/ap_table"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:id="@+id/ap_table"
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         android:gravity="right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/apropos_doc"
@@ -41,37 +46,41 @@
         <Button
             android:id="@+id/CibleG"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".8"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:background="@drawable/ic_cible"
-            app:layout_constraintDimensionRatio="1" />
+            app:layout_constraintDimensionRatio=".5"
+            app:layout_constraintEnd_toStartOf="@id/bPreviousArcher" />
 
 
         <Button
             android:id="@+id/bPreviousArcher"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/am_buttonshape_previous_archer"
             app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toStartOf="@id/bNextArcher"
             app:layout_constraintTop_toBottomOf="@id/CibleG" />
 
         <Button
             android:id="@+id/bNextArcher"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/am_buttonshape_next_archer"
             app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toStartOf="@id/CibleD"
             app:layout_constraintTop_toBottomOf="@id/bPreviousArcher" />
 
         <Button
             android:id="@+id/CibleD"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".8"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:background="@drawable/ic_cible"
-            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintDimensionRatio=".5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bNextArcher" />
 
 

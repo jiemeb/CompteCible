@@ -2,6 +2,8 @@ package com.herault.comptecible;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -70,10 +72,18 @@ public class Activity_archer extends AppCompatActivity {
         archer_information
          */
         archer_information = findViewById(R.id.archer_information);
-        archer_information.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+        archer_information.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
                 archerInformationChanged = true;
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
 

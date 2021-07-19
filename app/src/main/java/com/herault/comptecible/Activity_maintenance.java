@@ -211,7 +211,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
 // request write protection external memory
 
-        if (Build.VERSION.SDK_INT >= 23) {
+   /*    if (Build.VERSION.SDK_INT >= 23) {
             if (checkPermission()) {
                 // Code for above or equal 23 API Oriented Device
                 // Your Permission granted already .Do next code
@@ -221,7 +221,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         } else {
             // Code for Below 23 API Oriented Device
             // Do next code
-        }
+        } */
 
     }
     //-------------------------------------------------------------------
@@ -248,9 +248,9 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
         //      File file = new File(getExternalFilesDir(""), name[0] + ".csv");
         File file;
-        file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath(), name[0] + ".csv");
+    //    file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath(), name[0] + ".csv");
 
-        //  file = new File(getExternalFilesDir(""),name[0] + ".csv");
+        file = new File(getExternalFilesDir(""),name[0] + ".csv");
         try {
             OutputStream os = new FileOutputStream(file);
             //          byte[] data = new byte[is.available()];

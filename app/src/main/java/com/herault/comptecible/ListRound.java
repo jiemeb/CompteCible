@@ -44,9 +44,9 @@ class ListRound extends ArrayAdapter<Resultat_archer> {
 
         viewHolder.dummy.setText(resultat_archer.getInformation());
         if ((position & 1) != 1) {
-            viewHolder.viewName.setBackgroundColor(0xFFAA84DF);
-            viewHolder.score.setBackgroundColor(0xFFAA84DF);
-            viewHolder.dummy.setBackgroundColor(0xFFAA84DF);
+            viewHolder.viewName.setBackgroundColor(0xFFC5BFA8);
+            viewHolder.score.setBackgroundColor(0xFFC5BFA8);
+            viewHolder.dummy.setBackgroundColor(0xFFC5BFA8);
         } else {
             viewHolder.viewName.setBackgroundColor(Color.WHITE);
             viewHolder.score.setBackgroundColor(Color.WHITE);
