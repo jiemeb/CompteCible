@@ -42,9 +42,10 @@
             android:label="CompteCible"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity_image_resultat"
+            android:name=".Activity_resultat_image"
             android:label="CompteCible"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Activity_apropos"
             android:label="CompteCible"

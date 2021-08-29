@@ -23,7 +23,6 @@ import com.herault.comptecible.utils.Stockage;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart.Type;
-import org.achartengine.chart.BarChart;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
@@ -32,7 +31,7 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import java.util.List;
 
 
-public class Activity_image_resultat extends AppCompatActivity {
+public class Activity_resultat_image extends AppCompatActivity {
     protected Activity context;
 
     private Stockage stock = null;
@@ -45,7 +44,7 @@ public class Activity_image_resultat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_image_resultat);
+        setContentView(R.layout.activity_resultat_image);
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
 
@@ -108,7 +107,7 @@ public class Activity_image_resultat extends AppCompatActivity {
 
 
     }
-
+    // Draw Impact on target
     private void drawResultRound(String round, String archer) {
 
         //    ImageView imageView = (ImageView) findViewById(R.id.air_layoutImage);
@@ -328,7 +327,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         chartContainer.removeAllViews();
         //drawing bar chart
 
-        GraphicalView chart = ChartFactory.getBarChartView(Activity_image_resultat.this, dataset, renderer, Type.STACKED);
+        GraphicalView chart = ChartFactory.getBarChartView(Activity_resultat_image.this, dataset, renderer, Type.STACKED);
         // adding the view to the linearlayout
         chartContainer.addView(chart);
 
@@ -476,7 +475,7 @@ public class Activity_image_resultat extends AppCompatActivity {
         chartContainer.removeAllViews();
         //drawing bar chart
 
-        GraphicalView chart = ChartFactory.getBarChartView(Activity_image_resultat.this, dataset, renderer, Type.DEFAULT);
+        GraphicalView chart = ChartFactory.getBarChartView(Activity_resultat_image.this, dataset, renderer, Type.DEFAULT);
         // adding the view to the linearlayout
         chartContainer.addView(chart);
 

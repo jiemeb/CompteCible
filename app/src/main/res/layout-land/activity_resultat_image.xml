@@ -5,7 +5,7 @@
     android:id="@+id/activity_image_resultat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_image_resultat">
+    tools:context=".Activity_resultat_image">
 
     <TextView
         android:id="@+id/air_archer"

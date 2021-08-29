@@ -1,25 +1,18 @@
 package com.herault.comptecible;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.herault.comptecible.utils.Stockage;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -146,21 +139,26 @@ public class Activity_resultat_round extends AppCompatActivity {
                 Resultat_archer rArcher = lresultat.get(position);
                 if (archer.getSelectedItem().toString().equals("***")) //if true  result Round
                 {
-
-                    //            drawResultRound( round.getSelectedItem().toString(),rArcher.name) ;
-
                     // Start
-          /*          LinkedList<String> list = new LinkedList<String>();
-                    list.add(round.getSelectedItem().toString());
-                    list.add(rArcher.name); */
-                    Intent intent = new Intent(Activity_resultat_round.this, Activity_image_resultat.class);
+
+                    Intent intent = new Intent(Activity_resultat_round.this, Activity_resultat_image.class);
                     intent.putExtra("round", round.getSelectedItem().toString());
                     intent.putExtra("name", rArcher.name);
                     startActivity(intent);
 
                 } else                                                    // resultat Archer
                 {
-                    ImageView imageView = findViewById(R.id.res_image_resultat);
+                   // ImageView imageView = findViewById(R.id.res_image_resultat);
+                    // Here I must get round name in lresultat  and Archer in archer spinner
+                    //            drawResultRound( round.getSelectedItem().toString(),rArcher.name) ;
+
+                    Intent intent = new Intent(Activity_resultat_round.this, Activity_resultat_image.class);
+                    intent.putExtra("round", rArcher.name);       // content rarcher are round name
+                    intent.putExtra("name", archer.getSelectedItem().toString());
+                    startActivity(intent);
+
+
+
 
                 }
 
