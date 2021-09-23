@@ -14,13 +14,13 @@ class Db_resultat extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLE_ARCHERS = "create table "
             + Constants.ARCHERS + "(" + Constants.KEY_ID_ARCHERS
             + " INTEGER primary key autoincrement, "
-            + Constants.KEY_COL_NAME + " TEXT UNIQUE, "
+            + Constants.KEY_COL_NAME + " TEXT UNIQUE ,"
             + Constants.KEY_COL_INFORMATION + " TEXT " + ")  ";
 
     private static final String DATABASE_CREATE_TABLE_ARCHERS_ROUND = "create table "
             + Constants.ARCHERS_ROUND + "(" + Constants.KEY_ID_ARCHERS
             + " INTEGER primary key autoincrement, "
-            + Constants.KEY_COL_NAME + " TEXT UNIQUE, "
+            + Constants.KEY_COL_NAME + " TEXT  UNIQUE , "
             + Constants.KEY_COL_INFORMATION + " TEXT " + ")  ";
 
 
@@ -38,8 +38,8 @@ class Db_resultat extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE_TABLE_ROUNDS = "create table "
             + Constants.ROUNDS + "(" + Constants.KEY_ID_ROUNDS
-            + " INTEGER primary key autoincrement, " + Constants.KEY_COL_ROUND_NAME + " TEXT UNIQUE, "
-            + Constants.KEY_COL_ROUND_TYPE + " TEXT UNIQUE) ";
+            + " INTEGER primary key autoincrement, " + Constants.KEY_COL_ROUND_NAME + " TEXT UNIQUE , "
+            + Constants.KEY_COL_ROUND_TYPE + " TEXT ) ";
 
     private static final String DATABASE_CREATE_TABLE_RESULTATS = "create table "
             + Constants.RESULTATS + "("
@@ -97,6 +97,16 @@ class Db_resultat extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE "+ Constants.ARCHERS_ROUND + " ADD "  + Constants.KEY_COL_INFORMATION + " TEXT"  );
             db.execSQL(DATABASE_CREATE_TABLE_ARCHER_NOTES);
             }
+        else  if (oldVersion == 24 && newVersion == 25)
+        {
+
+             db.execSQL( "create table TEMPORAIRE(" + Constants.KEY_ID_ROUNDS
+                    + " INTEGER primary key autoincrement, " + Constants.KEY_COL_ROUND_NAME + " TEXT UNIQUE , "
+                    + Constants.KEY_COL_ROUND_TYPE + " TEXT ) ");
+             db.execSQL("INSERT INTO TEMPORAIRE SELECT * FROM "+Constants.ROUNDS);
+             db.execSQL("DROP TABLE "+Constants.ROUNDS);
+             db.execSQL("ALTER TABLE TEMPORAIRE RENAME TO "+ Constants.ROUNDS);
+        }
         else
             {
             // Drop the old database
@@ -120,7 +130,7 @@ class Db_resultat extends SQLiteOpenHelper {
         // The database name
         public static final String DATABASE_NAME = "resultat.db";
         // The database version
-        public static final int DATABASE_VERSION = 24;
+        public static final int DATABASE_VERSION = 25;
 // -----------------------
         // The table Name
         public static final String ARCHERS = "archers";

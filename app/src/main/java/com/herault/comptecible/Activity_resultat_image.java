@@ -7,10 +7,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -39,6 +42,7 @@ public class Activity_resultat_image extends AppCompatActivity {
     private String name = "";
     private ImageView imageView = null;
     private LinearLayout chartContainer = null;
+    private EditText filter =null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,20 @@ public class Activity_resultat_image extends AppCompatActivity {
 
         round = this.getIntent().getStringExtra("round");
         name = this.getIntent().getStringExtra("name");
+
+        filter = findViewById(R.id.res_i_round_filter);
+        filter.setText(stock.getValue("filter"));
+
+        filter.addTextChangedListener(new   TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                String name = filter.getText().toString().trim();
+                stock.updateValue("filter", name);
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
 
         TextView t_round = findViewById(R.id.air_round);
         t_round.setText(round);
@@ -353,7 +371,10 @@ public class Activity_resultat_image extends AppCompatActivity {
         // Creating an XYSeries for Height
         XYSeries expenseSeries = new XYSeries(getResources().getString(R.string.air_Tittle_Axe_X_round));
         // Adding data to Height Series
-        lresultat = stock.getResultatAllRound(archer);
+        if (filter.getText().length() != 0)
+            lresultat = stock.getResultatAllRound(archer,filter.getText().toString().split("\\s+")); // regex \s = space in Java must be escape
+        else
+            lresultat = stock.getResultatAllRound(archer);
         int i = 0;
         long value_max = 0;
         for (Resultat_archer r : lresultat) {

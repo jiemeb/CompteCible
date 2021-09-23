@@ -58,4 +58,6 @@
     <string name="note">note</string>
     <string name="archers">archers</string>
     <string name="archersNotes">Notes de l\'archer</string>
+    <string name="RoundQualifier">tag</string>
+    <string name="resRoundFilter">filtre</string>
 </resources>

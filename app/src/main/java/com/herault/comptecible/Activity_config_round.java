@@ -25,8 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static androidx.constraintlayout.solver.widgets.ConstraintWidget.GONE;
-import static androidx.constraintlayout.solver.widgets.ConstraintWidget.VISIBLE;
+//import static androidx.constraintlayout.solver.widgets.ConstraintWidget.GONE;
+//import static androidx.constraintlayout.solver.widgets.ConstraintWidget.VISIBLE;
 
 
 public class Activity_config_round extends AppCompatActivity {
@@ -40,6 +40,7 @@ public class Activity_config_round extends AppCompatActivity {
     private EditText roundName = null;
     private EditText INumberArrow = null;
     private EditText INumberEndByRound = null;
+    private EditText roundQualifier = null ;
     Button bAddArcher;
     private ListView lArcherRound, lArcherBase;
     private Spinner SRoundName = null;
@@ -65,6 +66,9 @@ public class Activity_config_round extends AppCompatActivity {
                 if (adapterRound.getCount() != 0 && roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
                     stock.dropArchers(true);
                     stock.insertArray(adapterRound._archers, true);
+                    if (roundQualifier.getText().length() != 0) {
+                        stock.updateRound(roundName.getText().toString(), roundQualifier.getText().toString());
+                    }
                     Activity_config_round.this.finish(); // Kill config_run
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.configFill), Toast.LENGTH_SHORT).show();
@@ -94,6 +98,7 @@ public class Activity_config_round extends AppCompatActivity {
 
 
         //      h = new Handler();
+
 
         lArcherBase = findViewById(R.id.archersBase);
         lArcherRound = findViewById(R.id.archersRound);
@@ -127,6 +132,8 @@ public class Activity_config_round extends AppCompatActivity {
                 String name = roundName.getText().toString().trim();
                 if (!name.isEmpty())
                     stock.updateValue("roundName", name);
+                String qualif =stock.getRoundQualifier(name.toString());
+                roundQualifier.setText(stock.getRoundQualifier(name.toString()));
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -173,7 +180,7 @@ public class Activity_config_round extends AppCompatActivity {
         adapterRoundName.setDropDownViewResource(R.layout.spinner_generale);
         //Enfin on passe l'adapter au Spinner et c'est tout
         SRoundName.setAdapter(adapterRoundName);
-        // force item select whith round
+        // force item select with round
 
         SRoundName.setSelection(indexRound);
 
@@ -281,6 +288,16 @@ public class Activity_config_round extends AppCompatActivity {
             }
         });
 
+        roundQualifier = findViewById(R.id.roundQualifier);
+        roundQualifier.setText(stock.getRoundQualifier(roundName.toString()));
+        roundQualifier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+            }
+        });
 
     }
 
@@ -312,6 +329,9 @@ public class Activity_config_round extends AppCompatActivity {
             }
             stock.dropArchers(true);
             stock.insertArray(adapterRound._archers, true);
+            if (roundQualifier.getText().length() != 0) {
+                stock.updateRound(roundName.getText().toString(), roundQualifier.getText().toString());
+            }
             Activity_config_round.this.finish(); // Kill config_run
         } else {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.configFill), Toast.LENGTH_SHORT).show();

@@ -3,5 +3,7 @@ Activity_MainActivity 		: panneau avec l'image de la cible
 Activity_maintenance		: panneau de maintenance
 Activity_resultat_round 	: premier panneau de résultat
     Activity_resultat_image		: panneau des résultats impact, arrow by value, Resultat archer
-    Activity_resultat_round_arrow : panneau details concours
+    Activity_resultat_round : panneau details concours
 Activity_Config_round		: panneau de configuration d'un concours
+Activity_archer             : panneau d'information sur l'archer
+Activity_apropos            : version logiciel et documentation d'utilisation

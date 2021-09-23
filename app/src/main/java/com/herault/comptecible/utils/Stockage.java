@@ -176,18 +176,28 @@ public class Stockage {
     }
 //-------------------------------------------------------------------
     // get for  archer  result for all round
+public List<Resultat_archer> getResultatAllRound(String name_archer) {
+        String filter[]= {};
+        return getResultatAllRound( name_archer ,  filter) ;
+}
 
-    public List<Resultat_archer> getResultatAllRound(String name_archer) {
+public List<Resultat_archer> getResultatAllRound(String name_archer , String[] filter) {
         Long archer_id = getArcherId(name_archer);
 
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{"SUM (" + Db_resultat.Constants.KEY_COL_VALUE + " )",
                 Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME};
         final int cursorIdColNumber = 0;
+        String filterRound ="";
 
+    for (String filterI:filter
+         ) {
+        filterRound += " AND "+Db_resultat.Constants.KEY_COL_ROUND_TYPE+" LIKE \"%"+filterI+"%\" " ;
+    }
         String selection = Db_resultat.Constants.KEY_COL_ID_NAME + " =? AND "
                 + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + "="
-                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND;
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND
+                + filterRound;
         String[] selectionArg = new String[]{Long.toString(archer_id)};
         // The groupBy clause:
         String groupBy = Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND;
@@ -860,6 +870,7 @@ public class Stockage {
 
     //------------------------------------------------------------------------------------------------------------
     // Round method
+    // getId of one round
     public long getRoundId(String name) {
 
         //select id fron archers where name=name
@@ -906,20 +917,42 @@ public class Stockage {
         return (colId);
     }
 
+    // return an array of round name
+
     public ArrayList getRounds() {
+        String filter[] = new String[] {""};
+        return getRounds( filter);
+    }
+
+    public ArrayList getRounds(String[] filter) {
+
         ArrayList retour = new ArrayList();
         Cursor cursor = null;
+        String filterRound ="";
+        if (!filter[0].isEmpty()) {
+            for (String filterI : filter
+            ) {
+                if (filterRound != "")
+                    filterRound += " AND " + Db_resultat.Constants.KEY_COL_ROUND_TYPE + " LIKE \"%" + filterI + "%\" ";
+                else
+                    filterRound += Db_resultat.Constants.KEY_COL_ROUND_TYPE + " LIKE \"%" + filterI + "%\" ";
+            }
+        }
+
 // Using man made query
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{Db_resultat.Constants.KEY_COL_ROUND_NAME,
                 Db_resultat.Constants.KEY_ID_ROUNDS};
+        String selection =  filterRound;
+
         String groupBy = Db_resultat.Constants.KEY_COL_ROUND_NAME;
+
         // And then store the column index answered by the request (we present
         // an other way to
         // retrieve data)
         final int cursorIdColNumber = 0, cursorNameColNumber = 1;
 
-        cursor = db.query(Db_resultat.Constants.ROUNDS, projections, null,
+        cursor = db.query(Db_resultat.Constants.ROUNDS, projections,selection,
                 null, groupBy, null, null, null);
         // displayResults(cursor);     }
 
@@ -945,7 +978,7 @@ public class Stockage {
         cursor.close();
         return (retour);
     }
-
+    // delete one round by  name
     public void supRound(String roundName) {
         long idRound = getRoundId(roundName);
         String selection;
@@ -961,15 +994,65 @@ public class Stockage {
         db.delete(Db_resultat.Constants.ROUNDS, selection, selectionArg);
 
     }
-
+    // Create a round without qualifier
     public long addRound(String roundName) {
 
         // -------------------
         ContentValues contentValues = new ContentValues();
         contentValues.put(Db_resultat.Constants.KEY_COL_ROUND_NAME, roundName);
-
         // Insert the line in the database
         return (db.insert(Db_resultat.Constants.ROUNDS, null, contentValues));
+
+    }
+    // Get qualifier by round
+    public String getRoundQualifier(String roundName) {
+        Cursor cursor = null;
+// Using man made query
+        // The projection define what are the column you want to retrieve
+        String[] projections = new String[]{ Db_resultat.Constants.KEY_COL_ROUND_TYPE};
+
+        String selection = Db_resultat.Constants.KEY_COL_ROUND_NAME + "=?";
+        String[] selectionArg = new String[]{roundName};
+        //String groupBy = Db_resultat.Constants.KEY_COL_ROUND_NAME;
+        // And then store the column index answered by the request (we present
+        // an other way to
+        // retrieve data)
+        final int cursorIdColNumber = 0, cursorNameColNumber = 1;
+
+        cursor = db.query(Db_resultat.Constants.ROUNDS, projections, selection,
+                selectionArg, null, null, null, null);
+        // displayResults(cursor);     }
+        String colType ="";
+        if (cursor.moveToFirst()) {
+            // The elements to retrieve
+            String name;
+            // The associated index within the cursor
+            int roundType = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ROUND_TYPE);
+
+            // Browse the results list:
+            int count = 0;
+            do {
+                colType = cursor.getString(roundType);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return (colType);
+    }
+    //
+
+    // update or create a round with qualifier
+    public long updateRound(String roundName, String qualifier) {
+        Long idRound = getRoundId(roundName); // verify existing round
+        if (idRound < 0)          // Create Round
+        {
+            idRound = addRound(roundName);
+        }
+        idRound = getRoundId(roundName);
+        // -------------------
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Db_resultat.Constants.KEY_COL_ROUND_TYPE, qualifier);
+        //Update Rounds
+        return(db.update(Db_resultat.Constants.ROUNDS, contentValues, Db_resultat.Constants.KEY_ID_ROUNDS + "= ?", new String[]{String.valueOf(idRound)}) );
 
     }
 

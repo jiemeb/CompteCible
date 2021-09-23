@@ -2,9 +2,12 @@ package com.herault.comptecible;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -29,6 +32,8 @@ public class Activity_resultat_round extends AppCompatActivity {
 
     private List<Resultat_archer> lresultat;
     private ListRound adapter_resultat;
+    private EditText filter ;
+    private List<String> lRound  ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +43,41 @@ public class Activity_resultat_round extends AppCompatActivity {
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
 
+        filter = findViewById(R.id.res_round_filter);
+        filter.setText(stock.getValue("filter"));
+
+        filter.addTextChangedListener(new   TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                String name = filter.getText().toString().trim();
+                stock.updateValue("filter", name);
+
+        //refress  listround
+                adapter_round.clear();
+                lRound = stock.getRounds(filter.getText().toString().split("\\s+"));
+                int selection = 0;
+                for (int i = 0; i < lRound.size(); i++) {
+                    String tempo = lRound.get(i);
+                    if (tempo.contentEquals(roundName))
+                        selection = i;
+                    adapter_round.add(lRound.get(i));
+                }
+                }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
         //spinner Rounds
         round = findViewById(R.id.res_spinner_round);
-        List<String> lRound = stock.getRounds();
+
         adapter_round = new ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item
         );
         roundName = stock.getValue("roundName");
+        lRound = stock.getRounds(filter.getText().toString().split("\\s+"));
         int selection = 0;
         for (int i = 0; i < lRound.size(); i++) {
             String tempo = lRound.get(i);
@@ -140,12 +172,13 @@ public class Activity_resultat_round extends AppCompatActivity {
                 if (archer.getSelectedItem().toString().equals("***")) //if true  result Round
                 {
                     // Start
-
-                    Intent intent = new Intent(Activity_resultat_round.this, Activity_resultat_image.class);
-                    intent.putExtra("round", round.getSelectedItem().toString());
-                    intent.putExtra("name", rArcher.name);
-                    startActivity(intent);
-
+                    if (!adapter_round.isEmpty())
+                    {
+                        Intent intent = new Intent(Activity_resultat_round.this, Activity_resultat_image.class);
+                        intent.putExtra("round", round.getSelectedItem().toString());
+                        intent.putExtra("name", rArcher.name);
+                        startActivity(intent);
+                    }
                 } else                                                    // resultat Archer
                 {
                    // ImageView imageView = findViewById(R.id.res_image_resultat);
@@ -168,8 +201,13 @@ public class Activity_resultat_round extends AppCompatActivity {
 
 
     private void resultat_archer() {
-
+        if (filter.getText().length() != 0)
+        lresultat = stock.getResultatAllRound(archer.getSelectedItem().toString(),filter.getText().toString().split("\\s+")); // regex \s = space in Java must be escape
+        else
         lresultat = stock.getResultatAllRound(archer.getSelectedItem().toString());
+
+
+
         adapter_resultat.clear();
         for (int i = 0; i < lresultat.size(); i++) {
             adapter_resultat.add(lresultat.get(i));
@@ -207,6 +245,7 @@ public class Activity_resultat_round extends AppCompatActivity {
         // Open stockage
         stock.openDB();
         updateView();
+        filter.setText(stock.getValue("filter"));
         archer.setSelection(archer.getCount() - 1);
 
     }
