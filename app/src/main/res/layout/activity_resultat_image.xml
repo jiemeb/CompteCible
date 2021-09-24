@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/air_choix_resultat_"
+        android:id="@+id/air_choix_resultat"
         android:layout_width="258dp"
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/air_choix_resultat_" />
+        app:layout_constraintTop_toBottomOf="@+id/air_choix_resultat" />
 
     <ImageView
         android:id="@+id/air_image"
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/air_choix_resultat_" />
+        app:layout_constraintTop_toBottomOf="@+id/air_choix_resultat" />
 
     <EditText
         android:id="@+id/res_i_round_filter"

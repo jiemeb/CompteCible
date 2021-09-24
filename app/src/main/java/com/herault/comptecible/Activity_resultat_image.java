@@ -77,7 +77,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         chartContainer = findViewById(R.id.air_layoutImage);
 
         // Select image resultat
-        Spinner choix_resultat = findViewById(R.id.air_choix_resultat_);
+        Spinner choix_resultat = findViewById(R.id.air_choix_resultat);
 
 
         ArrayAdapter adapter_choix = new ArrayAdapter(
