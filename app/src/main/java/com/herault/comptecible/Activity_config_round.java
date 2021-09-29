@@ -112,10 +112,14 @@ public class Activity_config_round extends AppCompatActivity {
 
                 String nArcher = null;
                 nArcher = newArcher.getText().toString().trim();
-                if (!nArcher.isEmpty()) {
+                if (!nArcher.isEmpty() && (stock.getArcherId(nArcher) < 0)) {
                     stock.addArcher(nArcher, false); //If Ok in Base
                     adapterRound.add(nArcher);  // put in list
                     newArcher.setText("");  //Clear Text
+                }
+                else
+                {
+                    newArcher.setText("");  //Clear Text}
                 }
             }
         });
