@@ -81,7 +81,7 @@ public class Stockage {
         // The groupBy clause:
         //String groupBy = Constants.KEY_COL_EYES_COLOR;
         // The having clause
-        String having = null;
+       // String having = null;
         // The order by clause (column name followed by Asc or DESC)
         String orderBy = Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ARROW + " ASC";
         // Maximal size of the results list
@@ -696,7 +696,6 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
     private String getArcher(int colId) {
 
         //select name fron archers where id=colId
-        //Using man made query
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{
                 Db_resultat.Constants.KEY_COL_NAME};

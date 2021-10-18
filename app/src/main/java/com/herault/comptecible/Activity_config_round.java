@@ -242,11 +242,58 @@ public class Activity_config_round extends AppCompatActivity {
         });
 
 
-        /* List of Archers in Base */
-        adapterBase = new ListArchers(this, stock.getArchers(false));
-        lArcherBase.setAdapter(adapterBase);
+
+        // List of archers in round
         adapterRound = new ListArchers(this, stock.getArchers(true));
         lArcherRound.setAdapter(adapterRound);
+        actualizeAdapterBase();
+
+        lArcherBase.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //   Toast.makeText(getApplicationContext(), "L'index de cet élément est : " + position, Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(getApplicationContext(), "valeur : " + adapterBase.getItem(position).getName(), Toast.LENGTH_SHORT).show();
+                String name = adapterBase.getItem(position);
+                adapterRound.add(name);
+                adapterBase.remove(adapterBase.getItem(position));
+                return true;
+
+            }
+        });
+
+
+        lArcherRound.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = adapterRound.getItem(position);
+  // Insert sorting here              adapterBase.sort(name  );
+                adapterRound.remove(adapterRound.getItem(position));
+                adapterBase.clear();
+                actualizeAdapterBase();
+                return true;
+            }
+        });
+
+        roundQualifier = findViewById(R.id.roundQualifier);
+        roundQualifier.setText(stock.getRoundQualifier(roundName.toString()));
+        roundQualifier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+            }
+        });
+
+    }
+    void actualizeAdapterBase()
+    {
+        //Supress Archer in adapterBase present in adapterRound
+        /* List of Archers in Base */
+      //  adapterBase.clear();
+        adapterBase = new ListArchers(this, stock.getArchers(false));
+        lArcherBase.setAdapter(adapterBase);
+
         int i;
         boolean found;
 
@@ -267,41 +314,6 @@ public class Activity_config_round extends AppCompatActivity {
             if (!found)
                 adapterRound._archers.remove(i);
         }
-
-        lArcherBase.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //   Toast.makeText(getApplicationContext(), "L'index de cet élément est : " + position, Toast.LENGTH_SHORT).show();
-                //   Toast.makeText(getApplicationContext(), "valeur : " + adapterBase.getItem(position).getName(), Toast.LENGTH_SHORT).show();
-                String name = adapterBase.getItem(position);
-                adapterRound.add(name);
-                adapterBase.remove(adapterBase.getItem(position));
-                return true;
-
-            }
-        });
-
-
-        lArcherRound.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = adapterRound.getItem(position);
-                adapterBase.add(name);
-                adapterRound.remove(adapterRound.getItem(position));
-                return true;
-            }
-        });
-
-        roundQualifier = findViewById(R.id.roundQualifier);
-        roundQualifier.setText(stock.getRoundQualifier(roundName.toString()));
-        roundQualifier.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-
-            }
-        });
 
     }
 
