@@ -23,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/am_buttonshape_sup_archer"
-        app:layout_constraintStart_toStartOf="@+id/am_bCleaDataBase"
-        app:layout_constraintTop_toBottomOf="@+id/am_bCleaDataBase"
+        app:layout_constraintStart_toStartOf="@id/am_bCleaDataBase"
+        app:layout_constraintTop_toBottomOf="@id/am_bCleaDataBase"
         tools:text="archer" />
 
     <Spinner
@@ -34,8 +34,8 @@
         android:layout_marginStart="40dp"
         android:background="@drawable/it_style"
         android:gravity="center_horizontal"
-        app:layout_constraintStart_toEndOf="@+id/am_bSuppresArcher"
-        app:layout_constraintTop_toTopOf="@+id/am_bSuppresArcher" />
+        app:layout_constraintStart_toEndOf="@id/am_bSuppresArcher"
+        app:layout_constraintTop_toTopOf="@id/am_bSuppresArcher" />
 
     <Button
         android:id="@+id/am_bSup_round"
@@ -43,8 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/am_buttonshape_sup_round"
-        app:layout_constraintStart_toStartOf="@+id/am_bSuppresArcher"
-        app:layout_constraintTop_toBottomOf="@+id/am_bSuppresArcher"
+        app:layout_constraintStart_toStartOf="@id/am_bSuppresArcher"
+        app:layout_constraintTop_toBottomOf="@id/am_bSuppresArcher"
         tools:text="@string/round" />
 
     <Spinner
@@ -54,8 +54,28 @@
         android:layout_marginStart="40dp"
         android:background="@drawable/it_style"
         android:gravity="center_horizontal"
-        app:layout_constraintStart_toEndOf="@+id/am_bSup_round"
-        app:layout_constraintTop_toTopOf="@+id/am_bSup_round" />
+        app:layout_constraintStart_toEndOf="@id/am_bSup_round"
+        app:layout_constraintTop_toTopOf="@id/am_bSup_round" />
+
+        <EditText
+            android:id="@+id/pointageOffset"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/it_style"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/pointageOffsetDesc"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:text="@string/pointageOffset"
+            android:textAlignment="center"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@id/am_bSup_round"
+            app:layout_constraintTop_toBottomOf="@id/am_bSup_round"
+            android:autofillHints="2" />
+
+
 
     <Button
         android:id="@+id/am_bexport_archer_rounds"
@@ -64,8 +84,8 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/am_buttonshape_grey"
         android:text="@string/am_bexport_archer_round"
-        app:layout_constraintStart_toStartOf="@+id/am_bSup_round"
-        app:layout_constraintTop_toBottomOf="@+id/am_bSup_round" />
+        app:layout_constraintStart_toStartOf="@id/pointageOffset"
+        app:layout_constraintTop_toBottomOf="@id/pointageOffset" />
 
     <Button
         android:id="@+id/am_bexport_round_archers"
@@ -74,8 +94,8 @@
         android:layout_marginStart="24dp"
         android:background="@drawable/am_buttonshape_grey"
         android:text="@string/am_bexport_round_archers"
-        app:layout_constraintStart_toEndOf="@+id/am_bexport_archer_rounds"
-        app:layout_constraintTop_toTopOf="@+id/am_bexport_archer_rounds" />
+        app:layout_constraintStart_toEndOf="@id/am_bexport_archer_rounds"
+        app:layout_constraintTop_toTopOf="@id/am_bexport_archer_rounds" />
 
     <Button
         android:id="@+id/am_bexport_round_archer"
@@ -84,8 +104,8 @@
         android:layout_marginStart="24dp"
         android:background="@drawable/am_buttonshape_grey"
         android:text="@string/am_bexport_round_archer"
-        app:layout_constraintStart_toEndOf="@+id/am_bexport_round_archers"
-        app:layout_constraintTop_toTopOf="@+id/am_bexport_round_archers" />
+        app:layout_constraintStart_toEndOf="@id/am_bexport_round_archers"
+        app:layout_constraintTop_toTopOf="@id/am_bexport_round_archers" />
 
 
     <ProgressBar
@@ -97,7 +117,7 @@
         android:indeterminate="false"
         android:max="100"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/am_bexport_archer_rounds"
+        app:layout_constraintStart_toStartOf="@id/am_bexport_archer_rounds"
         app:layout_constraintTop_toBottomOf="@id/am_bexport_round_archer" />
 
     <androidx.constraintlayout.widget.Guideline

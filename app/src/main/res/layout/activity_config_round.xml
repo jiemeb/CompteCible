@@ -51,7 +51,8 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@id/bConcours"
                 app:layout_constraintStart_toEndOf="@id/bLetGo"
-                app:layout_constraintTop_toTopOf="@id/bLetGo" />
+                app:layout_constraintTop_toTopOf="@id/bLetGo"
+                android:autofillHints="FirstRound" />
 
             <Spinner
                 android:id="@+id/SRoundName"
@@ -107,7 +108,7 @@
             android:background="@drawable/it_style"
             android:ems="10"
             android:hint="@string/acr_arrowByEnd"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@id/bLetGo"
             tools:layout_editor_absoluteY="0dp" />
@@ -120,7 +121,7 @@
             android:background="@drawable/it_style"
             android:ems="10"
             android:hint="@string/acr_EndByRound"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/INumberArrow"
             app:layout_constraintTop_toTopOf="parent"
@@ -230,11 +231,12 @@
             android:id="@+id/roundQualifier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textFilter"
             android:text="@string/RoundQualifier"
             android:hint="@string/RoundQualifier"
             android:ems="10"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintLeft_toLeftOf="@+id/pointageOffset" />
 
 
     </TableRow>

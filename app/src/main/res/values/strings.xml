@@ -59,4 +59,6 @@
     <string name="archersNotes">Notes of archers</string>
     <string name="RoundQualifier">tag</string>
     <string name="resRoundFilter">filter</string>
+    <string name="pointageOffset">Offset Value</string>
+    <string name="pointageOffsetDesc">"pointing offset value "</string>
 </resources>

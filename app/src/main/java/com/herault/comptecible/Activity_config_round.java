@@ -41,6 +41,7 @@ public class Activity_config_round extends AppCompatActivity {
     private EditText INumberArrow = null;
     private EditText INumberEndByRound = null;
     private EditText roundQualifier = null ;
+
     Button bAddArcher;
     private ListView lArcherRound, lArcherBase;
     private Spinner SRoundName = null;
@@ -221,6 +222,7 @@ public class Activity_config_round extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
+
 
         /*Get Number of Ends by Round   */
         INumberEndByRound = findViewById(R.id.INumberEndByRound);

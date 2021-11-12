@@ -42,6 +42,7 @@ public class Activity_MainActivity extends AppCompatActivity {
     double Xdecallage;
     double Ydecallage;
 
+    private double pointageOffset = 2;
     private TextView arrowValue = null;
     private TextView endNumber = null;
     private TextView end = null;
@@ -56,6 +57,8 @@ public class Activity_MainActivity extends AppCompatActivity {
     private String roundName = null;
     private int NumberArrow = 0;
     private int NumberEndByRound = 0;
+    private boolean orientationLand = false;
+                                //
     private final View.OnTouchListener onTouchCible = new View.OnTouchListener() {
 
         public boolean onTouch(View v, MotionEvent event) {
@@ -80,24 +83,31 @@ public class Activity_MainActivity extends AppCompatActivity {
             double ycurrent = event.getY() - ymax / 2.;
 
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                // "Land"
+                if (orientationLand) {
 
-                if (Ydecallage == 0.0) {
+                    Ydecallage = 0.0;
                     if (xcurrent * Xscale < -1.0)
-                        Xdecallage = -2.0;
+                        Xdecallage = -pointageOffset;
                     else
-                        Xdecallage = 2.0;
+                        Xdecallage = pointageOffset;
+                } else {
+                    //Portrait
+                    Xdecallage = 0.0;
+                    Ydecallage = pointageOffset;
                 }
             }
 
-            x = (xcurrent * Xscale) - Xdecallage;
-            y = (ycurrent * Yscale) - Ydecallage;
+                x = (xcurrent * Xscale) - Xdecallage;
+                y = (ycurrent * Yscale) - Ydecallage;
 
-            if (y > -CONSTANTE_nbDivisionCible / 2. && y < CONSTANTE_nbDivisionCible / 2. && x > -CONSTANTE_nbDivisionCible / 2. && x < CONSTANTE_nbDivisionCible / 2.) {
-                resultat_fleche = (int) (CONSTANTE_nbDivisionCible - (int) (Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)) - (0.3)));//
-                // Cible is on 6 to 10
-                if (resultat_fleche < 6)
-                    resultat_fleche = 0;
-            }
+                if (y > -CONSTANTE_nbDivisionCible / 2. && y < CONSTANTE_nbDivisionCible / 2. && x > -CONSTANTE_nbDivisionCible / 2. && x < CONSTANTE_nbDivisionCible / 2.) {
+                    resultat_fleche = (int) (CONSTANTE_nbDivisionCible - (int) (Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)) - (0.3)));//
+                    // Cible is on 6 to 10
+                    if (resultat_fleche < 6)
+                        resultat_fleche = 0;
+                }
+
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 updateView(resultat_fleche, x, y);
                 v.performClick();
@@ -164,20 +174,24 @@ public class Activity_MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int iorientation = getResources().getConfiguration().orientation;
-        if (iorientation == Configuration.ORIENTATION_LANDSCAPE) {
-            // "Land"
-            Xdecallage = 2.0;
-            Ydecallage = 0.0;
-        } else {
-            //Portrait
-            Xdecallage = 0.0;
-            Ydecallage = 2.0;
-        }
+
 
 
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
+        String sPointerOffset= stock.getValue("pointageOffset");
+        if (sPointerOffset.isEmpty())
+        {
+            sPointerOffset = "2" ;
+            stock.updateValue("pointageOffset",sPointerOffset);
+        }
+        pointageOffset = Double.parseDouble ( sPointerOffset);
+
+
+        int iorientation = getResources().getConfiguration().orientation;
+        if (iorientation == Configuration.ORIENTATION_LANDSCAPE) {
+        orientationLand = true;
+        }
 
         roundName = stock.getValue("roundName");
         String snumberArrow = stock.getValue("numberArrow");
@@ -216,7 +230,7 @@ public class Activity_MainActivity extends AppCompatActivity {
         adapter_archer.setDropDownViewResource(R.layout.spinner_generale);
         //Enfin on passe l'adapter au Spinner et c'est tout
         archer.setAdapter(adapter_archer);
-
+// why for somme one archer is empty !
         archer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -597,6 +611,14 @@ public class Activity_MainActivity extends AppCompatActivity {
         roundName = stock.getValue("roundName");
         String snumberArrow = stock.getValue("numberArrow");
         String snumberEnd = stock.getValue("numberEnd");
+        String sPointerOffset= stock.getValue("pointageOffset");
+        if (sPointerOffset.isEmpty())
+        {
+            sPointerOffset = "2" ;
+            stock.updateValue("pointageOffset",sPointerOffset);
+        }
+        pointageOffset = Double.parseDouble ( sPointerOffset);
+
 
         NumberArrow = Integer.parseInt(snumberArrow);
         NumberEndByRound = Integer.parseInt(snumberEnd);

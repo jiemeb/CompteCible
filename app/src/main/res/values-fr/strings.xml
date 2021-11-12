@@ -60,4 +60,6 @@
     <string name="archersNotes">Notes de l\'archer</string>
     <string name="RoundQualifier">tag</string>
     <string name="resRoundFilter">filtre</string>
+    <string name="pointageOffset">ValeurOffset</string>
+    <string name="pointageOffsetDesc">"valeur de decallage de pointage"</string>
 </resources>

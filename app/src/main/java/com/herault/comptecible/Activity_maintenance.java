@@ -9,10 +9,13 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -43,6 +46,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     private ArrayAdapter adapter;
     private ArrayAdapter adapterRound;
 
+    private EditText pointageOffset = null ;
     private ExportAsyncTask task;
     long archer_id;
     private Activity_maintenance localActivity;
@@ -91,7 +95,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
                 }
             }
         });
-
+// Clear Database
         Button bCleaDataBase = findViewById(R.id.am_bCleaDataBase);
         bCleaDataBase.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +122,40 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
             }
         });
-        // export in file Round for all archers
+// Set pointing Offset
+        // Get Offset of Pointer
+        pointageOffset = findViewById(R.id.pointageOffset);
+        String sPointageOffset = stock.getValue("pointageOffset");
+        if(sPointageOffset.isEmpty())
+        {
+            sPointageOffset = "2" ;
+        }
+        pointageOffset.setText(sPointageOffset);
+        pointageOffset.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                String sPointageOffset = pointageOffset.getText().toString().trim();
+                if (!sPointageOffset.isEmpty()) {
+                    switch (sPointageOffset)
+                    {
+                        case "0":
+                        case "1":
+                        case "2":
+                        case "3": break ;
+                        default :   sPointageOffset = "2" ;
+                    }
+                    stock.updateValue("pointageOffset", sPointageOffset);
+                }           // you can call or do what you want with your EditText here
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+
+// export in file Round for all archers
 
         Button bExportRoundArchers = findViewById(R.id.am_bexport_round_archers);
         bExportRoundArchers.setOnClickListener(new View.OnClickListener() {
@@ -155,8 +192,6 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
                 }
             }
         });
-
-
 
 // export in file Archer for all Rounds
 
@@ -321,7 +356,8 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void  onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
