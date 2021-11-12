@@ -278,6 +278,8 @@ public class Activity_MainActivity extends AppCompatActivity {
                 pos += 1;
                 if (pos < archer.getCount())
                     archer.setSelection(pos);
+                else
+                    archer.setSelection(0);
 
             }
         });
@@ -290,6 +292,8 @@ public class Activity_MainActivity extends AppCompatActivity {
                 pos -= 1;
                 if (pos >= 0)
                     archer.setSelection(pos);
+                else
+                    archer.setSelection( archer.getCount() - 1);
             }
         });
 
