@@ -99,27 +99,40 @@
         app:layout_constraintTop_toBottomOf="@id/table">
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
 
+            <TextView
+                android:id="@+id/TextOffset"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+
+                android:text="@string/pointageOffsetDesc"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/pointageOffsetDesc" />
+
             <EditText
                 android:id="@+id/pointageOffset"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
+
+                android:autofillHints="2"
                 android:background="@drawable/it_style"
-                android:ems="10"
+                android:ems="1"
                 android:gravity="center"
                 android:hint="@string/pointageOffsetDesc"
                 android:inputType="number"
                 android:singleLine="true"
-                android:text="@string/pointageOffset"
+                android:text="@string/pointageOffsetDesc"
+
                 android:textAlignment="center"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:autofillHints="2" />
+                app:layout_constraintLeft_toRightOf="@id/TextOffset" />
 
         </TableRow>
 
@@ -182,7 +195,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1">
 
             <androidx.constraintlayout.widget.Guideline
