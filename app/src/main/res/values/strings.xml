@@ -23,6 +23,7 @@
     <string name="air_Tittle_Axe_Y">Number of arrow</string>
     <string name="air_Tittle_Axe_X">Value of arrow</string>
     <string name="air_select_rounds">archer result</string>
+    <string name="air_select_round">round result</string>
     <string name="air_TitleGraphe_rounsd">Score by round</string>
     <string name="air_Tittle_Axe_X_round">round Name</string>
     <string name="air_Tittle_Axe_Y_Score">score</string>
@@ -61,4 +62,5 @@
     <string name="resRoundFilter">filter</string>
     <string name="pointageOffset">Offset Value</string>
     <string name="pointageOffsetDesc">"pointing offset value "</string>
+
 </resources>

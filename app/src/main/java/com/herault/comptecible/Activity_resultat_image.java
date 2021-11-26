@@ -43,6 +43,7 @@ public class Activity_resultat_image extends AppCompatActivity {
     private ImageView imageView = null;
     private LinearLayout chartContainer = null;
     private EditText filter =null;
+    private int numberArrow ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,8 @@ public class Activity_resultat_image extends AppCompatActivity {
         setContentView(R.layout.activity_resultat_image);
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
-
+        String snumberArrow = stock.getValue("numberArrow");
+        numberArrow =  Integer.parseInt(snumberArrow) ;
         round = this.getIntent().getStringExtra("round");
         name = this.getIntent().getStringExtra("name");
 
@@ -87,6 +89,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         adapter_choix.add(getResources().getString(R.string.impact));
         adapter_choix.add(getResources().getString(R.string.repartitionPoint));
         adapter_choix.add(getResources().getString(R.string.air_select_rounds));
+        adapter_choix.add(getResources().getString(R.string.air_select_round));
 
 
         /* On definit une présentation du spinner quand il est déroulé         (android.R.layout.simple_spinner_dropdown_item) */
@@ -113,6 +116,11 @@ public class Activity_resultat_image extends AppCompatActivity {
                         imageView.setVisibility(View.GONE);
                         chartContainer.setVisibility(View.VISIBLE);
                         drawResultArcherRound(name);
+                        break;
+                    case 3:
+                        imageView.setVisibility(View.GONE);
+                        chartContainer.setVisibility(View.VISIBLE);
+                        drawResultRoundArcher(round,name);
                         break;
                 }
             }
@@ -367,12 +375,11 @@ public class Activity_resultat_image extends AppCompatActivity {
         List<Resultat_archer> lresultat;
 
 
-
         // Creating an XYSeries for Height
         XYSeries expenseSeries = new XYSeries(getResources().getString(R.string.air_Tittle_Axe_X_round));
         // Adding data to Height Series
         if (filter.getText().length() != 0)
-            lresultat = stock.getResultatAllRound(archer,filter.getText().toString().split("\\s+")); // regex \s = space in Java must be escape
+            lresultat = stock.getResultatAllRound(archer, filter.getText().toString().split("\\s+")); // regex \s = space in Java must be escape
         else
             lresultat = stock.getResultatAllRound(archer);
         int i = 0;
@@ -499,6 +506,166 @@ public class Activity_resultat_image extends AppCompatActivity {
         GraphicalView chart = ChartFactory.getBarChartView(Activity_resultat_image.this, dataset, renderer, Type.DEFAULT);
         // adding the view to the linearlayout
         chartContainer.addView(chart);
+    }
+
+         //--  concours  archer
+    private void drawResultRoundArcher(String round, String archer) {
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        float density = metrics.density;
+
+        double SCALE = 1;
+
+        SCALE = density * 0.8;
+        int TEXTSIZE = (int) (14 * SCALE);
+
+
+        List<Resultat_archer> lresultat;
+
+
+
+        // Creating an XYSeries for Height
+        XYSeries expenseSeries = new XYSeries(getResources().getString(R.string.air_Tittle_Axe_X_round));
+        // Adding data to Height Series
+
+            lresultat = stock.getResultatArrows(archer,round);
+
+        int i = 0;
+        long value_max = 0;
+        long sommeArrow = 0;
+        int end = 0 ;
+        for (Resultat_archer r : lresultat) {
+
+            sommeArrow += r.value ;
+            if (sommeArrow > value_max)
+                value_max = sommeArrow;
+            i++;
+            if ( (i % numberArrow == 0)) {
+                expenseSeries.add(end, sommeArrow);
+                sommeArrow = 0;
+                end++;
+            }
+
+        }
+
+        //    value_max=Double.doubleToLongBits(expenseSeries.getMaxY());
+
+        // Creating a dataset to hold height series
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+        // Adding Height Series to dataset
+        dataset.addSeries(expenseSeries);
+
+        // Creating XYSeriesRenderer to customize expenseSeries
+        XYSeriesRenderer heightRenderer = new XYSeriesRenderer();
+        heightRenderer.setColor(Color.GREEN);
+        heightRenderer.setFillPoints(true);
+        heightRenderer.setDisplayChartValues(true);
+        heightRenderer.setChartValuesTextSize(TEXTSIZE);
+        // Creating a XYMultipleSeriesRenderer to customize the whole chart
+        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+        renderer.setXLabels(0);
+       i = 0;
+        for (Resultat_archer r : lresultat) {
+            renderer.addXTextLabel(i, r.getName());
+            renderer.setXLabelsPadding(10);
+            i++;
+        }
+
+        renderer.setChartTitle(getResources().getString(R.string.air_TitleGraphe_rounsd));
+        renderer.setXTitle(getResources().getString(R.string.air_Tittle_Axe_X_round));
+        renderer.setYTitle(getResources().getString(R.string.air_Tittle_Axe_Y_Score));
+
+        /***
+         * Customizing graphs
+         */
+        // setting text size of the title
+        renderer.setChartTitleTextSize(TEXTSIZE);
+        renderer.setLabelsColor(Color.WHITE);
+        renderer.setGridColor(Color.YELLOW);
+        // setting text size of the axis title
+        renderer.setAxisTitleTextSize(TEXTSIZE);
+        // setting text size of the graph lable
+        renderer.setLabelsTextSize(TEXTSIZE);
+        // setting zoom buttons visiblity
+        renderer.setZoomButtonsVisible(true);
+        // setting pan enablity which uses graph to move on both axis
+        renderer.setPanEnabled(true, false);
+        // setting click false on graph
+        renderer.setClickEnabled(true);
+        // setting zoom to false on both axis
+        renderer.setZoomEnabled(true, false);
+        // setting lines to display on y axis
+        renderer.setShowGridY(true);
+        // setting lines to display on x axis
+        renderer.setShowGridX(true);
+        // setting legend to fit the screen size
+        renderer.setFitLegend(false);
+        // setting displaying line on grid
+        renderer.setShowGrid(true);
+        // setting zoom to false
+        renderer.setZoomEnabled(true);
+        // setting external zoom functions to false
+        renderer.setExternalZoomEnabled(false);
+        // setting displaying lines on graph to be formatted(like using
+        // graphics)
+        renderer.setAntialiasing(true);
+        // setting to in scroll to false
+        renderer.setInScroll(false);
+        // setting to set legend height of the graph
+        renderer.setLegendHeight((int) (TEXTSIZE * 1.5));
+        renderer.setLegendTextSize(TEXTSIZE);
+        // setting x axis label align
+        renderer.setXLabelsAlign(Paint.Align.CENTER);
+        renderer.setXLabelsColor(Color.WHITE);
+        renderer.setXLabelsAngle(0);
+        // setting y axis label to align
+        renderer.setYLabelsAlign(Paint.Align.LEFT);
+        // setting text style
+        renderer.setTextTypeface("sans_serif", Typeface.BOLD);
+        // setting number of values to display in y axis
+        //    renderer.setYLabels((int) value_max);
+        renderer.setYLabels((int) (10));
+        //setting x axis min value
+        renderer.setYAxisMin(0);
+        // setting y axis max value
+        renderer.setYAxisMax((double) (value_max + (value_max / 10)));
+        // setting used to move the graph on xaxiz to .5 to the right
+        renderer.setXAxisMin(-0.5);
+        // setting used to move the graph on xaxiz to .5 to the right
+        //       renderer.setXAxisMax(lresultat.size());
+        renderer.setXAxisMax(end);
+        // setting bar size or space between two bars
+        renderer.setBarSpacing(0.5);
+        // Setting background color of the graph to transparent
+        renderer.setBackgroundColor(Color.DKGRAY);
+        // Setting margin color of the graph to transparent
+        renderer.setMarginsColor(getResources().getColor(android.R.color.transparent));
+        renderer.setApplyBackgroundColor(true);
+        renderer.setScale(1f);
+        // setting x axis point size
+        renderer.setPointSize(6f);
+        // setting the margin size for the graph in the order top, left, bottom,
+        // right
+        //   renderer.setMargins(new int[]{30 * SCALE, 30 * SCALE, 25 * SCALE, 10 * SCALE});
+        renderer.setMargins(new int[]{(int) (4 * TEXTSIZE), (int) (4 * TEXTSIZE), (int) (3.2 * TEXTSIZE), (int) (TEXTSIZE)});
+        // Adding heightRender to multipleRenderer
+        // Note: The order of adding dataseries to dataset and renderers to
+        // multipleRenderer
+        // should be same
+        renderer.addSeriesRenderer(heightRenderer);
+
+        // this part is used to display graph on the xml
+
+        // remove any views before u paint the chart
+        chartContainer.removeAllViews();
+        //drawing bar chart
+         GraphicalView chart = ChartFactory.getLineChartView(Activity_resultat_image.this, dataset, renderer);
+
+        //GraphicalView chart = ChartFactory.getBarChartView(Activity_resultat_image.this, dataset, renderer, Type.DEFAULT);
+        // adding the view to the linearlayout
+        chartContainer.addView(chart);
+
 
     }
 

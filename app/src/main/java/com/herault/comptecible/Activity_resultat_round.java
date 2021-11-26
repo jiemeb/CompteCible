@@ -139,8 +139,7 @@ public class Activity_resultat_round extends AppCompatActivity {
                     resultat_round();
 
                 //       Toast.makeText(getApplicationContext(), "Archer" + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
-
-// Init lors du changement Update
+                // Init lors du changement Update
 
             }
 

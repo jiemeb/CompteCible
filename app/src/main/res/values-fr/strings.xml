@@ -23,6 +23,7 @@
     <string name="air_Tittle_Axe_Y">Nombre de flèches</string>
     <string name="air_Tittle_Axe_X">Valeur de flèche</string>
     <string name="air_select_rounds">Resultat archer</string>
+    <string name="air_select_round">Resultat concours</string>
     <string name="air_TitleGraphe_rounsd">Score par concours</string>
     <string name="air_Tittle_Axe_X_round">Nom concours</string>
     <string name="air_Tittle_Axe_Y_Score">Score</string>
@@ -62,4 +63,5 @@
     <string name="resRoundFilter">filtre</string>
     <string name="pointageOffset">ValeurOffset</string>
     <string name="pointageOffsetDesc">"valeur de decallage de pointage"</string>
+
 </resources>
