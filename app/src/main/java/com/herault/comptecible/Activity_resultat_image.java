@@ -572,8 +572,8 @@ public class Activity_resultat_image extends AppCompatActivity {
             i++;
         }
 
-        renderer.setChartTitle(getResources().getString(R.string.air_TitleGraphe_rounsd));
-        renderer.setXTitle(getResources().getString(R.string.air_Tittle_Axe_X_round));
+        renderer.setChartTitle(getResources().getString(R.string.air_select_round));
+        renderer.setXTitle(round);
         renderer.setYTitle(getResources().getString(R.string.air_Tittle_Axe_Y_Score));
 
         /***

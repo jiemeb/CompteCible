@@ -3,11 +3,12 @@
 
     package="com.herault.comptecible">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+ />
 
 
     <application
-        android:allowBackup="true"
+
         android:icon="@drawable/ic_launcher_foreground_v36"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
@@ -17,6 +18,8 @@
 
         <activity
             android:name=".Activity_MainActivity"
+
+            android:exported = "true"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
