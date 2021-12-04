@@ -160,7 +160,7 @@ public class Activity_MainActivity extends AppCompatActivity {
 
 
                 Log.d("CompteCible", "onTouch " + Double.toString(x) + " " + Double.toString(y) + " " + Integer.toString(resultat_fleche));
-                arrowValue.setText(Integer.toString(resultat_fleche));
+                arrowValue.setText(String.valueOf(resultat_fleche));
                 drawImpact(x, y);
             }
             return true;
@@ -234,12 +234,18 @@ public class Activity_MainActivity extends AppCompatActivity {
         archer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String ArcherSel = (String) archer.getSelectedItem();
-                archer_id = stock.getArcherId(ArcherSel);
-                if (archer_id < 0)
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing_archer) + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                 int spinnerCountElement =archer.getCount() ;
+                 if (spinnerCountElement >= position+1) {
+                     String ArcherSel = (String) archer.getSelectedItem();
+                     archer_id = stock.getArcherId(ArcherSel);
+
+                     if (archer_id < 0)
+                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing_archer) + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
 // Init lors du changement Update
-                updateviewOnly();
+                     updateviewOnly();
+                 }
+                 else
+                     Log.d("CompteCible", "onItemSelected: archer count "+ String.valueOf(spinnerCountElement));
             }
 
             @Override
@@ -404,6 +410,7 @@ public class Activity_MainActivity extends AppCompatActivity {
 
                 if (!(arrowIndex < NumberArrow * NumberEndByRound)) {
                     end.setText(getResources().getString(R.string.EndRound));
+                    endNumber.setText("");
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.EndRound) + " " + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -599,9 +606,9 @@ public class Activity_MainActivity extends AppCompatActivity {
 
 
     }
-    /*********************************************************************************/
-    /** Managing LifeCycle and database open/close operations ************************/
-    /*********************************************************************************/
+    /*********************************************************************************
+    ** Managing LifeCycle and database open/close operations ************************
+    *********************************************************************************/
     @Override
     protected void onResume() {
         super.onResume();

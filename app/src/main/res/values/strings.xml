@@ -48,7 +48,7 @@
     <string name="am_bexport_round_archers">Export round archers</string>
     <string name="am_bexport_round_archer">Export round archer</string>
     <string name="name_archer">archer\'s name</string>
-    <string name="Apropos">A propos</string>
+    <string name="Apropos">Documentation</string>
     <string name="Concours">Round</string>
     <string name="archer">archer</string>
     <string name="arrow">Arrow</string>

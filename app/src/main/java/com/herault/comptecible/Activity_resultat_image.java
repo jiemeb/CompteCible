@@ -508,7 +508,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         chartContainer.addView(chart);
     }
 
-         //--  concours  archer
+    //--  concours  archer
     private void drawResultRoundArcher(String round, String archer) {
 
         DisplayMetrics metrics = new DisplayMetrics();
