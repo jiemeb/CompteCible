@@ -6,12 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".Activity_config_round">
 
-
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/table_layout1">
     <TableRow
         android:id="@+id/tableRow1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="6"
+        android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,9 +23,9 @@
 
         <Button
             android:id="@+id/bLetGo"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:contentDescription="@string/let_sgo"
             android:background="@drawable/am_buttonshape_grey"
             android:text="@string/let_sgo"
@@ -33,14 +36,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="70"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/IRoundName"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:background="@drawable/it_style"
                 android:ems="10"
@@ -56,11 +59,11 @@
 
             <Spinner
                 android:id="@+id/SRoundName"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:animationCache="false"
                 android:background="@drawable/it_style_spinner"
-                android:ems="1"
+                android:ems="10"
                 android:gravity="center"
                 android:hint="@string/roundName"
                 android:longClickable="true"
@@ -73,11 +76,11 @@
 
         <Button
             android:id="@+id/bConcours"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="8"
+            android:layout_weight="4"
             android:background="@drawable/am_buttonshape_grey"
-            android:ems="7"
+            android:ems="10"
             android:gravity="center"
             android:nextFocusDown="@id/SRoundName"
             android:text="@string/Concours"
@@ -90,10 +93,9 @@
 
     <TableRow
         android:id="@+id/tableRow12"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tableRow1"
-        android:layout_weight="10"
+        android:layout_weight="1"
         app:layout_constraintLeft_toLeftOf="@id/tableRow1"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +104,7 @@
 
         <EditText
             android:id="@+id/INumberArrow"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/it_style"
@@ -115,7 +117,7 @@
 
         <EditText
             android:id="@+id/INumberEndByRound"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/it_style"
@@ -129,9 +131,9 @@
 
         <EditText
             android:id="@+id/newArcher"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_weight="6"
+            android:layout_weight="3"
             android:background="@drawable/it_style"
             android:hint="@string/name_archer"
             android:importantForAutofill="no"
@@ -143,9 +145,9 @@
 
         <Button
             android:id="@+id/bAddArcher"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/am_buttonshape_grey"
             android:contentDescription="@string/addArcher"
             android:text="@string/addArcher"
@@ -160,72 +162,95 @@
         android:id="@+id/tableRow2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/tableRow12"
-        android:layout_weight="40"
-        app:layout_constraintBottom_toTopOf="@+id/tableRow3"
+        android:layout_weight="4"
+        app:layout_constraintBottom_toTopOf="@id/tableRow3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow12">
+
+        app:layout_constraintTop_toBottomOf="@id/tableRow12">
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="120dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ems="10"
             android:text="@string/archer_base" />
 
         <ListView
             android:id="@+id/archersBase"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_weight="3"
             android:contentDescription="@string/archer_base"
             android:background="@drawable/it_style"
             android:visibility="visible">
-
-
         </ListView>
     </TableRow>
+
 
     <TableRow
         android:id="@+id/tableRow3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="40"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_weight="4"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/tableRow4"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tableRow4"
         app:layout_constraintTop_toBottomOf="@id/tableRow2">
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
         <TextView
+            android:orientation="vertical"
             android:id="@+id/textView2"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ems="10"
             android:text="@string/ArcherToRound" />
+        <Button
+            android:id="@+id/archersUp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_fleche_up"
+            app:layout_constraintDimensionRatio="1.5" />
+        <Button
+            android:id="@+id/archersDown"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_fleche_down"
+            app:layout_constraintDimensionRatio="1" />
+
+        </LinearLayout>
 
         <ListView
-            android:id="@+id/archersRound"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:contentDescription="@string/ArcherToRound"
-            android:background="@drawable/am_buttonshape_grey">
-
+                android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="3"
+            	android:orientation="vertical"
+                android:choiceMode="singleChoice"
+                android:id="@+id/archersRound"
+                android:background="@drawable/am_buttonshape_grey"
+                android:contentDescription="@string/ArcherToRound">
         </ListView>
     </TableRow>
 
-    <TableRow
+<TableRow
         android:id="@+id/tableRow4"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_weight="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tableRow3">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tableRow3"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <EditText
             android:id="@+id/roundQualifier"
@@ -234,12 +259,9 @@
             android:inputType="textFilter"
             android:text="@string/RoundQualifier"
             android:hint="@string/RoundQualifier"
-            android:ems="10"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@+id/pointageOffset" />
+            android:ems="10" />
 
-
-    </TableRow>
-
+</TableRow>
+</TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,55 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="6.97914dp"
+    android:height="17.184458dp"
+    android:viewportWidth="6.97914"
+    android:viewportHeight="17.184458">
+  <path
+      android:pathData="m3.406,15.4495 l-0.0215,-15.4216 -0.4803,1.8726 1.0404,-0.0551 -0.5601,-1.8176"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="0.147563"
+      android:fillColor="#000000"
+      android:strokeColor="#000000"
+      android:strokeLineCap="butt"/>
+  <path
+      android:pathData="m3.407,13.0155 l-0.6259,1.5368 -0.0648,0.0668"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="0.264583"
+      android:fillColor="#00000000"
+      android:strokeColor="#000000"
+      android:strokeLineCap="butt"/>
+  <path
+      android:pathData="m3.407,13.0155 l0.5916,1.5368 0.0633,0.0668"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="0.264583"
+      android:fillColor="#00000000"
+      android:strokeColor="#000000"
+      android:strokeLineCap="butt"/>
+  <path
+      android:pathData="m3.4048,14.2847 l-0.6259,1.5368 -0.0648,0.0668"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="0.264583"
+      android:fillColor="#00000000"
+      android:strokeColor="#000000"
+      android:strokeLineCap="butt"/>
+  <path
+      android:pathData="m3.4048,14.2847 l0.5916,1.5368 0.0633,0.0668"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="0.264583"
+      android:fillColor="#00000000"
+      android:strokeColor="#000000"
+      android:strokeLineCap="butt"/>
+  <path
+      android:pathData="m3.406,15.4495 l-0.6259,1.5368 -0.0648,0.0668"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="0.264583"
+      android:fillColor="#00000000"
+      android:strokeColor="#000000"
+      android:strokeLineCap="butt"/>
+  <path
+      android:pathData="m3.406,15.4495 l0.5916,1.5368 0.0633,0.0668"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="0.264583"
+      android:fillColor="#00000000"
+      android:strokeColor="#000000"
+      android:strokeLineCap="butt"/>
+</vector>

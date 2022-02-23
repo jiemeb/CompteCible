@@ -25,8 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-//import static androidx.constraintlayout.solver.widgets.ConstraintWidget.GONE;
-//import static androidx.constraintlayout.solver.widgets.ConstraintWidget.VISIBLE;
 
 
 public class Activity_config_round extends AppCompatActivity {
@@ -47,6 +45,9 @@ public class Activity_config_round extends AppCompatActivity {
     private Spinner SRoundName = null;
     private List<String> lRoundName;
     private ArrayAdapter adapterRoundName;
+    Button bArchersUp,bArchersDown;
+    private int archerRoundSelectedPosition=0;
+
     //   private Handler h;
 
     @Override
@@ -65,6 +66,7 @@ public class Activity_config_round extends AppCompatActivity {
             public void onClick(View v) {
                 // sauvegarde archer_round database and test value before ending
                 if (adapterRound.getCount() != 0 && roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
+                    cleanSelectedArcherRound();
                     stock.dropArchers(true);
                     stock.insertArray(adapterRound._archers, true);
                     if (roundQualifier.getText().length() != 0) {
@@ -125,6 +127,34 @@ public class Activity_config_round extends AppCompatActivity {
             }
         });
 
+        bArchersUp = findViewById(R.id.archersUp);
+        bArchersUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (archerRoundSelectedPosition > 0 && archerRoundSelectedPosition < (adapterRound.getCount() )) {
+                Object archer = lArcherRound.getItemAtPosition(archerRoundSelectedPosition);
+                adapterRound._archers.set(archerRoundSelectedPosition,(String) lArcherRound.getItemAtPosition(archerRoundSelectedPosition - 1));
+                adapterRound._archers.set(archerRoundSelectedPosition - 1, (String) archer);
+                archerRoundSelectedPosition -= 1;
+                lArcherRound.setAdapter(adapterRound);
+                }
+            }
+        });
+        bArchersDown = findViewById(R.id.archersDown);
+        bArchersDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (archerRoundSelectedPosition >= 0 && archerRoundSelectedPosition < (adapterRound.getCount() -1))
+                {
+                Object archer = lArcherRound.getItemAtPosition(archerRoundSelectedPosition);
+                adapterRound._archers.set(archerRoundSelectedPosition,(String) lArcherRound.getItemAtPosition(archerRoundSelectedPosition + 1));
+                adapterRound._archers.set(archerRoundSelectedPosition + 1, (String) archer);
+                archerRoundSelectedPosition += 1;
+                lArcherRound.setAdapter(adapterRound);
+                }
+
+            }
+        });
 
 
         /* Get Round Name */
@@ -256,6 +286,7 @@ public class Activity_config_round extends AppCompatActivity {
                 //   Toast.makeText(getApplicationContext(), "L'index de cet élément est : " + position, Toast.LENGTH_SHORT).show();
                 //   Toast.makeText(getApplicationContext(), "valeur : " + adapterBase.getItem(position).getName(), Toast.LENGTH_SHORT).show();
                 String name = adapterBase.getItem(position);
+                cleanSelectedArcherRound();
                 adapterRound.add(name);
                 adapterBase.remove(adapterBase.getItem(position));
                 return true;
@@ -264,10 +295,29 @@ public class Activity_config_round extends AppCompatActivity {
         });
 
 
+
+
+        lArcherRound.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String archer ="";
+                cleanSelectedArcherRound();
+
+                archer= "*"+adapterRound.getItem(position);
+                archerRoundSelectedPosition = position;
+                adapterRound._archers.set(position,archer);
+                lArcherRound.setAdapter(adapterRound);
+
+            }
+
+
+
+        });
         lArcherRound.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = adapterRound.getItem(position);
+                cleanSelectedArcherRound();
   // Insert sorting here              adapterBase.sort(name  );
                 adapterRound.remove(adapterRound.getItem(position));
                 adapterBase.clear();
@@ -275,6 +325,7 @@ public class Activity_config_round extends AppCompatActivity {
                 return true;
             }
         });
+
 
         roundQualifier = findViewById(R.id.roundQualifier);
         roundQualifier.setText(stock.getRoundQualifier(roundName.toString()));
@@ -288,6 +339,20 @@ public class Activity_config_round extends AppCompatActivity {
         });
 
     }
+
+    private void cleanSelectedArcherRound() {
+
+        String archer ="";
+        for (int i = 0 ;i <adapterRound.getCount();i++) {
+            archer = adapterRound.getItem(i);
+            archer = archer.replace("*", "");
+            adapterRound._archers.set(i, archer);
+        }
+
+
+        }
+
+
     void actualizeAdapterBase()
     {
         //Supress Archer in adapterBase present in adapterRound
@@ -303,7 +368,7 @@ public class Activity_config_round extends AppCompatActivity {
             int j;
             found = false;
             String aRoundName = adapterRound.getItem(i);
-
+            aRoundName = aRoundName.replace("*", "");// Supress * in name
             for (j = 0; j < adapterBase._archers.size(); j++) {
                 String aBaseName = adapterBase.getItem(j);
 
@@ -345,6 +410,7 @@ public class Activity_config_round extends AppCompatActivity {
                 stock.addArcher(getResources().getString(R.string.me), false); //If Ok in Base
                 adapterRound.add(getResources().getString(R.string.me));  // put in list
             }
+            cleanSelectedArcherRound();
             stock.dropArchers(true);
             stock.insertArray(adapterRound._archers, true);
             if (roundQualifier.getText().length() != 0) {
