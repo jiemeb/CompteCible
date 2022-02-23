@@ -7,10 +7,6 @@
    viewBox="0 0 6.9791398 17.184458"
    version="1.1"
    id="svg8"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
-   sodipodi:docname="fleche.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -18,26 +14,6 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs2" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="-12.767857"
-     inkscape:cy="36.964286"
-     inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1015"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:pagecheckerboard="0"
-     width="2.97914mm" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -50,8 +26,6 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Calque 1"
-     inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-23.126481,-88.021183)">
     <g
@@ -59,7 +33,6 @@
        transform="matrix(0.47950951,0,-0.01114946,1,15.869544,-0.01304888)"
        style="image-rendering:auto">
       <path
-         inkscape:connector-curvature="0"
          id="path815"
          d="m 24.643302,103.48372 -0.403418,-15.421641 -0.958117,1.872628 2.168371,-0.05508 -1.210254,-1.817551"
          style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.147563px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
@@ -69,13 +42,11 @@
         <path
            style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            d="m 25.190153,100.12259 -1.269531,1.53679 -0.133634,0.0668"
-           id="path817"
-           inkscape:connector-curvature="0" />
+           id="path817" />
         <path
            style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            d="m 25.190153,100.12259 1.269531,1.53679 0.133634,0.0668"
-           id="path817-5"
-           inkscape:connector-curvature="0" />
+           id="path817-5" />
       </g>
       <g
          transform="translate(-0.57629987,2.1962948)"
@@ -83,13 +54,11 @@
         <path
            style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            d="m 25.190153,100.12259 -1.269531,1.53679 -0.133634,0.0668"
-           id="path817-2"
-           inkscape:connector-curvature="0" />
+           id="path817-2" />
         <path
            style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            d="m 25.190153,100.12259 1.269531,1.53679 0.133634,0.0668"
-           id="path817-5-9"
-           inkscape:connector-curvature="0" />
+           id="path817-5-9" />
       </g>
       <g
          transform="translate(-0.546851,3.36113)"
@@ -97,13 +66,11 @@
         <path
            style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            d="m 25.190153,100.12259 -1.269531,1.53679 -0.133634,0.0668"
-           id="path817-27"
-           inkscape:connector-curvature="0" />
+           id="path817-27" />
         <path
            style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            d="m 25.190153,100.12259 1.269531,1.53679 0.133634,0.0668"
-           id="path817-5-0"
-           inkscape:connector-curvature="0" />
+           id="path817-5-0" />
       </g>
     </g>
   </g>
