@@ -10,10 +10,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Activity_apropos extends AppCompatActivity {
+import com.herault.comptecible.utils.Stockage;
 
+public class Activity_apropos extends AppCompatActivity {
+    Stockage stock ;
     int index = 0 ;
-    int pageId[] = {R.drawable.doc_page1 ,
+ int[] pageId = { R.drawable.doc_apropos,
+            R.drawable.doc_page1 ,
             R.drawable.doc_page2 ,
             R.drawable.doc_page3 ,
             R.drawable.doc_page4 ,
@@ -32,17 +35,11 @@ public class Activity_apropos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         String version = "CompteCible version : ";
         setContentView(R.layout.activity_apropos);
+        stock = new Stockage();             // init de la classe interface de stockage
+        stock.onCreate(this);
 
+        version += stock.getValue("version");
 
-        try {
-            PackageManager manager = getApplicationContext().getPackageManager();
-            PackageInfo info = null;
-            info = manager.getPackageInfo(getApplicationContext().getPackageName(), 0);
-            version += info.versionName;
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
         TextView Version = findViewById(R.id.app_version);
         Version.setText(version);
 
@@ -75,15 +72,16 @@ public class Activity_apropos extends AppCompatActivity {
         });
 
 
-         docView =  findViewById(R.id.apropos_doc);
+        docView =  findViewById(R.id.apropos_doc);
     //    WebView  = (WebView) findViewById(R.id.apropos_webview);
         docView.setBackground(getResources().getDrawable(pageId[index]));
 
-    Button bpCibleG = findViewById(R.id.CibleG);
+        Button bpCibleG = findViewById(R.id.CibleG);
 
         bpCibleG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(RESULT_OK) ;
                 Activity_apropos.this.finish();
             }
         });
@@ -93,11 +91,18 @@ public class Activity_apropos extends AppCompatActivity {
         bpCibleD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(RESULT_OK) ;
                 Activity_apropos.this.finish();
             }
         });
 
     }
+/* Override some function like exit     */
+
+public void onBackPressed() {
+setResult(RESULT_OK) ;
+finish();
+}
 
     /*********************************************************************************/
     /** Managing LifeCycle and database open/close operations ************************/
@@ -105,12 +110,13 @@ public class Activity_apropos extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        stock.openDB();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        stock.closeDB();
 
     }
 

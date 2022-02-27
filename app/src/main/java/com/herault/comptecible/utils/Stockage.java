@@ -30,11 +30,12 @@ public class Stockage {
         openDB();
     }
 
-    public long showDB() {
-        if (db == null)
-            return (0);
-        else
-            return (1);
+    public boolean showDB() {
+        if (db == null) {
+            return (false);
+        } else {
+            return (true);
+        }
     }
 
     /**
@@ -55,6 +56,7 @@ public class Stockage {
      */
     public void closeDB() {
         db.close();
+        db=null;
     }
 
     /*-----------------------------------record-------------------------------------------------*/

@@ -1,6 +1,9 @@
 package com.herault.comptecible;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -24,8 +27,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
 
 import com.herault.comptecible.utils.Stockage;
 
@@ -58,6 +67,7 @@ public class Activity_MainActivity extends AppCompatActivity {
     private int NumberArrow = 0;
     private int NumberEndByRound = 0;
     private boolean orientationLand = false;
+    int APROPOS = 1 ;
                                 //
     private final View.OnTouchListener onTouchCible = new View.OnTouchListener() {
 
@@ -121,7 +131,7 @@ public class Activity_MainActivity extends AppCompatActivity {
                     case 2:
                         //   arrowValue.setBackgroundColor(Color.WHITE);
                         sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                        sd.setColor(getResources().getColor(R.color.BlancCible));
+                        sd.setColor(ContextCompat.getColor(getBaseContext(),R.color.BlancCible));
                         sd.invalidateSelf();
                         break;
 
@@ -129,7 +139,7 @@ public class Activity_MainActivity extends AppCompatActivity {
                     case 4:
                         //    arrowValue.setBackgroundColor(Color.BLACK);
                         sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                        sd.setColor(getResources().getColor(R.color.NoirCible));
+                        sd.setColor(ContextCompat.getColor(getBaseContext(),R.color.NoirCible));
                         sd.invalidateSelf();
                         break;
 
@@ -137,7 +147,7 @@ public class Activity_MainActivity extends AppCompatActivity {
                     case 6:
                         //arrowValue.setBackgroundColor(getResources().getColor(R.color.BleuCible));
                         sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                        sd.setColor(getResources().getColor(R.color.BleuCible));
+                        sd.setColor(ContextCompat.getColor(getBaseContext(),R.color.BleuCible));
                         sd.invalidateSelf();
                         break;
 
@@ -145,14 +155,14 @@ public class Activity_MainActivity extends AppCompatActivity {
                     case 8:
                         //  arrowValue.setBackgroundColor(getResources().getColor(R.color.RougeCible));
                         sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                        sd.setColor(getResources().getColor(R.color.RougeCible));
+                        sd.setColor(ContextCompat.getColor(getBaseContext(),R.color.RougeCible));
                         sd.invalidateSelf();
                         break;
 
                     case 9:
                     case 10:
                         sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                        sd.setColor(getResources().getColor(R.color.JauneCible));
+                        sd.setColor(ContextCompat.getColor(getBaseContext(),R.color.JauneCible));
                         sd.invalidateSelf();
                         //     arrowValue.setBackgroundColor(getResources().getColor(R.color.JauneCible));
                         break;
@@ -234,19 +244,21 @@ public class Activity_MainActivity extends AppCompatActivity {
         archer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                 int spinnerCountElement =archer.getCount() ;
-                 if (spinnerCountElement >= position+1) {
-                     String ArcherSel = (String) archer.getSelectedItem();
-                     archer_id = stock.getArcherId(ArcherSel);
+                if (stock.showDB() ) {
+                    int spinnerCountElement = archer.getCount();
+                    if (spinnerCountElement >= position + 1) {
+                        String ArcherSel = (String) archer.getSelectedItem();
+                        archer_id = stock.getArcherId(ArcherSel);
 
-                     if (archer_id < 0)
-                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing_archer) + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                        if (archer_id < 0)
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing_archer) + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
 // Init lors du changement Update
-                     updateviewOnly();
-                 }
-                 else
-                     Log.d("CompteCible", "onItemSelected: archer count "+ String.valueOf(spinnerCountElement));
-            }
+                        updateviewOnly();
+                    } else
+                        Log.d("CompteCible", "onItemSelected: archer count " + String.valueOf(spinnerCountElement));
+                }
+                }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
@@ -381,8 +393,29 @@ public class Activity_MainActivity extends AppCompatActivity {
 
         if (must_config) {
             Intent i = new Intent(this, Activity_config_round.class);
-            startActivity(i);
+            someActivityResultLauncher.launch(i);
         }
+        String newVersion = "";
+        String oldVersion = "";
+        try {
+            PackageManager manager = getApplicationContext().getPackageManager();
+            PackageInfo info = null;
+            info = manager.getPackageInfo(getApplicationContext().getPackageName(), 0);
+
+          newVersion =  info.versionName;
+          oldVersion =   stock.getValue("version");
+            if(! newVersion.equals(oldVersion))
+            {
+                Intent i = new Intent(this, Activity_apropos.class);
+                stock.updateValue("version",newVersion);
+                someActivityResultLauncher.launch(i);
+            }
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void updateView(int value, double X, double Y) {
@@ -396,51 +429,50 @@ public class Activity_MainActivity extends AppCompatActivity {
     }
 
     private void updateviewOnly() {
-        if ((archer.getCount()) >= 0) {
-            int k = archer.getSelectedItemPosition();
-            if (k < 0) { // pas d'archer dans la base'
-                must_config = true;
-            } else {
-                if (archer.getCount() <= k || k < 0)
-                    archer.setSelection(0);
-                Log.d("CompteCible", "updateview " + Integer.toString(k) + " " + roundName);
+      if (stock.showDB() ) {
+          if ((archer.getCount()) >= 0) {
+              int k = archer.getSelectedItemPosition();
+              if (k < 0) { // pas d'archer dans la base'
+                  must_config = true;
+              } else {
+                  if (archer.getCount() <= k || k < 0)
+                      archer.setSelection(0);
+                  Log.d("CompteCible", "updateview " + Integer.toString(k) + " " + roundName);
 
-                long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);  // Number of Arrow
+                  long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);  // Number of Arrow
 
 
-                if (!(arrowIndex < NumberArrow * NumberEndByRound)) {
-                    end.setText(getResources().getString(R.string.EndRound));
-                    endNumber.setText("");
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.EndRound) + " " + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    end.setText(getResources().getString(R.string.End));
-                    endNumber.setText(Long.toString((arrowIndex / NumberArrow) + 1));
-                }
-                List<Resultat_archer> resultat_fleches = null;
-                resultat_fleches = stock.getResultatArrows(archer.getSelectedItem().toString(), roundName);
+                  if (!(arrowIndex < NumberArrow * NumberEndByRound)) {
+                      end.setText(getResources().getString(R.string.EndRound));
+                      endNumber.setText("");
+                      Toast.makeText(getApplicationContext(), getResources().getString(R.string.EndRound) + " " + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                  } else {
+                      end.setText(getResources().getString(R.string.End));
+                      endNumber.setText(Long.toString((arrowIndex / NumberArrow) + 1));
+                  }
+                  List<Resultat_archer> resultat_fleches = null;
+                  resultat_fleches = stock.getResultatArrows(archer.getSelectedItem().toString(), roundName);
 
-                Resultat_archer resultat_archer;
-                StringBuilder resultTemp = new StringBuilder();
-                result.setText("");
+                  Resultat_archer resultat_archer;
+                  StringBuilder resultTemp = new StringBuilder();
+                  result.setText("");
 
-                int sumTotal = 0;
-                for (int i = 0; i <= (arrowIndex / NumberArrow); i++) {
-                    int sumVole = 0;
-                    long boucle = 0;
-                    List<Long> end; //End
-                    end = new ArrayList<Long>();
-                    boucle = (i == arrowIndex / NumberArrow) ? arrowIndex % NumberArrow : NumberArrow;
-                    for (int j = 0; j < boucle; j++) {
+                  int sumTotal = 0;
+                  for (int i = 0; i <= (arrowIndex / NumberArrow); i++) {
+                      int sumVole = 0;
+                      long boucle = 0;
+                      List<Long> end; //End
+                      end = new ArrayList<Long>();
+                      boucle = (i == arrowIndex / NumberArrow) ? arrowIndex % NumberArrow : NumberArrow;
+                      for (int j = 0; j < boucle; j++) {
 
-                        resultat_archer = resultat_fleches.get((i * NumberArrow) + j);
-                        sumVole += resultat_archer.getValue();
-                        end.add(resultat_archer.getValue());
-                    }
-                    Collections.sort(end, Collections.reverseOrder());
-                    for (int j = 0; j < boucle; j++) {
-                        resultTemp.append(convertColor(end.get(j).intValue()));
+                          resultat_archer = resultat_fleches.get((i * NumberArrow) + j);
+                          sumVole += resultat_archer.getValue();
+                          end.add(resultat_archer.getValue());
+                      }
+                      Collections.sort(end, Collections.reverseOrder());
+                      for (int j = 0; j < boucle; j++) {
+                          resultTemp.append(convertColor(end.get(j).intValue()));
 
             /*
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
@@ -449,39 +481,38 @@ public class Activity_MainActivity extends AppCompatActivity {
                 result.append(Html.fromHtml(fleche));
                 */
 
-                    }
-                    if (boucle != 0) {
-                        sumTotal += sumVole;
-                        if (sumVole < 10)
-                            resultTemp.append("= " + "0").append(Long.toString(sumVole, 10)).append("<br />");
-                        else
-                            resultTemp.append("= ").append(Long.toString(sumVole, 10)).append("<br />");
+                      }
+                      if (boucle != 0) {
+                          sumTotal += sumVole;
+                          if (sumVole < 10)
+                              resultTemp.append("= " + "0").append(Long.toString(sumVole, 10)).append("<br />");
+                          else
+                              resultTemp.append("= ").append(Long.toString(sumVole, 10)).append("<br />");
             /*
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 result.append(Html.fromHtml(" = " + Long.toString(sumVole) + "<br />", Html.FROM_HTML_MODE_COMPACT));
             else
                 result.append(Html.fromHtml(" = " + Long.toString(sumVole) + "<br />")); */
-                    }
-                }
-                resultTemp.append(Long.toString(sumTotal)).append("<br />");
+                      }
+                  }
+                  resultTemp.append(Long.toString(sumTotal)).append("<br />");
   /*   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
          result.append(Html.fromHtml(Long.toString(sumTotal)+"<br />", Html.FROM_HTML_MODE_COMPACT));
      else
          result.append(Html.fromHtml(Long.toString(sumTotal)+"<br />")); */
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    result.append(Html.fromHtml(resultTemp.toString(), Html.FROM_HTML_MODE_COMPACT));
-                else
-                    result.append(Html.fromHtml(resultTemp.toString()));
+
+                      result.append(HtmlCompat.fromHtml(resultTemp.toString(),HtmlCompat.FROM_HTML_MODE_LEGACY));
 
 
-                redraw();
-            }
-        } else {                                                              // No archer must condif
+                  redraw();
+              }
+          } else {                                                              // No archer must condif
       /*  Intent i = new Intent(this, Activity_config_round.class);
         startActivity(i); */
-            must_config = true;
-        }
+              must_config = true;
+          }
+      }
     }
 
     private String convertColor(int value) {
@@ -606,6 +637,25 @@ public class Activity_MainActivity extends AppCompatActivity {
 
 
     }
+
+/* Waiting from child activity */
+
+
+
+   ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() != Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        //    doSomeOperations();
+                        Toast.makeText(Activity_MainActivity.this, "retour de l'activité appelante", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
     /*********************************************************************************
     ** Managing LifeCycle and database open/close operations ************************
     *********************************************************************************/

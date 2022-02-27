@@ -30,9 +30,7 @@ public class ExportAsyncTask extends AsyncTask<String, Integer, Long> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
         this.callback.get().onPreExecute(); // Call the related callback method
-
     }
 
     @Override

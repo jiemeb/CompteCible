@@ -28,35 +28,42 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".EditNoteActivity"
-            android:label="CompteCible"
-            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".Activity_config_round"
+            android:parentActivityName=".Activity_MainActivity"
             android:label="CompteCible"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity_maintenance"
+            android:parentActivityName=".Activity_MainActivity"
             android:label="CompteCible"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity_resultat_round"
+            android:parentActivityName=".Activity_MainActivity"
             android:label="CompteCible"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity_resultat_image"
+            android:parentActivityName=".Activity_MainActivity"
             android:label="CompteCible"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Activity_apropos"
-            android:label="CompteCible"
+            android:parentActivityName=".Activity_MainActivity"
+            android:label="@string/Apropos"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity_archer"
+            android:parentActivityName=".Activity_MainActivity"
             android:label="CompteCible"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditNoteActivity"
+            android:parentActivityName=".Activity_archer"
+            android:label="CompteCible"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

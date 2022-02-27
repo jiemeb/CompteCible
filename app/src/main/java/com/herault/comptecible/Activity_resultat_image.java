@@ -1,16 +1,24 @@
 package com.herault.comptecible;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Insets;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowManager;
+import android.view.WindowMetrics;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -19,7 +27,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.herault.comptecible.utils.Stockage;
 
@@ -137,7 +147,7 @@ public class Activity_resultat_image extends AppCompatActivity {
     private void drawResultRound(String round, String archer) {
 
         //    ImageView imageView = (ImageView) findViewById(R.id.air_layoutImage);
-        imageView.setBackground(getResources().getDrawable(R.drawable.ic_cible));
+        imageView.setBackground(ContextCompat.getDrawable(this,R.drawable.ic_cible));
         //   ImageView fantomCible=findViewById(R.id.imageCible);
         Bitmap bitmap;
         //   double xmax = fantomCible.getWidth() ;
@@ -180,11 +190,28 @@ public class Activity_resultat_image extends AppCompatActivity {
 
     //graphe Impact by arrow
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
     private void drawResultImpact(String round, String archer) {
         // Get density in dpi
         DisplayMetrics metrics = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float density = metrics.density;
+
+
+
+
+ /*       WindowMetrics windowMetrics = this.getWindowManager().getCurrentWindowMetrics();
+        DisplayMetrics metrics = new DisplayMetrics();
+
+        Rect bounds = windowMetrics.getBounds();
+        Insets insets = windowMetrics.getWindowInsets().getInsetsIgnoringVisibility(
+                WindowInsets.Type.systemBars() );
+       float density = bounds.width();
+*/
+/* Api 30    DisplayMetrics outMetrics = getResources().getDisplayMetrics();
+    float density = outMetrics.density; */
+
+       // float density = metrics.density;
 
         double SCALE = 1;
 
@@ -323,7 +350,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         // Setting background color of the graph to transparent
         renderer.setBackgroundColor(Color.DKGRAY);
         // Setting margin color of the graph to transparent
-        renderer.setMarginsColor(getResources().getColor(android.R.color.transparent));
+        renderer.setMarginsColor(ContextCompat.getColor(getBaseContext(),android.R.color.transparent));
         renderer.setApplyBackgroundColor(true);
         renderer.setScale(1f);
         // setting x axis point size
@@ -482,7 +509,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         // Setting background color of the graph to transparent
         renderer.setBackgroundColor(Color.DKGRAY);
         // Setting margin color of the graph to transparent
-        renderer.setMarginsColor(getResources().getColor(android.R.color.transparent));
+        renderer.setMarginsColor(ContextCompat.getColor(getBaseContext(),android.R.color.transparent));
         renderer.setApplyBackgroundColor(true);
         renderer.setScale(1f);
         // setting x axis point size
@@ -513,7 +540,7 @@ public class Activity_resultat_image extends AppCompatActivity {
 
         DisplayMetrics metrics = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        float density = metrics.density;
+         float density = metrics.density;
 
         double SCALE = 1;
 
@@ -640,7 +667,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         // Setting background color of the graph to transparent
         renderer.setBackgroundColor(Color.DKGRAY);
         // Setting margin color of the graph to transparent
-        renderer.setMarginsColor(getResources().getColor(android.R.color.transparent));
+        renderer.setMarginsColor(ContextCompat.getColor(getBaseContext(),android.R.color.transparent));
         renderer.setApplyBackgroundColor(true);
         renderer.setScale(1f);
         // setting x axis point size
