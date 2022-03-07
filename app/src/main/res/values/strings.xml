@@ -7,7 +7,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="config_round">Config round</string>
-    <string name="activity_maintenance">maintenance</string>
+    <string name="activity_maintenance">Maintenance</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="ClearDataBase">Clear DataBase</string>
@@ -37,7 +37,7 @@
     <string name="Noelement">"No element found : "</string>
     <string name="am_bexport_archer_round">export archer rounds</string>
     <string name="baseClean">Clean Database</string>
-    <string name="baseAlertClean">Are you sure to delete Database</string>
+    <string name="baseAlertClean">Are you sure to delete </string>
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="archer_base">archer in base</string>
@@ -62,5 +62,7 @@
     <string name="resRoundFilter">filter</string>
     <string name="pointageOffset">Offset Value</string>
     <string name="pointageOffsetDesc">"pointing offset value "</string>
+    <string name="archerClean">"delete archer "</string>
+    <string name="roundClean">"round suppress "</string>
 
 </resources>

@@ -289,106 +289,65 @@ public class Activity_MainActivity extends AppCompatActivity {
         //stock.showArchers();
 
         Button next_archer = findViewById(R.id.bNextArcher);
-        next_archer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = archer.getSelectedItemPosition();
-                pos += 1;
-                if (pos < archer.getCount())
-                    archer.setSelection(pos);
-                else
-                    archer.setSelection(0);
+        next_archer.setOnClickListener(v -> {
+            int pos = archer.getSelectedItemPosition();
+            pos += 1;
+            if (pos < archer.getCount())
+                archer.setSelection(pos);
+            else
+                archer.setSelection(0);
 
-            }
         });
 
         Button previous_archer = findViewById(R.id.bPreviousArcher);
-        previous_archer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = archer.getSelectedItemPosition();
-                pos -= 1;
-                if (pos >= 0)
-                    archer.setSelection(pos);
-                else
-                    archer.setSelection( archer.getCount() - 1);
-            }
+        previous_archer.setOnClickListener(v -> {
+            int pos = archer.getSelectedItemPosition();
+            pos -= 1;
+            if (pos >= 0)
+                archer.setSelection(pos);
+            else
+                archer.setSelection( archer.getCount() - 1);
         });
 
-        bAnnul.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        bAnnul.setOnClickListener( v-> {
                 stock.supResultat(archer.getSelectedItem().toString(), roundName);
                 updateviewOnly();
-            }
+
         });
 
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        b1.setOnClickListener( v-> {
                 updateView(1, 100, 100);
-            }
         });
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        b2.setOnClickListener(v-> {
                 updateView(2, 100, 100);
-            }
         });
-        b3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        b3.setOnClickListener( v-> {
                 updateView(3, 100, 100);
-            }
         });
-        b4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        b4.setOnClickListener( v-> {
                 updateView(4, 100, 100);
-            }
         });
-        b5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        b5.setOnClickListener( v-> {
                 updateView(5, 100, 100);
-            }
         });
-        b6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        b6.setOnClickListener( v-> {
                 updateView(6, 100, 100);
-            }
         });
-        b7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        b7.setOnClickListener( v-> {
                 updateView(7, 100, 100);
-            }
-        });
-        b8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateView(8, 100, 100);
 
-            }
         });
-        b9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        b8.setOnClickListener(v-> {
+                updateView(8, 100, 100);
+        });
+        b9.setOnClickListener(v-> {
                 updateView(9, 100, 100);
-            }
         });
-        b10.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        b10.setOnClickListener( v-> {
                 updateView(10, 100, 100);
-            }
         });
-        bManque.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        bManque.setOnClickListener( v-> {
                 updateView(0, 100, 100);
-            }
         });
 
         if (must_config) {
@@ -435,7 +394,7 @@ public class Activity_MainActivity extends AppCompatActivity {
               if (k < 0) { // pas d'archer dans la base'
                   must_config = true;
               } else {
-                  if (archer.getCount() <= k || k < 0)
+                  if (archer.getCount() <= k )
                       archer.setSelection(0);
                   Log.d("CompteCible", "updateview " + Integer.toString(k) + " " + roundName);
 
@@ -571,7 +530,6 @@ public class Activity_MainActivity extends AppCompatActivity {
 
         //   ImageView fantomCible=findViewById(R.id.imageCible);
         Bitmap bitmap;
-
         double Xscale, Yscale;
         double xmax = Cible.getWidth();
         double ymax = Cible.getHeight();
@@ -605,15 +563,11 @@ public class Activity_MainActivity extends AppCompatActivity {
         paint.setColor(Color.GREEN);
         canvas.drawCircle((float) (moyX / nb_valeur_moyenne / Xscale), (float) (moyY / nb_valeur_moyenne / Yscale), (float) (0.2 / Xscale), paint);
         Cible.setImageBitmap(bitmap);
-
-
     }
 
     private void drawImpact(double x, double y) {
-
         //   ImageView fantomCible=findViewById(R.id.imageCible);
         Bitmap bitmap;
-
         double Xscale, Yscale;
         double xmax = Cible.getWidth();
         double ymax = Cible.getHeight();
@@ -628,20 +582,13 @@ public class Activity_MainActivity extends AppCompatActivity {
         Canvas canvas = new Canvas(bitmap);
         //    canvas.translate((int) xmax / 2, (int) ymax / 2);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
         paint.setColor(Color.CYAN);
         //      canvas.drawCircle((float) ((x) / Xscale), (float) ((y) / Yscale), (float) (0.3 / Xscale), paint);
         canvas.drawCircle((float) ((x + CONSTANTE_nbDivisionCible / 2.) / Xscale), (float) ((y + CONSTANTE_nbDivisionCible / 2.) / Yscale), (float) (0.3 / Xscale), paint);
-
         Cible.setImageBitmap(bitmap);
-
-
     }
 
 /* Waiting from child activity */
-
-
-
    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -679,8 +626,6 @@ public class Activity_MainActivity extends AppCompatActivity {
             stock.updateValue("pointageOffset",sPointerOffset);
         }
         pointageOffset = Double.parseDouble ( sPointerOffset);
-
-
         NumberArrow = Integer.parseInt(snumberArrow);
         NumberEndByRound = Integer.parseInt(snumberEnd);
 
@@ -722,13 +667,11 @@ public class Activity_MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.maintenance) {
-
             Intent i = new Intent(this, Activity_maintenance.class);
             startActivity(i);
             return true;
         }
         if (id == R.id.resultat_round) {
-
             Intent i = new Intent(this, Activity_resultat_round.class);
             startActivity(i);
             return true;
@@ -742,10 +685,7 @@ public class Activity_MainActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
-
 
 }

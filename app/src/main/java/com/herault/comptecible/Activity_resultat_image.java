@@ -1,6 +1,7 @@
 package com.herault.comptecible;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Pair;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowInsets;
@@ -190,36 +192,16 @@ public class Activity_resultat_image extends AppCompatActivity {
 
     //graphe Impact by arrow
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
+
     private void drawResultImpact(String round, String archer) {
         // Get density in dpi
-        DisplayMetrics metrics = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        DisplayMetrics metrics = getResources(). getDisplayMetrics();
         float density = metrics.density;
 
 
-
-
- /*       WindowMetrics windowMetrics = this.getWindowManager().getCurrentWindowMetrics();
-        DisplayMetrics metrics = new DisplayMetrics();
-
-        Rect bounds = windowMetrics.getBounds();
-        Insets insets = windowMetrics.getWindowInsets().getInsetsIgnoringVisibility(
-                WindowInsets.Type.systemBars() );
-       float density = bounds.width();
-*/
-/* Api 30    DisplayMetrics outMetrics = getResources().getDisplayMetrics();
-    float density = outMetrics.density; */
-
-       // float density = metrics.density;
-
         double SCALE = 1;
 
-        if (density > 2)
-            SCALE = 2.5;
-
-        if (density > 3)
-            SCALE = 3;
         SCALE = density * 0.8;
         int TEXTSIZE = (int) (14 * SCALE);
 
@@ -388,9 +370,7 @@ public class Activity_resultat_image extends AppCompatActivity {
 
    //--  archer by concours
     private void drawResultArcherRound(String archer) {
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        DisplayMetrics metrics = getResources(). getDisplayMetrics();
         float density = metrics.density;
 
         double SCALE = 1;
@@ -410,11 +390,13 @@ public class Activity_resultat_image extends AppCompatActivity {
         else
             lresultat = stock.getResultatAllRound(archer);
         int i = 0;
-        long value_max = 0;
+        long value_Ymax  = 0;
+        long value_Xmax  = 0;
         for (Resultat_archer r : lresultat) {
             expenseSeries.add(i, r.value);
-            if (r.value > value_max)
-                value_max = r.value;
+            value_Xmax++;
+            if (r.value > value_Ymax)
+                value_Ymax = r.value;
             i++;
         }
 
@@ -498,12 +480,12 @@ public class Activity_resultat_image extends AppCompatActivity {
         //setting x axis min value
         renderer.setYAxisMin(0);
         // setting y axis max value
-        renderer.setYAxisMax((double) (value_max + (value_max / 10)));
+        renderer.setYAxisMax((double) (value_Ymax + (value_Ymax / 10)));
         // setting used to move the graph on xaxiz to .5 to the right
         renderer.setXAxisMin(-0.5);
         // setting used to move the graph on xaxiz to .5 to the right
         //       renderer.setXAxisMax(lresultat.size());
-        renderer.setXAxisMax(4);
+        renderer.setXAxisMax((double) (value_Xmax + (value_Xmax / 10)));
         // setting bar size or space between two bars
         renderer.setBarSpacing(0.5);
         // Setting background color of the graph to transparent
@@ -538,8 +520,7 @@ public class Activity_resultat_image extends AppCompatActivity {
     //--  concours  archer
     private void drawResultRoundArcher(String round, String archer) {
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        DisplayMetrics metrics = getResources(). getDisplayMetrics();
          float density = metrics.density;
 
         double SCALE = 1;

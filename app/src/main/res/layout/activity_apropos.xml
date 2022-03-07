@@ -6,19 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".Activity_apropos">
 
-
-
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-   >
+        app:layout_constraintStart_toStartOf="parent" >
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_weight="1">
@@ -35,22 +31,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </TableRow>
 
-
         <TableRow
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_rowWeight="20"
-        android:layout_weight="20">
+        android:layout_rowWeight="15"
+        android:layout_weight="15">
 
      <ImageView
      android:id="@+id/apropos_doc"
      android:layout_width="wrap_content"
-     android:layout_height="match_parent"
+     android:layout_height="wrap_content"
      app:layout_constraintDimensionRatio="1"
      app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/app_version" />
-
-
+     app:layout_constraintTop_toBottomOf="@id/app_version" />
 
 </TableRow>
     <TableRow

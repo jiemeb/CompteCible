@@ -1,5 +1,7 @@
 package com.herault.comptecible;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.herault.comptecible.utils.Stockage;
 
@@ -29,11 +32,13 @@ public class Activity_apropos extends AppCompatActivity {
     ImageView docView ;
     Button bp_next;
     Button bp_previous;
+    private Context _context ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String version = "CompteCible version : ";
+        _context = this ;
         setContentView(R.layout.activity_apropos);
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
@@ -45,36 +50,29 @@ public class Activity_apropos extends AppCompatActivity {
 
         bp_next = findViewById(R.id.bNextArcher);
 
-        bp_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        bp_next.setOnClickListener(v -> {
 
-            index ++ ;
-            if  (index >= pageId.length)
-                    index = pageId.length -1 ;
-                docView.setBackground(getResources().getDrawable(pageId[index]));
+        index ++ ;
+        if  (index >= pageId.length)
+                index = pageId.length -1 ;
+            docView.setBackground(ContextCompat.getDrawable(_context,pageId[index]));
 
-            }
         });
 
 
 
         bp_previous = findViewById(R.id.bPreviousArcher);
-        bp_previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                index -- ;
-                if  (index <= 0)
-                    index = 0 ;
-                docView.setBackground(getResources().getDrawable(pageId[index]));
-            }
+        bp_previous.setOnClickListener(v -> {
+            index -- ;
+            if  (index <= 0)
+                index = 0 ;
+            docView.setBackground(ContextCompat.getDrawable(_context,pageId[index]));
         });
 
 
         docView =  findViewById(R.id.apropos_doc);
     //    WebView  = (WebView) findViewById(R.id.apropos_webview);
-        docView.setBackground(getResources().getDrawable(pageId[index]));
+        docView.setBackground(ContextCompat.getDrawable(_context,pageId[index]));
 
         Button bpCibleG = findViewById(R.id.CibleG);
 

@@ -38,7 +38,7 @@
     <string name="am_bexport_archer_round">Export archer par Concours</string>
     <string name="ClearDataBase">Purge Base donnée</string>
     <string name="baseClean">Supression Base</string>
-    <string name="baseAlertClean">Voulez-vous vraiment tout effacer</string>
+    <string name="baseAlertClean">Voulez-vous vraiment  effacer</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="archer_base">Archers en base</string>
@@ -63,5 +63,8 @@
     <string name="resRoundFilter">filtre</string>
     <string name="pointageOffset">Valeur Offset</string>
     <string name="pointageOffsetDesc">"valeur de decallage de pointage"</string>
+    <string name="archerClean">"suppression archer "</string>
+    <string name="roundClean">"suppression concours "</string>
+
 
 </resources>

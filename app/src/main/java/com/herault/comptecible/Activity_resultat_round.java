@@ -97,7 +97,8 @@ public class Activity_resultat_round extends AppCompatActivity {
                 // Update Archer List
 
                 adapter_archer.clear();
-                lArcher = stock.getArchers(roundName); // get modification  on Database after config Round
+                lArcher = stock.getArchers(false); // get modification  on Database after config Round
+       //         lArcher = stock.getArchers(roundName); // get modification  on Database after config Round
                 lArcher.add("***");
                 for (int i = 0; i < lArcher.size(); i++) {
                     adapter_archer.add(lArcher.get(i));

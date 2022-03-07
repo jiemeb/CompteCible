@@ -1,5 +1,6 @@
 package com.herault.comptecible;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +14,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.herault.comptecible.utils.Stockage;
@@ -47,11 +52,10 @@ public class Activity_archer extends AppCompatActivity {
             public void onClick(View v) {
                 Intent myIntent = new Intent(Activity_archer.this, EditNoteActivity.class);
                 myIntent.putExtra("archer", (String) SArcherName.getSelectedItem());
-                startActivityForResult(myIntent, 0);
+//                startActivityForResult(myIntent, 0);
+                someActivityResultLauncher.launch(myIntent);
 // ré-actualise Note
-                return;
-
-            }
+             }
         });
 
 
@@ -139,12 +143,15 @@ public class Activity_archer extends AppCompatActivity {
                 Intent myIntent = new Intent(Activity_archer.this, EditNoteActivity.class);
                 myIntent.putExtra("idNote", myNote.keyIdNote);
                 myIntent.putExtra("archer", (String) SArcherName.getSelectedItem());
-                startActivityForResult(myIntent, 0);
+//                startActivityForResult(myIntent, 0);
+                someActivityResultLauncher.launch(myIntent);
 // ré-actualise Note
                 return true;
 
             }
         });
+
+
 
 
     }
@@ -160,7 +167,23 @@ public class Activity_archer extends AppCompatActivity {
         }
     }
 
-    @Override
+ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() != Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        //    doSomeOperations();
+                        Toast.makeText(Activity_archer.this, "retour de l'activité appelante", Toast.LENGTH_SHORT).show();
+                    }
+                    stock.openDB();
+                    refreshNotes();
+                }
+            });
+
+ /*  @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 0 && requestCode == 0) {
@@ -171,7 +194,7 @@ public class Activity_archer extends AppCompatActivity {
             stock.openDB();
             refreshNotes();
         }
-    }
+    } */
 
     /*********************************************************************************/
     /** Managing LifeCycle and database open/close operations ************************/

@@ -23,8 +23,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.herault.comptecible.utils.ExportAsyncTask;
+import com.herault.comptecible.utils.MyHandlerThread;
 import com.herault.comptecible.utils.Stockage;
 
 import java.io.File;
@@ -33,8 +32,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
-
-public class Activity_maintenance extends AppCompatActivity implements ExportAsyncTask.Listeners {
+public class Activity_maintenance extends AppCompatActivity  {
 
     protected Activity context;
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -47,20 +45,18 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     private ArrayAdapter adapterRound;
 
     private EditText pointageOffset = null ;
-    private ExportAsyncTask task;
     long archer_id;
     private Activity_maintenance localActivity;
     private List<Resultat_archer> lresultat;
+    private MyHandlerThread handlerThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         localActivity = this;
         setContentView(R.layout.activity_maintenance);
-
-
-
         progressBarExport = findViewById(R.id.am_progressBar);
-
+        this.configureHandlerThread();
         archer = findViewById(R.id.am_sArcher);
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
@@ -79,31 +75,46 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 // Suppress Archer
 
         Button bSuppresArcher = findViewById(R.id.am_bSuppresArcher);
-        bSuppresArcher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (archer.getCount() != 0) {
-                    String name = archer.getSelectedItem().toString();
+        bSuppresArcher.setOnClickListener(v -> {
+            if (archer.getCount() != 0) {
+                String name = archer.getSelectedItem().toString();
 
-                    adapter.remove(archer.getSelectedItem());
-                    stock.dropArcher(name);
-                }
-                if (archer.getCount() == 0) {
-                    Intent i = new Intent(Activity_maintenance.this, Activity_config_round.class);
-                    startActivity(i);
-                    Activity_maintenance.this.finish();
-                }
+                AlertDialog.Builder popupValidation = new AlertDialog.Builder(localActivity);
+                popupValidation.setMessage(getResources().getString(R.string.archerClean)+name);
+                popupValidation.setTitle(getResources().getString(R.string.archerClean));
+                popupValidation.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        adapter.remove(archer.getSelectedItem());
+                        stock.dropArcher(name);
+
+                        if (archer.getCount() == 0) {
+                            Intent j = new Intent(Activity_maintenance.this, Activity_config_round.class);
+                            startActivity(j);
+                            Activity_maintenance.this.finish();
+                        }
+                    }
+                });
+                popupValidation.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                popupValidation.show();
+
+
             }
+
         });
+
 // Clear Database
         Button bCleaDataBase = findViewById(R.id.am_bCleaDataBase);
         bCleaDataBase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder popupValidation = new AlertDialog.Builder(localActivity);
-                popupValidation.setMessage(getResources().getString(R.string.baseAlertClean));
+                popupValidation.setMessage(getResources().getString(R.string.baseAlertClean)+"database");
                 popupValidation.setTitle(getResources().getString(R.string.baseClean));
-
                 popupValidation.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -122,6 +133,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
             }
         });
+
 // Set pointing Offset
         // Get Offset of Pointer
         pointageOffset = findViewById(R.id.pointageOffset);
@@ -156,7 +168,6 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
 
 
 // export in file Round for all archers
-
         Button bExportRoundArchers = findViewById(R.id.am_bexport_round_archers);
         bExportRoundArchers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,10 +176,10 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
                 // test Archer
                 if (round.getCount() != 0 && round.getSelectedItemId() >= 0) {
                     // 3 - We create and start our AsyncTask
-                    String[] argv = new String[]{round.getSelectedItem().toString()};
-                    lresultat = stock.getResultatAll(argv[0]);
-                    task = new ExportAsyncTask(Activity_maintenance.this);
-                    task.execute(argv);
+                    String name = new String(round.getSelectedItem().toString());
+                    lresultat = stock.getResultatAll(name);
+                    startHandlerThread(lresultat,name);
+
 
                 }
             }
@@ -184,10 +195,12 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
                 // test Archer
                 if (round.getCount() != 0 && round.getSelectedItemId() >= 0 && archer.getCount() != 0 && archer.getSelectedItemId() >= 0) {
 
-                    String[] argv = new String[]{archer.getSelectedItem().toString() + "_" + round.getSelectedItem().toString()};
+                 //   String[] argv = new String[]{archer.getSelectedItem().toString() + "_" + round.getSelectedItem().toString()};
                     lresultat = stock.getResultatArrows(archer.getSelectedItem().toString(), round.getSelectedItem().toString());
-                    task = new ExportAsyncTask(Activity_maintenance.this);
-                    task.execute(argv);
+                  /*  task = new ExportAsyncTask(Activity_maintenance.this);
+                    task.execute(argv);*/
+                    String name = new String(archer.getSelectedItem().toString() + "_" + round.getSelectedItem().toString());
+                    startHandlerThread(lresultat,name);
 
                 }
             }
@@ -203,17 +216,17 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
                 // test Archer
                 if (archer.getCount() != 0 && archer.getSelectedItemId() >= 0) {
                     // 3 - We create and start our AsyncTask
-                    String[] argv = new String[]{archer.getSelectedItem().toString()};
-                    lresultat = stock.getResultatAllRound(argv[0]);
-                    task = new ExportAsyncTask(Activity_maintenance.this);
-                    task.execute(argv);
+                    String name = new String(archer.getSelectedItem().toString());
+                    lresultat = stock.getResultatAllRound(name);
+                    name += "_all.csv";
+                    startHandlerThread(lresultat,name);
 
                 }
             }
         });
 
-
 //-------------------------------------------------------------------------------------------------
+
         round = findViewById(R.id.sRound);
         List<String> lRound = stock.getRounds();
         adapterRound = new ArrayAdapter(
@@ -231,16 +244,31 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         bSuppressRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (round.getCount() != 0) {
-                    String name = round.getSelectedItem().toString();
 
-                    adapterRound.remove(round.getSelectedItem());
-                    stock.supRound(name);
-                } else {
-                    Intent i = new Intent(Activity_maintenance.this, Activity_config_round.class);
-                    startActivity(i);
-                    Activity_maintenance.this.finish();
-                }
+                String name = round.getSelectedItem().toString();
+                AlertDialog.Builder popupValidation = new AlertDialog.Builder(localActivity);
+                popupValidation.setMessage(getResources().getString(R.string.roundClean)+name);
+                popupValidation.setTitle(getResources().getString(R.string.roundClean));
+                popupValidation.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        adapterRound.remove(round.getSelectedItem());
+                        stock.supRound(name);
+
+                        if (round.getCount() == 0) {
+                            Intent j = new Intent(Activity_maintenance.this, Activity_config_round.class);
+                            startActivity(j);
+                            Activity_maintenance.this.finish();
+                        }
+                    }
+                });
+                popupValidation.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                popupValidation.show();
+
             }
         });
 
@@ -259,87 +287,7 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         } */
 
     }
-    //-------------------------------------------------------------------
-    // -------------------------------------------
-    // BACKGROUND TASK (HandlerThread & AsyncTask)
-    // -------------------------------------------
 
-
-    // ------
-
-
-    // 2 - Override methods of callback
-    @Override
-    public void onPreExecute() {
-        // 2.1 - We update our UI before task (starting ProgressBar)
-        this.updateUIBeforeTask();
-    }
-
-    @Override
-    public Long doInBackground(String... name) {
-
-        // Create a path where we will place our private file on external
-        // storage.
-
-        //      File file = new File(getExternalFilesDir(""), name[0] + ".csv");
-        File file;
-    //    file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath(), name[0] + ".csv");
-
-        file = new File(getExternalFilesDir(""),name[0] + ".csv");
-        try {
-            OutputStream os = new FileOutputStream(file);
-            //          byte[] data = new byte[is.available()];
-
-            String formCsv = "";
-            Double current;
-            Double ratio = lresultat.size() / 100.;
-            int i = 0;
-            for (Resultat_archer r : lresultat) {
-                formCsv = r.getName() + "," + r.getValue() +
-                        "," + r.getY() + "," + r.getX() + "\n\r";
-                os.write(formCsv.getBytes());
-                i++;
-                current = i / ratio;
-                if (0 == (current - ((int) Math.round(current)))) {
-                    task.myPublishProgress((int) Math.round(current));
-                }
-            }
-
-            os.close();
-        } catch (IOException e) {
-            // Unable to create file, likely because external storage is
-            // not currently mounted.
-            Log.w("ExternalStorage", "Error writing " + file, e);
-
-        }
-        return 0L;
-    }
-
-    @Override
-    public void onProgressUpdate(Integer... values) {
-        progressBarExport.setProgress(values[0]);
-    }
-
-    @Override
-    public void onPostExecute(Long taskEnd) {
-        // 2.2 - We update our UI before task (stopping ProgressBar)
-        this.updateUIAfterTask(taskEnd);
-    }
-
-    // -----------------
-    // UPDATE UI
-    // -----------------
-
-    private void updateUIBeforeTask() {
-        progressBarExport.setVisibility(View.VISIBLE);
-    }
-
-    private void updateUIAfterTask(Long taskEnd) {
-        progressBarExport.setVisibility(View.INVISIBLE);
-        //   Toast.makeText(this, "Task is finally finished at : " + taskEnd + " !", Toast.LENGTH_SHORT).show();
-    }
-
-    //-----------------fin call back ExportASyncTAsk
 
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getBaseContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -370,7 +318,26 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
     }
 
 //---------------------------------------
+    // -----------------
+    // CONFIGURATION
+    // -----------------
 
+    // 2 - Configuring the HandlerThread
+    private void configureHandlerThread(){
+        handlerThread = new MyHandlerThread(this,"MyAwesomeHandlerThread", this.progressBarExport);
+    }
+
+    // -------------------------------------------
+    // BACKGROUND TASK (HandlerThread & AsyncTask)
+    // -------------------------------------------
+
+    // 4 - EXECUTE HANDLER THREAD
+    private void startHandlerThread(List <Resultat_archer>lresultat,String name){
+
+        handlerThread.startHandler(lresultat,name);
+    }
+
+//--------------------------------------
     /*********************************************************************************/
     /** Managing LifeCycle and database open/close operations ************************/
     /*********************************************************************************/
@@ -387,6 +354,13 @@ public class Activity_maintenance extends AppCompatActivity implements ExportAsy
         super.onPause();
         //Close stockage
         stock.closeDB();
+    }
+
+    @Override
+    protected void onDestroy() {
+        // 3 - QUIT HANDLER THREAD (Free precious resources)
+        handlerThread.quit();
+        super.onDestroy();
     }
 
 

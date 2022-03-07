@@ -8,13 +8,14 @@ android {
         applicationId "com.herault.comptecible"
         minSdkVersion 19
         targetSdkVersion 31
-        versionCode 27
-        versionName "1.6.2"
+        versionCode 28
+        versionName "1.6.3"
 
         testInstrumentationRunner releaseApplicationIdSuffix
         allprojects {
             tasks.withType(JavaCompile) {
-                options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+ //               options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+                options.compilerArgs <<  "-Xlint:deprecation"
             }
         }
     }
