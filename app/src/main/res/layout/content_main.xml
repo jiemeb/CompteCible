@@ -237,7 +237,14 @@
                 android:layout_height="match_parent"
                 android:layout_rowWeight="1"
                 android:layout_weight="1">
-
+                <Button
+                    android:id="@+id/plus10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_weight="1"
+                    android:background="@drawable/am_buttonshape_yellow"
+                    android:text="@string/Plus10" />
                 <Button
                     android:id="@+id/Manque"
                     android:layout_width="wrap_content"

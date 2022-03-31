@@ -1,5 +1,7 @@
 package com.herault.comptecible;
 
+import static java.lang.Math.abs;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -163,6 +165,7 @@ public class Activity_MainActivity extends AppCompatActivity {
                     case 10:
                         sd = (GradientDrawable) arrowValue.getBackground().mutate();
                         sd.setColor(ContextCompat.getColor(getBaseContext(),R.color.JauneCible));
+
                         sd.invalidateSelf();
                         //     arrowValue.setBackgroundColor(getResources().getColor(R.color.JauneCible));
                         break;
@@ -170,7 +173,11 @@ public class Activity_MainActivity extends AppCompatActivity {
 
 
                 Log.d("CompteCible", "onTouch " + Double.toString(x) + " " + Double.toString(y) + " " + Integer.toString(resultat_fleche));
-                arrowValue.setText(String.valueOf(resultat_fleche));
+                double valueFleche = CONSTANTE_nbDivisionCible -  (Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)) - (0.3));
+                if(valueFleche > 9.5)
+                    arrowValue.setText("+");
+                else
+                    arrowValue.setText(String.valueOf(resultat_fleche));
                 drawImpact(x, y);
             }
             return true;
@@ -281,6 +288,7 @@ public class Activity_MainActivity extends AppCompatActivity {
         Button b8 = findViewById(R.id.button8);
         Button b9 = findViewById(R.id.button9);
         Button b10 = findViewById(R.id.button10);
+        Button bPlus = findViewById(R.id.plus10);
         Button bAnnul = findViewById(R.id.Annul);
         Button bManque = findViewById(R.id.Manque);
 
@@ -345,6 +353,9 @@ public class Activity_MainActivity extends AppCompatActivity {
         });
         b10.setOnClickListener( v-> {
                 updateView(10, 100, 100);
+        });
+        bPlus.setOnClickListener( v-> {
+            updateView(10, 00, 00);
         });
         bManque.setOnClickListener( v-> {
                 updateView(0, 100, 100);
@@ -424,10 +435,12 @@ public class Activity_MainActivity extends AppCompatActivity {
                       end = new ArrayList<Long>();
                       boucle = (i == arrowIndex / NumberArrow) ? arrowIndex % NumberArrow : NumberArrow;
                       for (int j = 0; j < boucle; j++) {
-
                           resultat_archer = resultat_fleches.get((i * NumberArrow) + j);
                           sumVole += resultat_archer.getValue();
-                          end.add(resultat_archer.getValue());
+                          if(abs(resultat_archer.getX()) < 0.5 && abs(resultat_archer.getY()) < 0.5)
+                              end.add((long) 11);
+                          else
+                              end.add(resultat_archer.getValue());
                       }
                       Collections.sort(end, Collections.reverseOrder());
                       for (int j = 0; j < boucle; j++) {
@@ -443,23 +456,14 @@ public class Activity_MainActivity extends AppCompatActivity {
                       }
                       if (boucle != 0) {
                           sumTotal += sumVole;
-                          if (sumVole < 10)
+                          if (sumVole < 10)                 // set number to "0" plus value
                               resultTemp.append("= " + "0").append(Long.toString(sumVole, 10)).append("<br />");
                           else
                               resultTemp.append("= ").append(Long.toString(sumVole, 10)).append("<br />");
-            /*
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                result.append(Html.fromHtml(" = " + Long.toString(sumVole) + "<br />", Html.FROM_HTML_MODE_COMPACT));
-            else
-                result.append(Html.fromHtml(" = " + Long.toString(sumVole) + "<br />")); */
+
                       }
                   }
                   resultTemp.append(Long.toString(sumTotal)).append("<br />");
-  /*   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-         result.append(Html.fromHtml(Long.toString(sumTotal)+"<br />", Html.FROM_HTML_MODE_COMPACT));
-     else
-         result.append(Html.fromHtml(Long.toString(sumTotal)+"<br />")); */
-
 
                       result.append(HtmlCompat.fromHtml(resultTemp.toString(),HtmlCompat.FROM_HTML_MODE_LEGACY));
 
@@ -489,7 +493,7 @@ public class Activity_MainActivity extends AppCompatActivity {
                 break;
 
             case 3:
-//                        retour = "<span style=\"background : black \"> <font color=RED ><B> " + value + "</font></B> </font></span> ";
+//                          retour = "<span style=\"background : black \"> <font color=RED ><B> " + value + "</font></B> </font></span> ";
                 retour = "&ensp <span style=\"background : black \"><font color=RED ><B>3</B></font></font></span>";
                 // retour = "<span style=\"background : black ;float: ;left;width: 1em\"> <font color=RED ><B> " + value + "</font></B> </font></span> ";
                 break;
@@ -520,6 +524,10 @@ public class Activity_MainActivity extends AppCompatActivity {
                 break;
             case 10:
                 retour = " <span style=\"background : yellow  \"><B>10</B></span>";
+                break;
+
+            case 11:
+               retour = " <span style=\"background : yellow  \"><B>+</B></span>";
                 break;
         }
         return retour;
@@ -591,17 +599,14 @@ public class Activity_MainActivity extends AppCompatActivity {
 /* Waiting from child activity */
    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() != Activity.RESULT_OK) {
-                        // There are no request codes
-                        Intent data = result.getData();
-                        //    doSomeOperations();
-                        Toast.makeText(Activity_MainActivity.this, "retour de l'activité appelante", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+        result -> {
+            if (result.getResultCode() != Activity.RESULT_OK) {
+                // There are no request codes
+                Intent data = result.getData();
+                //    doSomeOperations();
+                Toast.makeText(Activity_MainActivity.this, "retour de l'activité appelante", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     /*********************************************************************************
     ** Managing LifeCycle and database open/close operations ************************

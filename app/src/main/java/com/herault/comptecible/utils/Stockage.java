@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -228,7 +229,9 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
                 rowArcher = new Resultat_archer();
                 rowArcher.value = cursor.getInt(0);
                 rowArcher.name = cursor.getString(indexName);
-                rowArcher.information = " nb 10= " + getResultatRoundCompte(cursor.getString(indexName), String.valueOf(getArcherId(name_archer)), "10")
+                int nb10Total =  getResultatRoundCompte(cursor.getString(indexName), String.valueOf(getArcherId(name_archer)), "10");
+                rowArcher.information = " nb 10+= " + String.valueOf(nb10Total - getResultatRoundCompte(cursor.getString(indexName), String.valueOf(getArcherId(name_archer)), "10Plus"))
+                        + " nb 10= " + String.valueOf(nb10Total)
                         + " nb 9= " + getResultatRoundCompte(cursor.getString(indexName), String.valueOf(getArcherId(name_archer)), "9")
                         + " X= " + getResultatRoundCompte(cursor.getString(indexName), String.valueOf(getArcherId(name_archer)), "0");
                 rArcher.add(rowArcher);
@@ -242,18 +245,32 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
 // ------------------------------
 // get for all archer all result for one round
 
-    public String getResultatRoundCompte(String roundName, String Archer_ID, String RefValue) {
+    public int getResultatRoundCompte(String roundName, String Archer_ID, String RefValue) {
         int value = 0;
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{"COUNT (" + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_VALUE + " )"};
         final int cursorIdColNumber = 0;
-
-        String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =?  AND "
+        String selection ;
+        String[] selectionArg;
+        if (RefValue.compareTo("10Plus") != 0) {
+         selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =?  AND "
                 + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME + " =? AND "
                 + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_VALUE + " =? AND "
                 + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + "="
                 + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND;
-        String[] selectionArg = new String[]{roundName, Archer_ID, RefValue};
+        selectionArg = new String[]{roundName, Archer_ID, RefValue};
+    }
+    else
+    {
+         selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =?  AND "
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME + " =? AND "
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_X + " BETWEEN -0.5  AND +0.5 AND "
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_Y + " BETWEEN -0.5  AND +0.5 AND "
+                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + "="
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND;
+        selectionArg = new String[]{roundName, Archer_ID};
+    }
+
 
         // The groupBy clause:
         // String groupBy = Db_resultat.Constants.RESULTATS+"."+Db_resultat.Constants.KEY_COL_ID_ROUND;
@@ -269,14 +286,14 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         Cursor cursor = db.query(table, projections, selection,
                 selectionArg, null, null, null, null);
         // The elements to retrieve
-        String numberOf = "";
+        int numberOf = 0;
 
         if (cursor.moveToFirst()) {
             // The associated index within the cursor
             int indexValue = 0;
             // Browse the results list:
             int count = 0;
-            numberOf = String.valueOf(cursor.getInt(0));
+            numberOf = cursor.getInt(0);
             count++;
         }
         cursor.close();
@@ -323,7 +340,8 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
                 rowArcher = new Resultat_archer();
                 rowArcher.value = cursor.getInt(0);
                 rowArcher.name = getArcher(cursor.getInt(indexName));
-                rowArcher.information = " nb10= " + getResultatRoundCompte(roundName, String.valueOf(cursor.getInt(indexName)), "10")
+                rowArcher.information = " nb10+= " + getResultatRoundCompte(roundName, String.valueOf(cursor.getInt(indexName)), "10Plus")
+                        + " nb10= " + getResultatRoundCompte(roundName, String.valueOf(cursor.getInt(indexName)), "10")
                         + " nb9= " + getResultatRoundCompte(roundName, String.valueOf(cursor.getInt(indexName)), "9")
                         + " X= " + getResultatRoundCompte(roundName, String.valueOf(cursor.getInt(indexName)), "0");
 
@@ -925,7 +943,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         return getRounds( filter);
     }
 
-    public ArrayList getRounds(String[] filter) {
+    public ArrayList getRounds(@NonNull String[] filter) {
 
         ArrayList retour = new ArrayList();
         Cursor cursor = null;

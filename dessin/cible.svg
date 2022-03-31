@@ -1,41 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="300mm"
-   height="300mm"
-   viewBox="0 0 300 300"
-   version="1.1"
    id="svg8"
-   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-   sodipodi:docname="cible.svg">
+   version="1.1"
+   viewBox="0 0 300 300"
+   height="300mm"
+   width="300mm">
   <defs
      id="defs2" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="393.52136"
-     inkscape:cy="300.2451"
-     inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="976"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -49,41 +25,44 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Calque 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-32.118088,131.12404)">
+     transform="translate(-32.118088,131.12404)"
+     id="layer1">
     <circle
-       style="display:inline;fill:#1065e3;fill-opacity:1;stroke:#070505;stroke-width:2.39340067;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path815"
-       cx="182.11809"
+       r="148.8033"
        cy="18.875963"
-       inkscape:label="path815"
-       r="148.8033" />
+       cx="182.11809"
+       id="path815"
+       style="display:inline;fill:#1065e3;fill-opacity:1;stroke:#070505;stroke-width:2.39340067;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
-       style="fill:#ff0005;fill-opacity:1;stroke:#070000;stroke-width:2.40082383;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       r="118.79959"
+       cy="18.738096"
+       cx="182.25595"
        id="path817"
-       cx="182.25595"
-       cy="18.738096"
-       r="118.79959" />
+       style="fill:#ff0005;fill-opacity:1;stroke:#070000;stroke-width:2.40082383;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <ellipse
-       style="fill:#ff0005;fill-opacity:1;stroke:#070000;stroke-width:2.39284515;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path817-3"
-       cx="182.25595"
-       cy="18.738096"
+       ry="88.803581"
        rx="88.803574"
-       ry="88.803581" />
-    <circle
-       style="fill:#fafa0a;fill-opacity:1;stroke:#070000;stroke-width:2.37704539;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path817-3-6"
+       cy="18.738096"
        cx="182.25595"
+       id="path817-3"
+       style="fill:#ff0005;fill-opacity:1;stroke:#070000;stroke-width:2.39284515;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       r="58.811478"
        cy="18.738098"
-       r="58.811478" />
-    <circle
-       style="fill:#fafa0a;fill-opacity:1;stroke:#070000;stroke-width:2.33087373;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path817-3-6-7"
        cx="182.25595"
+       id="path817-3-6"
+       style="fill:#fafa0a;fill-opacity:1;stroke:#070000;stroke-width:2.37704539;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       r="28.834562"
        cy="18.7381"
-       r="28.834562" />
+       cx="182.25595"
+       id="path817-3-6-7"
+       style="fill:#fafa0a;fill-opacity:1;stroke:#070000;stroke-width:2.33087373;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       r="10.615641"
+       cy="19.096283"
+       cx="181.89777"
+       id="path818"
+       style="opacity:0.98999999;fill:#fafa0a;fill-opacity:1;stroke:#2c0f0e;stroke-width:0.7687189;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
 </svg>

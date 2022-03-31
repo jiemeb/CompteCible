@@ -65,6 +65,7 @@
     <string name="pointageOffsetDesc">"valeur de decallage de pointage"</string>
     <string name="archerClean">"suppression archer "</string>
     <string name="roundClean">"suppression concours "</string>
+    <string name="Plus10">+</string>
 
 
 </resources>

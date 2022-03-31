@@ -221,7 +221,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         double maxValue = 0.;
         int nombreFleches = 0;
         for (int i = 0; i < x.length; i++) {
-            String tempo = stock.getResultatRoundCompte(round, Long.toString(archer_id), Integer.toString(i));
+            String tempo = String.valueOf(stock.getResultatRoundCompte(round, Long.toString(archer_id), Integer.toString(i)));
             double valueTemp = Double.parseDouble(tempo);
             expenseSeries.add(i, valueTemp);
             nombreFleches += valueTemp;

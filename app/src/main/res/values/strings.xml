@@ -64,5 +64,6 @@
     <string name="pointageOffsetDesc">"pointing offset value "</string>
     <string name="archerClean">"delete archer "</string>
     <string name="roundClean">"round suppress "</string>
+    <string name="Plus10">+</string>
 
 </resources>
