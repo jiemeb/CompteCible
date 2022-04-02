@@ -604,7 +604,7 @@ public class Activity_MainActivity extends AppCompatActivity {
                 // There are no request codes
                 Intent data = result.getData();
                 //    doSomeOperations();
-                Toast.makeText(Activity_MainActivity.this, "retour de l'activité appelante", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Activity_MainActivity.this, "retour de l'activité appelante", Toast.LENGTH_SHORT).show();
             }
         });
 
