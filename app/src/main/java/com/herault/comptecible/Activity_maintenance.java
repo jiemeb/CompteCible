@@ -244,31 +244,32 @@ public class Activity_maintenance extends AppCompatActivity  {
         bSuppressRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (round.getCount() != 0 && round.getSelectedItemId() >= 0) {
+                    String name = round.getSelectedItem().toString();
+                    AlertDialog.Builder popupValidation = new AlertDialog.Builder(localActivity);
+                    popupValidation.setMessage(getResources().getString(R.string.roundClean) + name);
+                    popupValidation.setTitle(getResources().getString(R.string.roundClean));
+                    popupValidation.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            adapterRound.remove(round.getSelectedItem());
+                            stock.supRound(name);
 
-                String name = round.getSelectedItem().toString();
-                AlertDialog.Builder popupValidation = new AlertDialog.Builder(localActivity);
-                popupValidation.setMessage(getResources().getString(R.string.roundClean)+name);
-                popupValidation.setTitle(getResources().getString(R.string.roundClean));
-                popupValidation.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        adapterRound.remove(round.getSelectedItem());
-                        stock.supRound(name);
-
-                        if (round.getCount() == 0) {
-                            Intent j = new Intent(Activity_maintenance.this, Activity_config_round.class);
-                            startActivity(j);
-                            Activity_maintenance.this.finish();
+                            if (round.getCount() == 0) {
+                                Intent j = new Intent(Activity_maintenance.this, Activity_config_round.class);
+                                startActivity(j);
+                                Activity_maintenance.this.finish();
+                            }
                         }
-                    }
-                });
-                popupValidation.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                });
-                popupValidation.show();
+                    });
+                    popupValidation.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    popupValidation.show();
 
+                }
             }
         });
 

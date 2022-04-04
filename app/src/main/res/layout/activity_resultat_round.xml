@@ -5,45 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity_resultat_round">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <Spinner
         android:id="@+id/res_spinner_round"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="0dp"
         android:layout_marginTop="32dp"
         android:layout_weight="1"
         android:background="@drawable/it_style"
-        app:layout_constraintEnd_toEndOf="@+id/res_spinner_archer"
-        app:layout_constraintStart_toStartOf="@+id/res_spinner_archer"
-        app:layout_constraintTop_toBottomOf="@+id/res_spinner_archer" />
+        app:layout_constraintEnd_toStartOf="@+id/res_spinner_archer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/res_spinner_archer" />
 
     <Spinner
         android:id="@+id/res_spinner_archer"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:background="@drawable/it_style"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/res_spinner_round"
+        app:layout_constraintTop_toBottomOf="@id/res_spinner_round"
+        app:layout_constraintEnd_toStartOf= "@id/res_lis_resultat"/>
 
     <ListView
         android:id="@+id/res_lis_resultat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="7"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/it_style"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/res_spinner_round" />
+        app:layout_constraintStart_toEndOf="@id/res_spinner_archer"
+        app:layout_constraintTop_toBottomOf="@+id/res_spinner_archer"
+        app:layout_constraintBottom_toTopOf="@id/res_round_filter"
+        app:layout_constraintEnd_toStartOf="@id/res_round_filter"
+  />
 
     <EditText
         android:id="@+id/res_round_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:ems="10"
         android:hint="@string/resRoundFilter"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
+        app:layout_constraintStart_toEndOf="@id/res_lis_resultat"
+        app:layout_constraintTop_toBottomOf="@id/res_lis_resultat"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
