@@ -355,7 +355,7 @@ public class Activity_MainActivity extends AppCompatActivity {
                 updateView(10, 100, 100);
         });
         bPlus.setOnClickListener( v-> {
-            updateView(10, 00, 00);
+            updateView(10, 0, 0);
         });
         bManque.setOnClickListener( v-> {
                 updateView(0, 100, 100);
