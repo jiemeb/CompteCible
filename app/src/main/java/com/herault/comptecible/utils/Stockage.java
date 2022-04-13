@@ -948,7 +948,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         ArrayList retour = new ArrayList();
         Cursor cursor = null;
         String filterRound ="";
-        if (!filter[0].isEmpty()) {
+        if (filter.length > 0) {
             for (String filterI : filter
             ) {
                 if (filterRound != "")
