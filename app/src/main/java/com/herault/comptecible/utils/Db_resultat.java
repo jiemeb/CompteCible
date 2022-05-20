@@ -15,7 +15,9 @@ class Db_resultat extends SQLiteOpenHelper {
             + Constants.ARCHERS + "(" + Constants.KEY_ID_ARCHERS
             + " INTEGER primary key autoincrement, "
             + Constants.KEY_COL_NAME + " TEXT UNIQUE ,"
-            + Constants.KEY_COL_INFORMATION + " TEXT " + ")  ";
+            + Constants.KEY_COL_INFORMATION + " TEXT ,"
+            + Constants.KEY_COL_ARCHER_BOW + " INTEGER DEFAULT 0 "
+            + ")  ";
 
     private static final String DATABASE_CREATE_TABLE_ARCHERS_ROUND = "create table "
             + Constants.ARCHERS_ROUND + "(" + Constants.KEY_ID_ARCHERS
@@ -50,6 +52,7 @@ class Db_resultat extends SQLiteOpenHelper {
             + Constants.KEY_COL_VALUE + " INTEGER, "
             + Constants.KEY_COL_X + " REAL, "
             + Constants.KEY_COL_Y + " REAL, "
+            + Constants.KEY_COL_PLUS + " BIT, "
             + Constants.KEY_COL_ID_NAME + " INTEGER ,"
             + "CONSTRAINT a "
             + " FOREIGN KEY ( " + Constants.KEY_COL_ID_ROUND + " ) REFERENCES " + Constants.ROUNDS
@@ -69,6 +72,7 @@ class Db_resultat extends SQLiteOpenHelper {
      * @param factory = null
      * @param version
      */
+
     public Db_resultat(Context context, String name, SQLiteDatabase.CursorFactory factory,
                        int version) {
         super(context, name, factory, version);
@@ -91,34 +95,38 @@ class Db_resultat extends SQLiteOpenHelper {
      /*  Log.w("DBOpenHelper", "Mise à jour de la version " + oldVersion
                 + " vers la version " + newVersion
                 + ", les anciennes données seront détruites "); */
-        if (oldVersion == 23 && newVersion == 24)
-            {
-            db.execSQL("ALTER TABLE "+ Constants.ARCHERS + " ADD "  + Constants.KEY_COL_INFORMATION + " TEXT"  );
-            db.execSQL("ALTER TABLE "+ Constants.ARCHERS_ROUND + " ADD "  + Constants.KEY_COL_INFORMATION + " TEXT"  );
-            db.execSQL(DATABASE_CREATE_TABLE_ARCHER_NOTES);
-            }
-        else  if (oldVersion == 24 && newVersion == 25)
-        {
 
-             db.execSQL( "create table TEMPORAIRE(" + Constants.KEY_ID_ROUNDS
+        switch (oldVersion) {
+            case 23 :
+                db.execSQL("ALTER TABLE "+ Constants.ARCHERS + " ADD "  + Constants.KEY_COL_INFORMATION + " TEXT"  );
+                db.execSQL("ALTER TABLE "+ Constants.ARCHERS_ROUND + " ADD "  + Constants.KEY_COL_INFORMATION + " TEXT"  );
+                db.execSQL(DATABASE_CREATE_TABLE_ARCHER_NOTES);
+            case 24 :
+                db.execSQL( "create table TEMPORAIRE(" + Constants.KEY_ID_ROUNDS
                     + " INTEGER primary key autoincrement, " + Constants.KEY_COL_ROUND_NAME + " TEXT UNIQUE , "
                     + Constants.KEY_COL_ROUND_TYPE + " TEXT ) ");
-             db.execSQL("INSERT INTO TEMPORAIRE SELECT * FROM "+Constants.ROUNDS);
-             db.execSQL("DROP TABLE "+Constants.ROUNDS);
-             db.execSQL("ALTER TABLE TEMPORAIRE RENAME TO "+ Constants.ROUNDS);
+                db.execSQL("INSERT INTO TEMPORAIRE SELECT * FROM "+Constants.ROUNDS);
+                db.execSQL("DROP TABLE "+Constants.ROUNDS);
+                db.execSQL("ALTER TABLE TEMPORAIRE RENAME TO "+ Constants.ROUNDS);
+            case 25 :
+                db.execSQL("alter table "+ Constants.ARCHERS +" ADD "+ Constants.KEY_COL_ARCHER_BOW+" INTEGER DEFAULT 0");
+            case 26 :
+                db.execSQL("alter table "+ Constants.RESULTATS +" ADD "+ Constants.KEY_COL_PLUS+" BIT DEFAULT 0");
+            case 27 :
+            break;
+            default:
+                // Drop the old database
+                db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS);
+                db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS_NOTE);
+                db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS_ROUND);
+                db.execSQL("DROP TABLE IF EXISTS " + Constants.RESULTATS);
+                db.execSQL("DROP TABLE IF EXISTS " + Constants.COMPTE_CIBLE);
+                db.execSQL("DROP TABLE IF EXISTS " + Constants.ROUNDS);
+                // Create the new one
+                onCreate(db);
+
         }
-        else
-            {
-            // Drop the old database
-            db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS);
-            db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS_NOTE);
-            db.execSQL("DROP TABLE IF EXISTS " + Constants.ARCHERS_ROUND);
-            db.execSQL("DROP TABLE IF EXISTS " + Constants.RESULTATS);
-            db.execSQL("DROP TABLE IF EXISTS " + Constants.COMPTE_CIBLE);
-            db.execSQL("DROP TABLE IF EXISTS " + Constants.ROUNDS);
-            // Create the new one
-            onCreate(db);
-        }
+
         // or do a smartest stuff
     }
 
@@ -130,7 +138,7 @@ class Db_resultat extends SQLiteOpenHelper {
         // The database name
         public static final String DATABASE_NAME = "resultat.db";
         // The database version
-        public static final int DATABASE_VERSION = 25;
+        public static final int DATABASE_VERSION = 27;
 // -----------------------
         // The table Name
         public static final String ARCHERS = "archers";
@@ -141,6 +149,7 @@ class Db_resultat extends SQLiteOpenHelper {
         // My Column Name and the associated explanation for end-users
         public static final String KEY_COL_NAME = "name";
         public static final  String KEY_COL_INFORMATION = "information" ;
+        public static final  String KEY_COL_ARCHER_BOW = "bow" ;
 
         // -----------------------
         // The table Name
@@ -196,6 +205,8 @@ class Db_resultat extends SQLiteOpenHelper {
         public static final String KEY_COL_X = "X";
         // My Column Value of Arrow
         public static final String KEY_COL_Y = "Y";
+        // My column arroc plus
+        public static final String KEY_COL_PLUS = "plus";
         // My Column id_Name
         public static final String KEY_COL_ID_NAME = "id_name";
 

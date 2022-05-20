@@ -1,37 +1,36 @@
 package com.herault.comptecible;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.res.Configuration;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Insets;
+
 import android.graphics.Paint;
-import android.graphics.Rect;
+
 import android.graphics.Typeface;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.Pair;
-import android.view.Display;
+
 import android.view.View;
-import android.view.WindowInsets;
-import android.view.WindowManager;
-import android.view.WindowMetrics;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
 
 import com.herault.comptecible.utils.Stockage;
 
@@ -43,6 +42,8 @@ import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -54,6 +55,7 @@ public class Activity_resultat_image extends AppCompatActivity {
     private String name = "";
     private ImageView imageView = null;
     private LinearLayout chartContainer = null;
+    private TableLayout tableLayout = null ;
     private EditText filter =null;
     private int numberArrow ;
 
@@ -89,6 +91,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         t_name.setText(name);
         imageView = findViewById(R.id.air_image);
         chartContainer = findViewById(R.id.air_layoutImage);
+        tableLayout = findViewById(R.id.tblChats);
 
         // Select image resultat
         Spinner choix_resultat = findViewById(R.id.air_choix_resultat);
@@ -101,6 +104,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         adapter_choix.add(getResources().getString(R.string.impact));
         adapter_choix.add(getResources().getString(R.string.repartitionPoint));
         adapter_choix.add(getResources().getString(R.string.air_select_rounds));
+        adapter_choix.add(getResources().getString(R.string.air_select_round_graphic));
         adapter_choix.add(getResources().getString(R.string.air_select_round));
 
 
@@ -112,27 +116,29 @@ public class Activity_resultat_image extends AppCompatActivity {
         choix_resultat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
+                chartContainer.setVisibility(View.GONE);
+                tableLayout.setVisibility(View.GONE);
+                imageView.setVisibility(View.GONE);
                 switch (position) {
                     case 0:
-                        chartContainer.setVisibility(View.GONE);
                         imageView.setVisibility(View.VISIBLE);
                         drawResultRound(round, name);
                         break;
                     case 1:
-                        imageView.setVisibility(View.GONE);
                         chartContainer.setVisibility(View.VISIBLE);
                         drawResultImpact(round, name);
                         break;
                     case 2:
-                        imageView.setVisibility(View.GONE);
                         chartContainer.setVisibility(View.VISIBLE);
                         drawResultArcherRound(name);
                         break;
                     case 3:
-                        imageView.setVisibility(View.GONE);
                         chartContainer.setVisibility(View.VISIBLE);
                         drawResultRoundArcher(round,name);
+                        break;
+                    case 4:
+                        tableLayout.setVisibility(View.VISIBLE);
+                        ResultRoundArcher(round,name);
                         break;
                 }
             }
@@ -145,12 +151,125 @@ public class Activity_resultat_image extends AppCompatActivity {
 
 
     }
+    private void ResultRoundArcher(String round,String archer)
+    {
+        String snumberArrow = stock.getValue("numberArrow");
+        String snumberEnd = stock.getValue("numberEnd");
+        int NumberArrow = Integer.parseInt(snumberArrow);
+        int NumberEndByRound = Integer.parseInt(snumberEnd);
+        long arrowIndex = stock.getarrowIndex(archer, round);  // Number of Arrow
+
+        tableLayout.removeAllViews();
+        Resultat_archer resultat_archer;
+        List<Resultat_archer> resultat_fleches = null;
+        resultat_fleches = stock.getResultatArrows(archer, round);
+
+         int sumTotal = 0;
+         int i = 0;
+         for ( i = 0; i <= (arrowIndex / NumberArrow); i++) {            // BC for Round
+             int sumVole = 0;
+             long boucle = 0;
+             TableRow row = new TableRow(this);
+             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+             row.setLayoutParams(lp);
+
+             List<Long> end; //End
+             end = new ArrayList<Long>();
+             boucle = (i == arrowIndex / NumberArrow) ? arrowIndex % NumberArrow : NumberArrow;
+             for (int j = 0; j < boucle; j++) {                               // BC for end fro get Value
+                 resultat_archer = resultat_fleches.get((i * NumberArrow) + j);
+                 sumVole += resultat_archer.getValue();
+                 // Test archer bow classic
+
+                 if (resultat_archer.isDixPlus())
+                 {
+                     if(stock.getArcherBow(archer)==0)
+                         end.add((long) 11);
+                     else
+                         end.add(resultat_archer.getValue());
+                 }
+                 else
+                     end.add(resultat_archer.getValue());
+             }
+
+             Collections.sort(end, Collections.reverseOrder());
+             int value = 0 ;
+             for (int j = 0; j < boucle; j++) {                 // BC for end to Order and put in TableRow
+                 value = end.get(j).intValue() ;
+                 TextView textView = new TextView(this);
+                 switch (value)
+                 {
+                     case 0:
+                     case 1:
+                     case 2:
+                         textView.setTextColor(Color.BLACK);
+                         textView.setBackgroundResource(R.drawable.am_arrow_style_white);
+                         break;
+                     case 3:
+                     case 4:
+                         textView.setTextColor(Color.WHITE);
+                         textView.setBackgroundResource(R.drawable.am_arrow_style_black);
+                         break;
+                     case 5:
+                     case 6:
+                         textView.setTextColor(Color.WHITE);
+                         textView.setBackgroundResource(R.drawable.am_arrow_style_blue);
+                         break;
+                     case 7:
+                     case 8:
+                         textView.setTextColor(Color.BLACK);
+                         textView.setBackgroundResource(R.drawable.am_arrow_style_red);
+                         break;
+                     case 9:
+                     case 10:
+                     case 11:           // 10 plus
+                         textView.setTextColor(Color.BLACK);
+                         textView.setBackgroundResource(R.drawable.am_arrow_style_yellow);
+                         break;
+
+                 }
+                 if (value < 10)
+                     textView.setText(" "+Integer.toString(value)+" ");
+                 else
+                     if(value == 11)
+                         textView.setText(" + ");
+                     else
+                     textView.setText(Integer.toString(value));
+                TextView Space = new TextView(this);
+                Space.setText(" ");
+                row.addView(Space);
+                row.addView(textView);
+             }
+             TextView textView = new TextView(this);
+
+             if (boucle != 0) {
+                 sumTotal += sumVole;
+                 if (sumVole < 10)                 // set number to "0" plus value
+                     textView.setText(" = 0"+Integer.toString(sumVole)+"\n\r");
+                 else
+                     textView.setText(" = "+Integer.toString(sumVole)+"\n\r");
+                 row.addView(textView);
+             }
+            tableLayout.addView(row, i);
+        }
+        TableRow row = new TableRow(this);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        row.setLayoutParams(lp);
+        TextView textView = new TextView(this);
+        textView.setText("Total = "+Integer.toString(sumTotal));
+        row.addView(textView);
+        tableLayout.addView(row, i);
+    }
     // Draw Impact on target
     private void drawResultRound(String round, String archer) {
 
         //    ImageView imageView = (ImageView) findViewById(R.id.air_layoutImage);
-        imageView.setBackground(ContextCompat.getDrawable(this,R.drawable.ic_cible));
-        //   ImageView fantomCible=findViewById(R.id.imageCible);
+
+        if(stock.getArcherBow(archer) != 0)
+            imageView.setBackground(ContextCompat.getDrawable(this,R.drawable.ic_ciblecompound));
+        else
+            imageView.setBackground(ContextCompat.getDrawable(this,R.drawable.ic_cible));
+
         Bitmap bitmap;
         //   double xmax = fantomCible.getWidth() ;
         double xmax = 1000;
@@ -180,12 +299,12 @@ public class Activity_resultat_image extends AppCompatActivity {
                 moyX += resultat_archer.x;
                 moyY += resultat_archer.y;
                 paint.setColor(Color.BLACK);
-                canvas.drawCircle((float) (resultat_archer.x / Xscale), (float) (resultat_archer.y / Yscale), (float) (0.3 / Xscale), paint);
+                canvas.drawCircle((float) (resultat_archer.x / Xscale), (float) (resultat_archer.y / Yscale), (float) (0.20 / Xscale), paint);
 //                Log.d("CompteCible","trace"+Long.toString(resultat_archer.arrow)+" "+Double.toString(resultat_archer.x)+" "+Double.toString(resultat_archer.y));
             }
         }
         paint.setColor(Color.GREEN);
-        canvas.drawCircle((float) (moyX / nb_valeur_moyenne / Xscale), (float) (moyY / nb_valeur_moyenne / Yscale), (float) (0.2 / Xscale), paint);
+        canvas.drawCircle((float) (moyX / nb_valeur_moyenne / Xscale), (float) (moyY / nb_valeur_moyenne / Yscale), (float) (0.20 / Xscale), paint);
         imageView.setImageBitmap(bitmap);
 
     }

@@ -22,20 +22,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlCompat" />
 
-    <TextView
-        android:id="@+id/air_round"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/roundName"
-        android:textAlignment="viewStart"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:background="@drawable/it_style"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/air_image"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/air_choix_resultat"
@@ -83,11 +69,47 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/activity_image_resultat"
-        app:layout_constraintVertical_bias="0.062"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintVertical_bias="0.062">
 
     </LinearLayout>
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="@id/air_layoutImage"
+        app:layout_constraintEnd_toEndOf="@id/air_layoutImage"
+        app:layout_constraintStart_toStartOf="@id/air_layoutImage"
+        app:layout_constraintVertical_bias="0.062" >
+
+        <TableLayout
+            android:id="@+id/tblChats"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            app:layout_constraintDimensionRatio="1.1"
+            android:isScrollContainer="true"/>
+    </ScrollView>
+    <TextView
+        android:id="@+id/air_round"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/roundName"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@drawable/it_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/air_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
 
 

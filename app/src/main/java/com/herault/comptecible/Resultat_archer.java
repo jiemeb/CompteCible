@@ -5,6 +5,7 @@ public class Resultat_archer {
     public long value;
     public double x;
     public double y;
+    public int dixPlus;
     public String information = "";
 
     public Resultat_archer() {
@@ -13,10 +14,11 @@ public class Resultat_archer {
         y = 0.;
     }
 
-    Resultat_archer(long Value, double X, double Y) {
+    Resultat_archer(long Value, double X, double Y, int dixPlusR) {
         value = Value;
         x = X;
         y = Y;
+        dixPlus=dixPlusR;
 
     }
 
@@ -62,5 +64,8 @@ public class Resultat_archer {
 
     public void SetInformation(String Information) {
         information = Information;
+    }
+    public boolean isDixPlus() {
+        return (dixPlus == 0 ? false:true) ;
     }
 }

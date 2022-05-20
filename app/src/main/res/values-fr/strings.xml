@@ -66,6 +66,8 @@
     <string name="archerClean">"suppression archer "</string>
     <string name="roundClean">"suppression concours "</string>
     <string name="Plus10">+</string>
+    <string name="archer_bow">"arc archer "</string>
+    <string name="air_select_round_graphic">Resultat concours archer</string>
 
 
 </resources>

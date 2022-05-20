@@ -66,13 +66,15 @@ public class Stockage {
 // Get all resultat for one archer for one Round
     public List<Resultat_archer> getResultatArrows(String archer, String roundName) {
 
+
         String table = Db_resultat.Constants.RESULTATS + "," + Db_resultat.Constants.ARCHERS + "," + Db_resultat.Constants.ROUNDS;
 
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_VALUE,
                 Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ARROW,
                 Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_X,
-                Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_Y};
+                Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_Y,
+                Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_PLUS};
 
         String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =? AND "
                 + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_COL_NAME + " = ? AND "
@@ -104,6 +106,7 @@ public class Stockage {
         int indexArrow = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ARROW);
         int indexX = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_X);
         int indexY = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_Y);
+        int indexPlus = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_PLUS);
         if (cursor.moveToFirst()) {
             // Browse the results list:
 
@@ -114,6 +117,7 @@ public class Stockage {
                 rArcher.value = cursor.getInt(indexValue);
                 rArcher.x = cursor.getDouble(indexX);
                 rArcher.y = cursor.getDouble(indexY);
+                rArcher.dixPlus = cursor.getInt(indexPlus);
                 rValue.add(rArcher);
                 count++;
             } while (cursor.moveToNext());
@@ -256,7 +260,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
          selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =?  AND "
                 + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME + " =? AND "
                 + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_VALUE + " =? AND "
-                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + "="
+                + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + " = "
                 + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND;
         selectionArg = new String[]{roundName, Archer_ID, RefValue};
     }
@@ -264,8 +268,8 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
     {
          selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =?  AND "
                 + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_NAME + " =? AND "
-                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_X + " BETWEEN -0.5  AND +0.5 AND "
-                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_Y + " BETWEEN -0.5  AND +0.5 AND "
+                 + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_VALUE + " = 10 AND "
+                + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_PLUS + " = 1 AND "
                 + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + "="
                 + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ID_ROUND;
         selectionArg = new String[]{roundName, Archer_ID};
@@ -453,7 +457,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
     }
 
     //----------------------------- add resultat for on archer for one round
-    public long addResultat(String archer, String roundName, int value, double X, double Y) {
+    public long addResultat(String archer, String roundName, int value, double X, double Y,int dixPlus) {
         int arrow = 0;
         // get flecheIndex
         //select round from resultat where round=roundname and _id1 =archer(id)
@@ -500,6 +504,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         contentValues.put(Db_resultat.Constants.KEY_COL_VALUE, value);
         contentValues.put(Db_resultat.Constants.KEY_COL_X, X);
         contentValues.put(Db_resultat.Constants.KEY_COL_Y, Y);
+        contentValues.put(Db_resultat.Constants.KEY_COL_PLUS, dixPlus);
         contentValues.put(Db_resultat.Constants.KEY_COL_ID_NAME, Id);
 
 
@@ -576,6 +581,8 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
 
     //------------------------------------------------------------------------------------------------
     /*----------------------Table Archer and ArcherRound    ---------------------------------*/
+
+    // add archer in database or current round
     public long addArcher(String name, boolean round) {
 
         // -------------------
@@ -590,7 +597,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
             return (db.insert(Db_resultat.Constants.ARCHERS, null, contentValues));
         }
     }
-
+    // Drop all Archers from database or round
     public void dropArchers(boolean round) {
         if (!round) {
             db.delete(Db_resultat.Constants.ARCHERS, null, null);
@@ -602,6 +609,8 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         db.delete(Db_resultat.Constants.ARCHERS_ROUND, null, null);
     }
 
+    // Suppress one Archer in database
+    //-----------
     public void dropArcher(String name) {
 
         long id_name = getArcherId(name);
@@ -611,7 +620,8 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         db.delete(Db_resultat.Constants.ARCHERS, Db_resultat.Constants.KEY_COL_NAME + "= ?", new String[]{name});
 
     }
-
+    // Get all Archer from database
+    //---------
     public String showArchers() {
 // Using man made query
         // The projection define what are the column you want to retrieve
@@ -664,7 +674,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         return error;
     }
 
-
+    // Get id archer form his name
     //---------
     public long getArcherId(String name) {
 
@@ -712,6 +722,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         return (colId);
     }
 
+    // Get archer form his ID
     //---------
     private String getArcher(int colId) {
 
@@ -758,7 +769,8 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         return (name);
     }
 
-
+    // Get archers from database or current round
+    //
     public ArrayList getArchers(Boolean round) {
         ArrayList retour = new ArrayList();
         Cursor cursor = null;
@@ -804,6 +816,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         return (retour);
     }
 
+    // Get all archers for one round
     //----------------------------------------------------------------------------------------------------------------------------------
     public ArrayList getArchers(String round) {
         ArrayList retour = new ArrayList();
@@ -949,13 +962,15 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         Cursor cursor = null;
         String filterRound ="";
         if (filter.length > 0) {
-            for (String filterI : filter
-            ) {
-                if (filterRound != "")
-                    filterRound += " AND " + Db_resultat.Constants.KEY_COL_ROUND_TYPE + " LIKE \"%" + filterI + "%\" ";
-                else
-                    filterRound += Db_resultat.Constants.KEY_COL_ROUND_TYPE + " LIKE \"%" + filterI + "%\" ";
-            }
+            for (String filterI : filter) {
+                if(filterI.compareTo("")!=0)
+                {
+                    if (filterRound != "")
+                        filterRound += " AND " + Db_resultat.Constants.KEY_COL_ROUND_TYPE + " LIKE \"%" + filterI + "%\" ";
+                    else
+                        filterRound += Db_resultat.Constants.KEY_COL_ROUND_TYPE + " LIKE \"%" + filterI + "%\" ";
+                }
+           }
         }
 
 // Using man made query
@@ -1090,7 +1105,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
                 Db_resultat.Constants.KEY_COL_NAME_NOTE};
         // And then store the column index answered by the request (we present
         // an other way to
-        // retireve data)
+        // retrieve data)
 
         String selection = Db_resultat.Constants.KEY_COL_ID_ARCHERS + "=?";
         String[] selectionArg = new String[]{String.valueOf(archer_id)};
@@ -1171,7 +1186,6 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         //  String maxResultsListSize = "60";
         //Cursor cursor = db.query(db_resultat.Constants.ARCHERS, projections, selection,
         //	selectionArg, groupBy, having, orderBy, maxResultsListSize);
-
         //________________________
 
 
@@ -1224,6 +1238,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         db.delete(Db_resultat.Constants.ARCHERS_NOTE, selection, selectionArg);
 
     }
+
     // Update Value Information Archer
     public void updateArcherInformation(String archer, String value) {
         ContentValues cv = new ContentValues();
@@ -1231,13 +1246,56 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         db.update(Db_resultat.Constants.ARCHERS, cv, Db_resultat.Constants.KEY_COL_NAME + "= ?", new String[]{archer}) ;
     }
 
+    // get archer bow
+    public Integer   getArcherBow(String archer) {
+            Integer retour = 0;
+            Cursor cursor = null;
+
+            // The projection define what are the column you want to retrieve
+            String[] projections = new String[]{
+                    Db_resultat.Constants.KEY_COL_ARCHER_BOW};
+
+            String selection = Db_resultat.Constants.KEY_COL_NAME + "=?";
+            String[] selectionArg = new String[]{archer};
+
+            // The groupBy clause:
+            //String groupBy = Constants.KEY_COL_EYES_COLOR;
+            // The having clause
+            String having = null;
+            // The order by clause (column name followed by Asc or DESC)
+            String orderBy = null;
+
+            cursor = db.query(Db_resultat.Constants.ARCHERS, projections, selection,
+                    selectionArg, null, null, orderBy, null);
+
+            if (cursor.moveToFirst()) {
+                // The elements to retrieve
+                // The associated index within the cursor
+                int indexName = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ARCHER_BOW);
+                // Browse the results list:
+                int count = 0;
+                do {
+                    retour=cursor.getInt(indexName);
+                    count++;
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            return (retour);
+        }
+
+    // Set archer bow
+
+        public void updateArcherBow(String archer, Integer value) {
+            ContentValues cv = new ContentValues();
+            cv.put(Db_resultat.Constants.KEY_COL_ARCHER_BOW, value);
+            db.update(Db_resultat.Constants.ARCHERS, cv, Db_resultat.Constants.KEY_COL_NAME + "= ?", new String[]{archer}) ;
+        }
+
     // Update Value note
     public String   getArcherInformation(String archer) {
         String retour = "";
         Cursor cursor = null;
-
-
-// Using man made query
+        // Using man made query
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{
                 Db_resultat.Constants.KEY_COL_INFORMATION};

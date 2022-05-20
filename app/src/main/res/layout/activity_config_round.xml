@@ -181,7 +181,7 @@
         <ListView
             android:id="@+id/archersBase"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
             android:contentDescription="@string/archer_base"
             android:background="@drawable/it_style"
@@ -197,7 +197,6 @@
         android:layout_weight="6"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/tableRow4"
-
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tableRow2">
@@ -239,7 +238,7 @@
         android:orientation="vertical">>
         <ListView
                 android:layout_width="match_parent"
-            	android:layout_height="match_parent"
+            	android:layout_height="wrap_content"
             	android:layout_weight="3"
             	android:orientation="vertical"
                 android:choiceMode="singleChoice"

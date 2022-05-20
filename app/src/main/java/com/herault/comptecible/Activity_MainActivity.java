@@ -1,6 +1,7 @@
 package com.herault.comptecible;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.round;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -48,12 +49,14 @@ import java.util.List;
 
 public class Activity_MainActivity extends AppCompatActivity {
 
+
     private static final double CONSTANTE_nbDivisionCible = 10.;
+    static final double arrowRadius = 0.15;
 
     double Xdecallage;
     double Ydecallage;
 
-    private double pointageOffset = 2;
+    private double pointageOffset = 2.00;
     private TextView arrowValue = null;
     private TextView endNumber = null;
     private TextView end = null;
@@ -70,42 +73,47 @@ public class Activity_MainActivity extends AppCompatActivity {
     private int NumberEndByRound = 0;
     private boolean orientationLand = false;
     int APROPOS = 1 ;
+    boolean pulleyBow  = false;
                                 //
     private final View.OnTouchListener onTouchCible = new View.OnTouchListener() {
 
         public boolean onTouch(View v, MotionEvent event) {
-
+            double valueFleche ;
             double xmax = v.getWidth();
             double ymax = v.getHeight();
             double Xscale, Yscale;
             double x, y;
             int resultat_fleche = 0;
+            int dixPlus = 0;
+
+            valueFleche = 0.00;
 /*            bitmap = Bitmap.createBitmap((int) xmax, (int) ymax, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             //  canvas.translate((float) (xmax / 2), (float) ymax / 2);
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
      */
+
             arrowValue.setVisibility(View.VISIBLE);
 
 
             // On récupère la coordonnée sur l'abscisse (X) de l'évènement getWidth()
-            Xscale = 10 / xmax;
-            Yscale = 10 / ymax;
-            double xcurrent = event.getX() - xmax / 2.;
-            double ycurrent = event.getY() - ymax / 2.;
+            Xscale = 10. / xmax;
+            Yscale = 10. / ymax;
+            double xcurrent = event.getX() - xmax / 2.00;
+            double ycurrent = event.getY() - ymax / 2.00;
 
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 // "Land"
                 if (orientationLand) {
 
-                    Ydecallage = 0.0;
-                    if (xcurrent * Xscale < -1.0)
+                    Ydecallage = 0.00;
+                    if (xcurrent * Xscale < -1.00)
                         Xdecallage = -pointageOffset;
                     else
                         Xdecallage = pointageOffset;
                 } else {
                     //Portrait
-                    Xdecallage = 0.0;
+                    Xdecallage = 0.00;
                     Ydecallage = pointageOffset;
                 }
             }
@@ -113,15 +121,27 @@ public class Activity_MainActivity extends AppCompatActivity {
                 x = (xcurrent * Xscale) - Xdecallage;
                 y = (ycurrent * Yscale) - Ydecallage;
 
-                if (y > -CONSTANTE_nbDivisionCible / 2. && y < CONSTANTE_nbDivisionCible / 2. && x > -CONSTANTE_nbDivisionCible / 2. && x < CONSTANTE_nbDivisionCible / 2.) {
-                    resultat_fleche = (int) (CONSTANTE_nbDivisionCible - (int) (Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)) - (0.3)));//
+                if (y > -CONSTANTE_nbDivisionCible / 2.00 && y < CONSTANTE_nbDivisionCible / 2.00 && x > -CONSTANTE_nbDivisionCible / 2.00 && x < CONSTANTE_nbDivisionCible / 2.00) {
+                     valueFleche = Math.sqrt(Math.pow(x, 2.00) + Math.pow(y, 2.00)) - (arrowRadius);
+                     resultat_fleche = (int) CONSTANTE_nbDivisionCible - (int) valueFleche;
                     // Cible is on 6 to 10
-                    if (resultat_fleche < 6)
+
+                    if(pulleyBow) {
+                        if (valueFleche < 1.00)
+                            resultat_fleche = 9;
+                        if (valueFleche < 0.50)
+                            resultat_fleche = 10;
+                    } else
+                         if (valueFleche < 0.500)
+                             dixPlus = 1;
+
+                     if (resultat_fleche < 6)
                         resultat_fleche = 0;
+                    // make specifique value for polley bow
                 }
 
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                updateView(resultat_fleche, x, y);
+                updateView(resultat_fleche, x, y,dixPlus);
                 v.performClick();
                 arrowValue.setVisibility(View.INVISIBLE);
             } else {
@@ -172,11 +192,25 @@ public class Activity_MainActivity extends AppCompatActivity {
                 }
 
 
-                Log.d("CompteCible", "onTouch " + Double.toString(x) + " " + Double.toString(y) + " " + Integer.toString(resultat_fleche));
-                double valueFleche = CONSTANTE_nbDivisionCible -  (Math.sqrt(Math.pow(x, 2.) + Math.pow(y, 2.)) - (0.3));
-                if(valueFleche > 9.5)
-                    arrowValue.setText("+");
-                else
+  //              Log.d("CompteCible", "onTouch " +Double.toString (xcurrent * Xscale)+" x " + Double.toString(x) + " y " + Double.toString(y) + " " + Integer.toString(resultat_fleche)+" "+Double.toString(valueFleche));
+
+                if(valueFleche < 1.) {
+                    if (pulleyBow)  // Compound bow (pulley bow )
+                        {
+                        if (valueFleche < 0.5)
+                              arrowValue.setText("10");
+                        else
+                              arrowValue.setText("9");
+                        }
+                    else
+                    {
+                        if (valueFleche < 0.5)
+                            arrowValue.setText("+");
+                        else
+                            arrowValue.setText("10");
+                    }
+                }
+                    else
                     arrowValue.setText(String.valueOf(resultat_fleche));
                 drawImpact(x, y);
             }
@@ -260,6 +294,11 @@ public class Activity_MainActivity extends AppCompatActivity {
                         if (archer_id < 0)
                             Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing_archer) + archer.getSelectedItem(), Toast.LENGTH_SHORT).show();
 // Init lors du changement Update
+                        pulleyBow = stock.getArcherBow(archer.getSelectedItem().toString()) != 0;
+                     if( pulleyBow )
+                        Cible.setBackgroundResource(R.drawable.ic_ciblecompound);
+                     else
+                         Cible.setBackgroundResource(R.drawable.ic_cible);
                         updateviewOnly();
                     } else
                         Log.d("CompteCible", "onItemSelected: archer count " + String.valueOf(spinnerCountElement));
@@ -293,6 +332,11 @@ public class Activity_MainActivity extends AppCompatActivity {
         Button bManque = findViewById(R.id.Manque);
 
         Cible = findViewById(R.id.imageCible);
+        if( pulleyBow )
+            Cible.setBackgroundResource(R.drawable.ic_ciblecompound);
+        else
+            Cible.setBackgroundResource(R.drawable.ic_cible);
+
         Cible.setOnTouchListener(onTouchCible);
         //stock.showArchers();
 
@@ -324,41 +368,40 @@ public class Activity_MainActivity extends AppCompatActivity {
         });
 
         b1.setOnClickListener( v-> {
-                updateView(1, 100, 100);
+                updateView(1, 100, 100,0);
         });
         b2.setOnClickListener(v-> {
-                updateView(2, 100, 100);
+                updateView(2, 100, 100,0);
         });
         b3.setOnClickListener( v-> {
-                updateView(3, 100, 100);
+                updateView(3, 100, 100,0);
         });
         b4.setOnClickListener( v-> {
-                updateView(4, 100, 100);
+                updateView(4, 100, 100,0);
         });
         b5.setOnClickListener( v-> {
-                updateView(5, 100, 100);
+                updateView(5, 100, 100,0);
         });
         b6.setOnClickListener( v-> {
-                updateView(6, 100, 100);
+                updateView(6, 100, 100,0);
         });
         b7.setOnClickListener( v-> {
-                updateView(7, 100, 100);
-
+                updateView(7, 100, 100,0);
         });
         b8.setOnClickListener(v-> {
-                updateView(8, 100, 100);
+                updateView(8, 100, 100,0);
         });
         b9.setOnClickListener(v-> {
-                updateView(9, 100, 100);
+                updateView(9, 100, 100,0);
         });
         b10.setOnClickListener( v-> {
-                updateView(10, 100, 100);
+                updateView(10, 100, 100,0);
         });
         bPlus.setOnClickListener( v-> {
-            updateView(10, 0, 0);
+            updateView(10, 100, 100,1);
         });
         bManque.setOnClickListener( v-> {
-                updateView(0, 100, 100);
+                updateView(0, 100, 100,0);
         });
 
         if (must_config) {
@@ -388,26 +431,26 @@ public class Activity_MainActivity extends AppCompatActivity {
 
     }
 
-    private void updateView(int value, double X, double Y) {
+    private void updateView(int value, double X, double Y,int dixPlus) {
         long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);
 
         //     Log.d("CompteCible","Stock"+Integer.toString(value)+" "+Double.toString(X)+" "+Double.toString(Y));
         if (arrowIndex < NumberArrow * NumberEndByRound) {
-            stock.addResultat(archer.getSelectedItem().toString(), roundName, value, X, Y);
+            stock.addResultat(archer.getSelectedItem().toString(), roundName, value, X, Y,dixPlus);
         }
         updateviewOnly();
     }
 
     private void updateviewOnly() {
       if (stock.showDB() ) {
-          if ((archer.getCount()) >= 0) {
+          if ((archer.getCount()) > 0) {
               int k = archer.getSelectedItemPosition();
               if (k < 0) { // pas d'archer dans la base'
                   must_config = true;
               } else {
                   if (archer.getCount() <= k )
                       archer.setSelection(0);
-                  Log.d("CompteCible", "updateview " + Integer.toString(k) + " " + roundName);
+ //                 Log.d("CompteCible", "updateview " + Integer.toString(k) + " " + roundName);
 
                   long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);  // Number of Arrow
 
@@ -437,23 +480,24 @@ public class Activity_MainActivity extends AppCompatActivity {
                       for (int j = 0; j < boucle; j++) {
                           resultat_archer = resultat_fleches.get((i * NumberArrow) + j);
                           sumVole += resultat_archer.getValue();
-                          if(abs(resultat_archer.getX()) < 0.5 && abs(resultat_archer.getY()) < 0.5)
-                              end.add((long) 11);
-                          else
-                              end.add(resultat_archer.getValue());
-                      }
+       // Test archer bow classic
+
+                              if (resultat_archer.isDixPlus())
+                              {
+                                  if(!pulleyBow)
+                                      end.add((long) 11);
+                                  else
+                                      end.add(resultat_archer.getValue());
+                              }
+                              else
+                                  end.add(resultat_archer.getValue());
+                          }
+
                       Collections.sort(end, Collections.reverseOrder());
                       for (int j = 0; j < boucle; j++) {
                           resultTemp.append(convertColor(end.get(j).intValue()));
-
-            /*
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                result.append(Html.fromHtml(fleche, Html.FROM_HTML_MODE_COMPACT));
-            else
-                result.append(Html.fromHtml(fleche));
-                */
-
                       }
+
                       if (boucle != 0) {
                           sumTotal += sumVole;
                           if (sumVole < 10)                 // set number to "0" plus value
@@ -527,7 +571,7 @@ public class Activity_MainActivity extends AppCompatActivity {
                 break;
 
             case 11:
-               retour = " <span style=\"background : yellow  \"><B>+</B></span>";
+               retour = "&ensp <span style=\"background : yellow  \"><B>+</B></span>";
                 break;
         }
         return retour;
@@ -541,7 +585,7 @@ public class Activity_MainActivity extends AppCompatActivity {
         double Xscale, Yscale;
         double xmax = Cible.getWidth();
         double ymax = Cible.getHeight();
-        if (xmax == 0) {
+        if (xmax == 0) {                        // For create state
             xmax = ymax = 100;
         }
 
@@ -564,7 +608,7 @@ public class Activity_MainActivity extends AppCompatActivity {
                 moyX += resultat_archer.x;
                 moyY += resultat_archer.y;
                 paint.setColor(Color.BLACK);
-                canvas.drawCircle((float) (resultat_archer.x / Xscale), (float) (resultat_archer.y / Yscale), (float) (0.3 / Xscale), paint);
+                canvas.drawCircle((float) (resultat_archer.x / Xscale), (float) (resultat_archer.y / Yscale), (float) (arrowRadius / Xscale), paint);
 //                Log.d("CompteCible","trace"+Long.toString(resultat_archer.arrow)+" "+Double.toString(resultat_archer.x)+" "+Double.toString(resultat_archer.y));
             }
         }
@@ -591,8 +635,8 @@ public class Activity_MainActivity extends AppCompatActivity {
         //    canvas.translate((int) xmax / 2, (int) ymax / 2);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.CYAN);
-        //      canvas.drawCircle((float) ((x) / Xscale), (float) ((y) / Yscale), (float) (0.3 / Xscale), paint);
-        canvas.drawCircle((float) ((x + CONSTANTE_nbDivisionCible / 2.) / Xscale), (float) ((y + CONSTANTE_nbDivisionCible / 2.) / Yscale), (float) (0.3 / Xscale), paint);
+        //      canvas.drawCircle((float) ((x) / Xscale), (float) ((y) / Yscale), (float) (arrowRadius / Xscale), paint);
+        canvas.drawCircle((float) ((x + CONSTANTE_nbDivisionCible / 2.) / Xscale), (float) ((y + CONSTANTE_nbDivisionCible / 2.) / Yscale), (float) (arrowRadius / Xscale), paint);
         Cible.setImageBitmap(bitmap);
     }
 
@@ -618,23 +662,30 @@ public class Activity_MainActivity extends AppCompatActivity {
         stock.openDB();
         adapter_archer.clear();
         lArcher = stock.getArchers(true); // get modification  on Database after config Round
-        for (int i = 0; i < lArcher.size(); i++) {
-            adapter_archer.add(lArcher.get(i));
-        }
-        roundName = stock.getValue("roundName");
-        String snumberArrow = stock.getValue("numberArrow");
-        String snumberEnd = stock.getValue("numberEnd");
-        String sPointerOffset= stock.getValue("pointageOffset");
-        if (sPointerOffset.isEmpty())
-        {
-            sPointerOffset = "2" ;
-            stock.updateValue("pointageOffset",sPointerOffset);
-        }
-        pointageOffset = Double.parseDouble ( sPointerOffset);
-        NumberArrow = Integer.parseInt(snumberArrow);
-        NumberEndByRound = Integer.parseInt(snumberEnd);
-
+// make something when no archer
+            for (int i = 0; i < lArcher.size(); i++) {
+                adapter_archer.add(lArcher.get(i));
+            }
+            roundName = stock.getValue("roundName");
+            String snumberArrow = stock.getValue("numberArrow");
+            String snumberEnd = stock.getValue("numberEnd");
+            String sPointerOffset = stock.getValue("pointageOffset");
+            if (sPointerOffset.isEmpty()) {
+                sPointerOffset = "2";
+                stock.updateValue("pointageOffset", sPointerOffset);
+            }
+            pointageOffset = Double.parseDouble(sPointerOffset);
+            NumberArrow = Integer.parseInt(snumberArrow);
+            NumberEndByRound = Integer.parseInt(snumberEnd);
+            pulleyBow = stock.getArcherBow(archer.getSelectedItem().toString()) != 0;
+        if( pulleyBow )
+            Cible.setBackgroundResource(R.drawable.ic_ciblecompound);
+        else
+            Cible.setBackgroundResource(R.drawable.ic_cible);
         updateviewOnly();
+
+            updateviewOnly();
+
     }
 
     @Override

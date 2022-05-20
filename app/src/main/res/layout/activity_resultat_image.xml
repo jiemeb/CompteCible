@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/air_choix_resultat" />
+        app:layout_constraintTop_toBottomOf="@id/air_choix_resultat" />
 
     <ImageView
         android:id="@+id/air_image"
@@ -75,6 +75,28 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/air_choix_resultat" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toStartOf="@id/res_i_round_filter"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@id/air_image"
+        app:layout_constraintTop_toBottomOf="@id/air_choix_resultat">
+
+    <TableLayout
+        android:id="@+id/tblChats"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="2dp"
+        app:layout_constraintDimensionRatio="1"
+        android:isScrollContainer="true"/>
+    </ScrollView>
 
     <EditText
         android:id="@+id/res_i_round_filter"

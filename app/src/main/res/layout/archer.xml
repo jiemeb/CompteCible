@@ -8,13 +8,17 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/am_buttonshape_white"
         android:text="archer_name"
+        android:ems="10"
         android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="normal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+      />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

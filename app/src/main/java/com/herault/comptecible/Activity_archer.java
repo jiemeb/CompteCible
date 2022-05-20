@@ -31,7 +31,7 @@ public class Activity_archer extends AppCompatActivity {
 
     private Stockage stock = null;
     private ListNote adapterNote;
-
+    private Spinner bowType ;
     private Spinner SArcherName = null;
     private List<Note> listNote;
     private boolean archerInformationChanged = false;
@@ -57,6 +57,7 @@ public class Activity_archer extends AppCompatActivity {
 // ré-actualise Note
              }
         });
+
 
 
         /* List of Archers in Base */
@@ -110,6 +111,7 @@ public class Activity_archer extends AppCompatActivity {
                 String archerSel = (String) SArcherName.getSelectedItem();
                 oldArcherSelected = archerSel;
                 archer_information.setText(stock.getArcherInformation(archerSel));
+                bowType.setSelection(stock.getArcherBow(archerSel));
                 refreshNotes();
 
             }
@@ -150,8 +152,19 @@ public class Activity_archer extends AppCompatActivity {
 
             }
         });
+// archer bow
+        bowType = findViewById(R.id.id_archer_bow);
+        bowType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                stock.updateArcherBow( (String) SArcherName.getSelectedItem(),position);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
 
 
     }

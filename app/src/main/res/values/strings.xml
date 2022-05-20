@@ -65,5 +65,7 @@
     <string name="archerClean">"delete archer "</string>
     <string name="roundClean">"round suppress "</string>
     <string name="Plus10">+</string>
+    <string name="archer_bow">archer bow</string>
+    <string name="air_select_round_graphic">graphic round result</string>
 
 </resources>
