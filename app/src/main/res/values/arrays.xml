@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bow">
+        <item>@string/classicBow</item>
+        <item>@string/compound</item>
+    </string-array>
+    <string name="classicBow">classic bow</string>
+    <string name="compound">compound bow</string>
+</resources>
