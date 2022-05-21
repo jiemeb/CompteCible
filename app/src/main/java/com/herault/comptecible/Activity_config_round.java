@@ -68,7 +68,7 @@ public class Activity_config_round extends AppCompatActivity {
                 if (adapterRound.getCount() != 0 && roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
                     cleanSelectedArcherRound();
                     stock.dropArchers(true);
-                    stock.insertArray(adapterRound._archers, true);
+                    stock.insertArrayArchers(adapterRound._archers, true);
                     if (roundQualifier.getText().length() != 0) {
                         stock.updateRound(roundName.getText().toString(), roundQualifier.getText().toString());
                     }
@@ -412,7 +412,7 @@ public class Activity_config_round extends AppCompatActivity {
             }
             cleanSelectedArcherRound();
             stock.dropArchers(true);
-            stock.insertArray(adapterRound._archers, true);
+            stock.insertArrayArchers(adapterRound._archers, true);
             if (roundQualifier.getText().length() != 0) {
                 stock.updateRound(roundName.getText().toString(), roundQualifier.getText().toString());
             }

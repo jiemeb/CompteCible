@@ -664,7 +664,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
 
     }
 
-    public long insertArray(ArrayList<String> list, boolean round) {
+    public long insertArrayArchers(ArrayList<String> list, boolean round) {
         long max, error = 0;
         int i;
         max = list.size();

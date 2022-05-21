@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
     buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.herault.comptecible"
         minSdkVersion 19
-        targetSdkVersion 31
-        versionCode 32
-        versionName "1.6.7"
+        targetSdkVersion 32
+        versionCode 34
+        versionName "1.6.9"
 
         testInstrumentationRunner releaseApplicationIdSuffix
         allprojects {

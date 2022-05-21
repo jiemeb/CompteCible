@@ -260,6 +260,7 @@ public class Activity_MainActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 1");
             roundName = sdf.format(new Date());
             stock.updateValue("roundName", roundName);
+
             must_config = true;
         }
 
@@ -445,13 +446,18 @@ public class Activity_MainActivity extends AppCompatActivity {
       if (stock.showDB() ) {
           if ((archer.getCount()) > 0) {
               int k = archer.getSelectedItemPosition();
+
               if (k < 0) { // pas d'archer dans la base'
                   must_config = true;
               } else {
                   if (archer.getCount() <= k )
                       archer.setSelection(0);
  //                 Log.d("CompteCible", "updateview " + Integer.toString(k) + " " + roundName);
-
+                  pulleyBow = stock.getArcherBow(archer.getSelectedItem().toString()) != 0;
+                      if (pulleyBow)
+                          Cible.setBackgroundResource(R.drawable.ic_ciblecompound);
+                      else
+                          Cible.setBackgroundResource(R.drawable.ic_cible);
                   long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);  // Number of Arrow
 
 
@@ -663,6 +669,12 @@ public class Activity_MainActivity extends AppCompatActivity {
         adapter_archer.clear();
         lArcher = stock.getArchers(true); // get modification  on Database after config Round
 // make something when no archer
+        int countArcher = lArcher.size();
+        if(countArcher == 0){
+            stock.addArcher(getResources().getString(R.string.me), false);
+            stock.addArcher(getResources().getString(R.string.me), true);
+            lArcher = stock.getArchers(true);
+        }
             for (int i = 0; i < lArcher.size(); i++) {
                 adapter_archer.add(lArcher.get(i));
             }
@@ -677,14 +689,8 @@ public class Activity_MainActivity extends AppCompatActivity {
             pointageOffset = Double.parseDouble(sPointerOffset);
             NumberArrow = Integer.parseInt(snumberArrow);
             NumberEndByRound = Integer.parseInt(snumberEnd);
-            pulleyBow = stock.getArcherBow(archer.getSelectedItem().toString()) != 0;
-        if( pulleyBow )
-            Cible.setBackgroundResource(R.drawable.ic_ciblecompound);
-        else
-            Cible.setBackgroundResource(R.drawable.ic_cible);
-        updateviewOnly();
 
-            updateviewOnly();
+        updateviewOnly();
 
     }
 
