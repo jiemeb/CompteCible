@@ -15,7 +15,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tableRow12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,6 @@
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -73,7 +72,6 @@
                 app:layout_constraintStart_toEndOf="@id/bLetGo"
                 app:layout_constraintTop_toTopOf="@id/bLetGo" />
         </LinearLayout>
-
         <Button
             android:id="@+id/bConcours"
             android:layout_width="0dp"
@@ -86,10 +84,7 @@
             android:text="@string/Concours"
             app:layout_constraintStart_toEndOf="@id/IRoundName"
             app:layout_constraintTop_toTopOf="@id/bLetGo" />
-
-
     </TableRow>
-
 
     <TableRow
         android:id="@+id/tableRow12"
@@ -98,7 +93,7 @@
         android:layout_weight="1"
         app:layout_constraintLeft_toLeftOf="@id/tableRow1"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tableRow1"
         app:layout_constraintTop_toBottomOf="@id/tableRow1">
 
 
@@ -162,12 +157,11 @@
         android:id="@+id/tableRow2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_weight="6"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/tableRow3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-
         app:layout_constraintTop_toBottomOf="@id/tableRow12">
 
         <TextView
@@ -188,7 +182,6 @@
             android:visibility="visible">
         </ListView>
     </TableRow>
-
 
     <TableRow
         android:id="@+id/tableRow3"
@@ -235,10 +228,10 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        android:orientation="vertical">>
+        android:orientation="vertical">
         <ListView
                 android:layout_width="match_parent"
-            	android:layout_height="wrap_content"
+            	android:layout_height="0dp"
             	android:layout_weight="3"
             	android:orientation="vertical"
                 android:choiceMode="singleChoice"

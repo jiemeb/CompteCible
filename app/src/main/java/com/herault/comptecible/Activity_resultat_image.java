@@ -170,7 +170,12 @@ public class Activity_resultat_image extends AppCompatActivity {
              int sumVole = 0;
              long boucle = 0;
              TableRow row = new TableRow(this);
-             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                     TableRow.LayoutParams.WRAP_CONTENT);
+
+             DisplayMetrics metrics = getResources(). getDisplayMetrics();
+             float density = metrics.density;
+             lp.setMargins((int)(2 * density),(int)(1 * density),(int)(2*density),(int)(1*density));
              row.setLayoutParams(lp);
 
              List<Long> end; //End
@@ -197,6 +202,8 @@ public class Activity_resultat_image extends AppCompatActivity {
              for (int j = 0; j < boucle; j++) {                 // BC for end to Order and put in TableRow
                  value = end.get(j).intValue() ;
                  TextView textView = new TextView(this);
+
+                 textView.setLayoutParams(lp);
                  switch (value)
                  {
                      case 0:
@@ -236,6 +243,7 @@ public class Activity_resultat_image extends AppCompatActivity {
                      else
                      textView.setText(Integer.toString(value));
                 TextView Space = new TextView(this);
+                Space.setLayoutParams(lp);
                 Space.setText(" ");
                 row.addView(Space);
                 row.addView(textView);
@@ -245,9 +253,9 @@ public class Activity_resultat_image extends AppCompatActivity {
              if (boucle != 0) {
                  sumTotal += sumVole;
                  if (sumVole < 10)                 // set number to "0" plus value
-                     textView.setText(" = 0"+Integer.toString(sumVole)+"\n\r");
+                     textView.setText(" = 0"+Integer.toString(sumVole));
                  else
-                     textView.setText(" = "+Integer.toString(sumVole)+"\n\r");
+                     textView.setText(" = "+Integer.toString(sumVole));
                  row.addView(textView);
              }
             tableLayout.addView(row, i);
