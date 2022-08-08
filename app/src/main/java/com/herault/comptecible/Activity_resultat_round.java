@@ -245,7 +245,7 @@ public class Activity_resultat_round extends AppCompatActivity {
         // Open stockage
         stock.openDB();
         updateView();
-        filter.setText(stock.getValue("filter"));
+
         archer.setSelection(archer.getCount() - 1);
 
     }

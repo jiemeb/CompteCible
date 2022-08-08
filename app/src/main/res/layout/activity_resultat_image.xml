@@ -19,10 +19,10 @@
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/air_round"
+        app:layout_constraintEnd_toEndOf="@id/air_round"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/air_round"
-        app:layout_constraintTop_toBottomOf="@+id/air_round"
+        app:layout_constraintStart_toStartOf="@id/air_round"
+        app:layout_constraintTop_toBottomOf="@id/air_round"
         tools:ignore="RtlCompat" />
 
     <TextView
@@ -47,63 +47,85 @@
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
         android:textSize="18sp"
+        android:focusable="true"
         android:background="@drawable/it_style"
-        app:layout_constraintStart_toStartOf="@+id/air_archer"
-        app:layout_constraintTop_toBottomOf="@+id/air_archer" />
-
+        app:layout_constraintStart_toStartOf="@id/air_archer"
+        app:layout_constraintTop_toBottomOf="@id/air_archer"
+        app:layout_constraintBottom_toTopOf="@id/air_resultat"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:id="@+id/air_resultat"
+    android:layout_gravity="center"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toTopOf="@+id/res_i_round_filter"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="@id/air_choix_resultat"
+    app:layout_constraintTop_toBottomOf="@id/air_choix_resultat"
+    app:layout_constraintDimensionRatio="1">
     <LinearLayout
         android:id="@+id/air_layoutImage"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/air_choix_resultat" />
+        app:layout_constraintTop_toBottomOf="parent" />
 
     <ImageView
         android:id="@+id/air_image"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/air_choix_resultat" />
+        app:layout_constraintTop_toBottomOf="parent"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:layout_gravity="center_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/res_i_round_filter"
         app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toStartOf="@id/res_i_round_filter"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@id/air_image"
-        app:layout_constraintTop_toBottomOf="@id/air_choix_resultat">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
 
-    <TableLayout
-        android:id="@+id/tblChats"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="3dp"
-        app:layout_constraintDimensionRatio="1"
-        android:isScrollContainer="true"/>
+        <TableLayout
+            android:id="@+id/tblChats"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="3dp"
+            android:isScrollContainer="true"
+            app:layout_constraintDimensionRatio="1" />
     </ScrollView>
-
+</LinearLayout>
     <EditText
         android:id="@+id/res_i_round_filter"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:focusedByDefault="false"
+        android:focusableInTouchMode="false"
         android:ems="10"
         android:hint="@string/resRoundFilter"
-        app:layout_constraintBottom_toBottomOf="parent" />
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/bp_partage"
+       />
+    <Button
+        android:id="@+id/bp_partage"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bp_partage"
+        app:layout_constraintLeft_toRightOf="@id/res_i_round_filter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

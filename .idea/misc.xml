@@ -16,33 +16,43 @@
         <entry key="app/src/main/res/drawable/am_buttonshape_grey.xml" value="0.3185" />
         <entry key="app/src/main/res/drawable/am_buttonshape_next_archer.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/am_buttonshape_previous_archer.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/am_buttonshape_red.xml" value="0.223" />
+        <entry key="app/src/main/res/drawable/am_buttonshape_sup_archer.xml" value="0.223" />
+        <entry key="app/src/main/res/drawable/am_buttonshape_white.xml" value="0.223" />
         <entry key="app/src/main/res/drawable/am_buttonshape_yellow.xml" value="0.173" />
+        <entry key="app/src/main/res/drawable/ar_buttonshape_add.xml" value="0.223" />
         <entry key="app/src/main/res/drawable/archer1n.xml" value="0.3185" />
         <entry key="app/src/main/res/drawable/archer1p.xml" value="0.3185" />
         <entry key="app/src/main/res/drawable/archer2n.xml" value="0.3185" />
         <entry key="app/src/main/res/drawable/archer2p.xml" value="0.3185" />
         <entry key="app/src/main/res/drawable/archer_next.xml" value="0.3185" />
         <entry key="app/src/main/res/drawable/archer_previous.xml" value="0.3185" />
+        <entry key="app/src/main/res/drawable/bp_partage.xml" value="0.223" />
         <entry key="app/src/main/res/drawable/bp_sup_archer.xml" value="0.3185" />
+        <entry key="app/src/main/res/drawable/bp_sup_round.xml" value="0.223" />
         <entry key="app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.175" />
         <entry key="app/src/main/res/drawable/ic_cible.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable/ic_ciblecompound.xml" value="0.1075" />
         <entry key="app/src/main/res/drawable/ic_fleche_down.xml" value="0.3185" />
         <entry key="app/src/main/res/drawable/ic_fleche_up.xml" value="0.3185" />
+        <entry key="app/src/main/res/drawable/ic_moins.xml" value="0.223" />
+        <entry key="app/src/main/res/drawable/ic_partage.xml" value="0.223" />
+        <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.223" />
+        <entry key="app/src/main/res/drawable/ic_valid.xml" value="0.1715" />
         <entry key="app/src/main/res/drawable/it_style.xml" value="0.3185" />
         <entry key="app/src/main/res/layout-land/activity_apropos.xml" value="0.1" />
         <entry key="app/src/main/res/layout-land/activity_maintenance.xml" value="0.25" />
         <entry key="app/src/main/res/layout-land/activity_resultat_image.xml" value="0.27380952380952384" />
         <entry key="app/src/main/res/layout-land/content_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_apropos.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/activity_archer.xml" value="0.20182094081942337" />
+        <entry key="app/src/main/res/layout/activity_archer.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_config_round.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_edit_note.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10548738922972052" />
         <entry key="app/src/main/res/layout/activity_maintenance.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_resultat_image.xml" value="0.11458333333333333" />
+        <entry key="app/src/main/res/layout/activity_resultat_image.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_resultat_round.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/archer.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/archer.xml" value="0.18" />
         <entry key="app/src/main/res/layout/chart_arrow_nb.xml" value="0.16979166666666667" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/layout/resultat_round_archer.xml" value="0.16875" />

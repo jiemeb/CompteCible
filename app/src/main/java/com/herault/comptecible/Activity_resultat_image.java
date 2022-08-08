@@ -2,6 +2,7 @@ package com.herault.comptecible;
 
 import android.app.Activity;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.view.View;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,10 +31,12 @@ import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
 import com.herault.comptecible.utils.Stockage;
+import com.herault.comptecible.utils.shareImage;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -49,7 +53,6 @@ import java.util.List;
 
 public class Activity_resultat_image extends AppCompatActivity {
     protected Activity context;
-
     private Stockage stock = null;
     private String round = "";
     private String name = "";
@@ -58,12 +61,16 @@ public class Activity_resultat_image extends AppCompatActivity {
     private TableLayout tableLayout = null ;
     private EditText filter =null;
     private int numberArrow ;
+    private Spinner choix_resultat ;
+     View shootView;
+     private Context main_context ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        main_context = this ;
         setContentView(R.layout.activity_resultat_image);
+        this.shootView =findViewById(R.id.activity_image_resultat) ;
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
         String snumberArrow = stock.getValue("numberArrow");
@@ -84,7 +91,16 @@ public class Activity_resultat_image extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
-
+        Button bpPartage  = findViewById(R.id.bp_partage);
+        bpPartage.setOnClickListener(new View.OnClickListener() {
+                                         @Override
+                                         public void onClick(View v) {
+                                             if (checkPermission() ) {
+                                                 new shareImage(main_context).shareInt(shootView, "msg", "screenCompteCible");
+                                             }
+                                         }
+                                     }
+        );
         TextView t_round = findViewById(R.id.air_round);
         t_round.setText(round);
         TextView t_name = findViewById(R.id.air_archer);
@@ -94,7 +110,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         tableLayout = findViewById(R.id.tblChats);
 
         // Select image resultat
-        Spinner choix_resultat = findViewById(R.id.air_choix_resultat);
+         choix_resultat = findViewById(R.id.air_choix_resultat);
 
 
         ArrayAdapter adapter_choix = new ArrayAdapter(
@@ -804,6 +820,28 @@ public class Activity_resultat_image extends AppCompatActivity {
 
     }
 
+    String[] permissions = new String[]{"android.permission.READ_EXTERNAL_STORAGE","android.permission.WRITE_EXTERNAL_STORAGE"};
+
+    private boolean checkPermission() {
+        List arrayList = new ArrayList();
+        for (String str : this.permissions) {
+            if (ContextCompat.checkSelfPermission(this, str) != 0) {
+                arrayList.add(str);
+            }
+        }
+        if (arrayList.isEmpty()) {
+            return true;
+        }
+        ActivityCompat.requestPermissions(this, (String[]) arrayList.toArray(new String[arrayList.size()]), 100);
+        return false;
+    }
+
+
+
+
+
+
+
     /*********************************************************************************/
     /** Managing LifeCycle and database open/close operations ************************/
     /*********************************************************************************/
@@ -812,7 +850,8 @@ public class Activity_resultat_image extends AppCompatActivity {
         super.onResume();
         // Open stockage
         stock.openDB();
-
+        filter.setText(stock.getValue("filter"));
+        filter.setFocusableInTouchMode(true);
     }
 
     @Override
