@@ -12,6 +12,21 @@
         android:orientation="horizontal"
         android:id="@+id/layout1"
         app:layout_constraintTop_toTopOf="parent">
+        <Spinner
+            android:id="@+id/id_archer_bow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:background="@drawable/it_style"
+            android:spinnerMode="dropdown"
+            android:entries="@array/bow"
+            android:text="@string/archer_bow"
+            android:textSize="28sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/sp_archer"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
     <Spinner
         android:id="@+id/sp_archer"
         android:layout_width="0dp"
@@ -20,25 +35,10 @@
         android:focusable="true"
         android:background="@drawable/it_style"
         android:textSize="28sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/id_archer_bow"
-        app:layout_constraintLeft_toRightOf="parent"/>
-    <Spinner
-        android:id="@+id/id_archer_bow"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:ems="10"
-        android:background="@drawable/it_style"
-        android:spinnerMode="dropdown"
-        android:entries="@array/bow"
-        android:text="@string/archer_bow"
-        android:textSize="28sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/sp_archer"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintLeft_toRightOf="@id/id_archer_bow"
+        app:layout_constraintRight_toLeftOf="parent"/>
+
     </LinearLayout>
     <EditText
         android:id="@+id/archer_information"

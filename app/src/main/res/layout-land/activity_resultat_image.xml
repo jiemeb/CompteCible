@@ -42,58 +42,57 @@
         android:minEms="10"
         android:singleLine="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/air_layoutImage"
+        app:layout_constraintEnd_toStartOf="@id/Layout_center"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/Layout_center"
         app:layout_constraintTop_toBottomOf="@id/air_round" />
 
-    <ImageView
-        android:id="@+id/air_image"
+    <LinearLayout
+        android:id="@+id/Layout_center"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
+        android:orientation="horizontal"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toRightOf="@id/res_i_round_filter"
+        app:layout_constraintRight_toLeftOf="@id/air_round">
+
+    <ImageView
+        android:id="@+id/air_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:gravity="center" />
 
     <LinearLayout
         android:id="@+id/air_layoutImage"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         app:layout_constraintDimensionRatio="1.1"
         android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.062">
+        android:orientation="vertical"/>
 
-    </LinearLayout>
     <ScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_gravity="center_horizontal"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintBottom_toBottomOf="@id/air_layoutImage"
-        app:layout_constraintEnd_toEndOf="@id/air_layoutImage"
-        app:layout_constraintStart_toStartOf="@id/air_layoutImage"
-        app:layout_constraintVertical_bias="0.062" >
+        android:layout_marginTop="5dp"
+        app:layout_constraintDimensionRatio="1.1"
+        android:gravity="center" >
 
         <TableLayout
             android:id="@+id/tblChats"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_height="match_parent"
             android:layout_marginTop="2dp"
-            app:layout_constraintDimensionRatio="1.1"
-            android:isScrollContainer="true"/>
+            android:isScrollContainer="true"
+            app:layout_constraintDimensionRatio="1.1" />
     </ScrollView>
+</LinearLayout>
+
     <TextView
         android:id="@+id/air_round"
         android:layout_width="wrap_content"
@@ -106,11 +105,16 @@
         android:background="@drawable/it_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/air_image"
+        app:layout_constraintStart_toEndOf="@+id/Layout_center"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
+    <Button
+        android:id="@+id/bp_partage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bp_partage"
+        app:layout_constraintRight_toRightOf="@id/air_round"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
