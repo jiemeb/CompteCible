@@ -11,6 +11,7 @@ import android.graphics.Paint;
 
 import android.graphics.Typeface;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -823,9 +824,15 @@ public class Activity_resultat_image extends AppCompatActivity {
 
     }
 
-    String[] permissions = new String[]{"android.permission.READ_EXTERNAL_STORAGE","android.permission.WRITE_EXTERNAL_STORAGE"};
-
+    String[] permissions ;
     private boolean checkPermission() {
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
+            permissions = new String[]{"android.permission.READ_EXTERNAL_STORAGE","android.permission.WRITE_EXTERNAL_STORAGE"};
+
+        else
+           permissions = new String[]{"android.permission.READ_EXTERNAL_STORAGE"};
+
         List arrayList = new ArrayList();
         for (String str : this.permissions) {
             if (ContextCompat.checkSelfPermission(this, str) != 0) {
