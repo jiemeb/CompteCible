@@ -97,6 +97,9 @@ public class Activity_resultat_image extends AppCompatActivity {
                                          public void onClick(View v) {
                                              if (checkPermission() ) {
                                                  new shareImage(main_context).shareInt(shootView, "msg", "screenCompteCible");
+                                             } else
+                                             if (checkPermission() ) {
+                                                 new shareImage(main_context).shareInt(shootView, "msg", "screenCompteCible");
                                              }
                                          }
                                      }

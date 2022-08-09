@@ -37,8 +37,8 @@ public class shareImage {
     // Retrieving the url to share
     private Uri getmageToShare(Bitmap bitmap, String name) {
 
-    //    String str = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/Screenshots";
-    //    File imagefolder = new File(str);
+
+
 
         String str = Environment.getExternalStorageDirectory()+ "/Pictures/Screenshots";
         File imagefolder = new File(str);
@@ -48,11 +48,9 @@ public class shareImage {
         try {
             if (! imagefolder.exists()) {
                 imagefolder.mkdirs();
-                imagefolder.setWritable(true);
             }
 
             File file = new File(imagefolder, name+".png");
-            file.setWritable(true);
             FileOutputStream outputStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 70, outputStream);
             outputStream.flush();

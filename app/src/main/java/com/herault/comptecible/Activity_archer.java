@@ -189,7 +189,7 @@ ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityR
                         // There are no request codes
                         Intent data = result.getData();
                         //    doSomeOperations();
-                        Toast.makeText(Activity_archer.this, "retour de l'activité appelante", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(Activity_archer.this, "retour de l'activité appelante", Toast.LENGTH_SHORT).show();
                     }
                     stock.openDB();
                     refreshNotes();
