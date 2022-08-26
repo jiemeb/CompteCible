@@ -4,6 +4,8 @@ package com.herault.comptecible.utils;
 import static com.google.android.material.internal.ContextUtils.getActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -12,7 +14,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import androidx.core.content.FileProvider;
+
 import com.herault.comptecible.Activity_maintenance;
+import com.herault.comptecible.BuildConfig;
 import com.herault.comptecible.Resultat_archer;
 
 import java.util.List;
@@ -67,7 +72,7 @@ public class MyHandlerThread extends HandlerThread {
                     int i = 0;
                     for (Resultat_archer r : lresultat.get()) {
                         formCsv = r.getName() + "," + r.getValue() +
-                                "," + r.getY() + "," + r.getX() + "\n\r";
+                                "," + r.getY() + "," + r.getX() + "\n";
                         os.write(formCsv.getBytes());
                         i++;
                         current = i / ratio;
@@ -75,12 +80,20 @@ public class MyHandlerThread extends HandlerThread {
                             progressBarWeakReference.get().setProgress((int) Math.round(current));
                         }
                     }
-
                     os.close();
+                    Uri uri =  FileProvider.getUriForFile(WeakReferenceContext.get(),   BuildConfig.APPLICATION_ID + ".fileprovider",file);
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_STREAM, uri);
+                    intent.putExtra(Intent.EXTRA_TEXT, name);
+                    intent.setType("*/*");
+                    WeakReferenceContext.get().startActivity(Intent.createChooser(intent, "Share Via").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+
+
                 } catch (IOException e) {
                     // Unable to create file, likely because external storage is
                     // not currently mounted.
-                    Log.w("ExternalStorage", "Error writing " + file, e);
+                    Log.w("Storage", "Error writing " + file, e);
 
                 }
 

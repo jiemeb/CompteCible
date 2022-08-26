@@ -829,7 +829,6 @@ public class Activity_resultat_image extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
             permissions = new String[]{"android.permission.READ_EXTERNAL_STORAGE","android.permission.WRITE_EXTERNAL_STORAGE"};
-
         else
            permissions = new String[]{"android.permission.READ_EXTERNAL_STORAGE"};
 

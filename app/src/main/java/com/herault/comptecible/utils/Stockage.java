@@ -199,7 +199,8 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
 
     for (String filterI:filter
          ) {
-        filterRound += " AND "+Db_resultat.Constants.KEY_COL_ROUND_TYPE+" LIKE \"%"+filterI+"%\" " ;
+        if (!filterI.isEmpty())
+            filterRound += " AND "+Db_resultat.Constants.KEY_COL_ROUND_TYPE+" LIKE \"%"+filterI+"%\" " ;
     }
         String selection = Db_resultat.Constants.KEY_COL_ID_NAME + " =? AND "
                 + Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_ID_ROUNDS + "="
@@ -963,7 +964,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         String filterRound ="";
         if (filter.length > 0) {
             for (String filterI : filter) {
-                if(filterI.compareTo("")!=0)
+                if(!filterI.isEmpty())
                 {
                     if (filterRound != "")
                         filterRound += " AND " + Db_resultat.Constants.KEY_COL_ROUND_TYPE + " LIKE \"%" + filterI + "%\" ";

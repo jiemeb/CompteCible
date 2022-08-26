@@ -37,9 +37,6 @@ public class shareImage {
     // Retrieving the url to share
     private Uri getmageToShare(Bitmap bitmap, String name) {
 
-
-
-
       //  String str = Environment.getExternalStorageDirectory()+ "/Pictures/Screenshots";
        //   String str = c.getExternalFilesDir(Environment.DIRECTORY_PICTURES)+ "/Pictures/Screenshots";
      //   File imagefolder =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES); // OK exept 10 api 29
