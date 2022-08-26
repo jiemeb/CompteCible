@@ -8,8 +8,8 @@ android {
         applicationId "com.herault.comptecible"
         minSdkVersion 19
         targetSdkVersion 32
-        versionCode 38
-        versionName "1.6.12"
+        versionCode 39
+        versionName "1.6.13"
 
         testInstrumentationRunner releaseApplicationIdSuffix
         allprojects {
@@ -37,6 +37,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.documentfile:documentfile:1.0.1'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

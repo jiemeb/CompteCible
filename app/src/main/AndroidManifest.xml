@@ -11,6 +11,7 @@
         android:icon="@drawable/ic_launcher_foreground_v36"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
+        
         android:roundIcon="@drawable/ic_launcher_foreground_v36"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

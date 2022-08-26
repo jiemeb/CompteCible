@@ -97,10 +97,10 @@ public class Activity_resultat_image extends AppCompatActivity {
                                          @Override
                                          public void onClick(View v) {
                                              if (checkPermission() ) {
-                                                 new shareImage(main_context).shareInt(shootView, "msg", "screenCompteCible");
+                                                 new shareImage(main_context).shareInt(shootView, "Resultat", "screenCompteCible");
                                              } else
                                              if (checkPermission() ) {
-                                                 new shareImage(main_context).shareInt(shootView, "msg", "screenCompteCible");
+                                                 new shareImage(main_context).shareInt(shootView, "Resultat", "screenCompteCible");
                                              }
                                          }
                                      }

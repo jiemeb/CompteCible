@@ -20,9 +20,9 @@ import java.io.FileOutputStream;
 
 
 public class shareImage {
-   private final Context c;
+    final Context c;
     public shareImage(Context c) {this.c = c;   }
-
+    private static final String AUTHORITY="com.herault.comptecible.fileprovider";
     public void shareInt(View  view, String msg, String name) {
 
         Bitmap bitmap = getScreenShot(view) ;
@@ -40,8 +40,12 @@ public class shareImage {
 
 
 
-        String str = Environment.getExternalStorageDirectory()+ "/Pictures/Screenshots";
-        File imagefolder = new File(str);
+      //  String str = Environment.getExternalStorageDirectory()+ "/Pictures/Screenshots";
+       //   String str = c.getExternalFilesDir(Environment.DIRECTORY_PICTURES)+ "/Pictures/Screenshots";
+     //   File imagefolder =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES); // OK exept 10 api 29
+        File imagefolder =   c.getExternalFilesDir (Environment.DIRECTORY_PICTURES); // OK exept 10 api 29
+
+        //  File imagefolder = new File(str);
      //  File imagefolder = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),"Screenshot");
         Uri uri = null;
 
@@ -58,7 +62,10 @@ public class shareImage {
             uri = FileProvider.getUriForFile(c.getApplicationContext(),   BuildConfig.APPLICATION_ID + ".fileprovider",file);
 
         } catch (Exception e) {
-            Toast.makeText(c, "" + e.getMessage(), Toast.LENGTH_LONG).show();
+            String error = "Erreur acces: verifier les droits de l'application" ;
+            Toast.makeText(c, error + e.getMessage(), Toast.LENGTH_LONG).show();
+            error ="ou supprimer le fichier "+ imagefolder+name;
+            Toast.makeText(c, error , Toast.LENGTH_LONG).show();
         }
         return uri;
     }
