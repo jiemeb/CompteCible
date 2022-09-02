@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/air_archer" />
 
-    <EditText
+    <TextView
         android:id="@+id/res_i_round_filter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

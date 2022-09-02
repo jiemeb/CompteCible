@@ -2,15 +2,17 @@ package com.herault.comptecible;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.herault.comptecible.utils.Stockage;
@@ -32,7 +34,7 @@ public class Activity_resultat_round extends AppCompatActivity {
 
     private List<Resultat_archer> lresultat;
     private ListRound adapter_resultat;
-    private EditText filter ;
+    private TextView filter ;
     private List<String> lRound  ;
 
     @Override
@@ -45,29 +47,21 @@ public class Activity_resultat_round extends AppCompatActivity {
 
         filter = findViewById(R.id.res_round_filter);
         filter.setText(stock.getValue("filter"));
-
-        filter.addTextChangedListener(new   TextWatcher() {
-            public void afterTextChanged(Editable s) {
-                String name = filter.getText().toString().trim();
-                stock.updateValue("filter", name);
-
-        //refress  listround
-                adapter_round.clear();
-                lRound = stock.getRounds(filter.getText().toString().split("\\s+"));
-                int selection = 0;
-                for (int i = 0; i < lRound.size(); i++) {
-                    String tempo = lRound.get(i);
-                    if (tempo.contentEquals(roundName))
-                        selection = i;
-                    adapter_round.add(lRound.get(i));
-                }
-                }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Activity_gestion_filter.class);
+                stock.updateValue("filterPrevious",filter.getText().toString());
+                someActivityResultLauncher.launch(intent);
             }
         });
+
+
+
+
+
+
+
 
         //spinner Rounds
         round = findViewById(R.id.res_spinner_round);
@@ -236,6 +230,33 @@ public class Activity_resultat_round extends AppCompatActivity {
         resultat_round();
 
     }
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                stock.openDB();
+                if (result.getResultCode() == 123) {
+                    // There are no request codes
+
+                    filter.setText( result.getData().getStringExtra("after") );
+                    stock.updateValue("filter", filter.getText().toString());
+
+
+                    //refress  listround
+                    adapter_round.clear();
+                    lRound = stock.getRounds(filter.getText().toString().split("\\s+"));
+                    int selection = 0;
+                    for (int i = 0; i < lRound.size(); i++) {
+                        String tempo = lRound.get(i);
+                        if (tempo.contentEquals(roundName))
+                            selection = i;
+                        adapter_round.add(lRound.get(i));
+                    }
+
+                }
+            });
+
+
+
     /*********************************************************************************/
     /** Managing LifeCycle and database open/close operations ************************/
     /*********************************************************************************/

@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.15462962962962962" />
+        <entry key="../../Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.15457842248413417" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground_v36.xml" value="0.28888888888888886" />
         <entry key="app/src/main/res/drawable/am_arrow_style.xml" value="0.173" />
         <entry key="app/src/main/res/drawable/am_arrow_style_black.xml" value="0.173" />
@@ -20,6 +21,7 @@
         <entry key="app/src/main/res/drawable/am_buttonshape_sup_archer.xml" value="0.223" />
         <entry key="app/src/main/res/drawable/am_buttonshape_white.xml" value="0.223" />
         <entry key="app/src/main/res/drawable/am_buttonshape_yellow.xml" value="0.173" />
+        <entry key="app/src/main/res/drawable/am_item_cell_grid_blue.xml" value="0.2065" />
         <entry key="app/src/main/res/drawable/ar_buttonshape_add.xml" value="0.223" />
         <entry key="app/src/main/res/drawable/archer1n.xml" value="0.3185" />
         <entry key="app/src/main/res/drawable/archer1p.xml" value="0.3185" />
@@ -48,13 +50,16 @@
         <entry key="app/src/main/res/layout/activity_archer.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_config_round.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_edit_note.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_gestion_filter.xml" value="0.16" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10548738922972052" />
         <entry key="app/src/main/res/layout/activity_maintenance.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_resultat_image.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_resultat_image.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_resultat_round.xml" value="0.1" />
         <entry key="app/src/main/res/layout/archer.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/cell_grid_view.xml" value="0.1393758016246259" />
         <entry key="app/src/main/res/layout/chart_arrow_nb.xml" value="0.16979166666666667" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.21041666666666667" />
+        <entry key="app/src/main/res/layout/resultat.xml" value="0.2497733454215775" />
         <entry key="app/src/main/res/layout/resultat_round_archer.xml" value="0.16875" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2127147766323024" />
       </map>

@@ -64,8 +64,11 @@
             android:parentActivityName=".Activity_archer"
             android:label="CompteCible"
             android:theme="@style/AppTheme.NoActionBar"/>
-
-
+        <activity
+            android:name=".Activity_gestion_filter"
+            android:parentActivityName=".Activity_MainActivity"
+            android:label="CompteCible"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

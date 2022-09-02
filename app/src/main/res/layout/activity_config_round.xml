@@ -12,7 +12,7 @@
     android:id="@+id/table_layout1">
     <TableRow
         android:id="@+id/tableRow1"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="@id/tableRow12"
@@ -44,17 +44,16 @@
                 android:id="@+id/IRoundName"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:autofillHints="FirstRound"
                 android:background="@drawable/it_style"
                 android:ems="10"
                 android:gravity="center"
-                android:textAlignment="center"
                 android:hint="@string/roundName"
                 android:inputType="textPersonName"
-                android:visibility="visible"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toStartOf="@id/bConcours"
                 app:layout_constraintStart_toEndOf="@id/bLetGo"
-                app:layout_constraintTop_toTopOf="@id/bLetGo"
-                android:autofillHints="FirstRound" />
+                app:layout_constraintTop_toTopOf="@id/bLetGo" />
 
             <Spinner
                 android:id="@+id/SRoundName"
@@ -67,7 +66,6 @@
                 android:hint="@string/roundName"
                 android:longClickable="true"
                 android:orientation="horizontal"
-                android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@id/bConcours"
                 app:layout_constraintStart_toEndOf="@id/bLetGo"
                 app:layout_constraintTop_toTopOf="@id/bLetGo" />
@@ -88,7 +86,7 @@
 
     <TableRow
         android:id="@+id/tableRow12"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         app:layout_constraintLeft_toLeftOf="@id/tableRow1"
@@ -154,18 +152,18 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow2"
+        android:id="@+id/tableArcheInBase"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/tableRow3"
+        app:layout_constraintBottom_toTopOf="@id/tableArcherInRound"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tableRow12">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textArcherInBase"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -174,7 +172,7 @@
 
         <ListView
             android:id="@+id/archersBase"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:contentDescription="@string/archer_base"
@@ -184,40 +182,41 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow3"
+        android:id="@+id/tableArcherInRound"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/tableRow4"
+        app:layout_constraintBottom_toTopOf="@id/tableFilter"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tableRow2">
+        app:layout_constraintTop_toBottomOf="@id/tableArcheInBase">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            app:layout_constraintRight_toRightOf="@id/textArcherInBase"
             android:orientation="vertical">
 
         <TextView
             android:orientation="vertical"
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:text="@string/ArcherToRound" />
         <Button
             android:id="@+id/archersUp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:background="@drawable/ic_fleche_up"
             app:layout_constraintDimensionRatio="1.5" />
         <Button
             android:id="@+id/archersDown"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:background="@drawable/ic_fleche_down"
@@ -225,13 +224,13 @@
 
         </LinearLayout>
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:orientation="vertical">
         <ListView
                 android:layout_width="match_parent"
-            	android:layout_height="0dp"
+            	android:layout_height="wrap_content"
             	android:layout_weight="3"
             	android:orientation="vertical"
                 android:choiceMode="singleChoice"
@@ -242,24 +241,26 @@
     </LinearLayout>
     </TableRow>
 
-<TableRow
-        android:id="@+id/tableRow4"
-        android:layout_width="0dp"
+    <TableRow
+        android:id="@+id/tableFilter"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        app:layout_constraintStart_toEndOf="@id/tableRow3"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_weight="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tableArcherInRound">
 
-        <EditText
+        <TextView
             android:id="@+id/roundQualifier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textFilter"
-            android:text="@string/RoundQualifier"
+            android:ems="10"
             android:hint="@string/RoundQualifier"
-            android:ems="10" />
+            android:inputType="none"
+            android:text="@string/RoundQualifier" />
 
-</TableRow>
+    </TableRow>
 </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

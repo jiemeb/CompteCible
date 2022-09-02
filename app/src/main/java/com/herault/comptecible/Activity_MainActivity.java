@@ -1,7 +1,5 @@
 package com.herault.comptecible;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.round;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,9 +11,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
+
 import android.os.Bundle;
-import android.text.Html;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,8 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;

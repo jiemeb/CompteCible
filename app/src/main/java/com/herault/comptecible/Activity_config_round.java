@@ -1,10 +1,14 @@
 package com.herault.comptecible;
 
+
 import android.app.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 //import android.os.Handler;
@@ -17,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.herault.comptecible.utils.Stockage;
@@ -29,23 +34,23 @@ import java.util.List;
 
 public class Activity_config_round extends AppCompatActivity {
 
-    protected Activity context;
+
     private Stockage stock = null;
-    Button bLertGo;
+    private Button bLertGo;
     private ListArchers adapterBase;
     private ListArchers adapterRound;
     private EditText newArcher = null;
     private EditText roundName = null;
     private EditText INumberArrow = null;
     private EditText INumberEndByRound = null;
-    private EditText roundQualifier = null ;
+    private TextView roundQualifier = null ;
 
-    Button bAddArcher;
+    private Button bAddArcher;
     private ListView lArcherRound, lArcherBase;
     private Spinner SRoundName = null;
     private List<String> lRoundName;
     private ArrayAdapter adapterRoundName;
-    Button bArchersUp,bArchersDown;
+    private Button bArchersUp;
     private int archerRoundSelectedPosition=0;
 
     //   private Handler h;
@@ -59,6 +64,8 @@ public class Activity_config_round extends AppCompatActivity {
 
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
+
+
 
         bLertGo = findViewById(R.id.bLetGo);
         bLertGo.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +147,7 @@ public class Activity_config_round extends AppCompatActivity {
                 }
             }
         });
-        bArchersDown = findViewById(R.id.archersDown);
+        Button bArchersDown = findViewById(R.id.archersDown);
         bArchersDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,6 +183,7 @@ public class Activity_config_round extends AppCompatActivity {
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
         });
 
@@ -333,7 +341,10 @@ public class Activity_config_round extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                Intent i = new Intent(getApplicationContext(), Activity_gestion_filter.class);
+   //             i.putExtra("before",roundQualifier.getText().toString());
+                stock.updateValue("filterPrevious",roundQualifier.getText().toString());
+                someActivityResultLauncher.launch(i);
 
             }
         });
@@ -382,8 +393,23 @@ public class Activity_config_round extends AppCompatActivity {
                 adapterRound._archers.remove(i);
         }
 
+
+
     }
 
+    /* Waiting from child activity */
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                stock.openDB();
+                if (result.getResultCode() == 123) {
+                    // There are no request codes
+
+                    roundQualifier.setText( result.getData().getStringExtra("after") );
+                    stock.updateRound(roundName.getText().toString(), roundQualifier.getText().toString());
+
+                }
+            });
 
     /*********************************************************************************/
     /** Managing LifeCycle and database open/close operations ************************/
@@ -395,6 +421,7 @@ public class Activity_config_round extends AppCompatActivity {
         stock.openDB();
 
     }
+
 
     @Override
     protected void onPause() {

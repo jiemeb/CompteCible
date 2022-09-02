@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="parent"/>
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
@@ -106,7 +106,7 @@
             app:layout_constraintDimensionRatio="1" />
     </ScrollView>
 </LinearLayout>
-    <EditText
+    <TextView
         android:id="@+id/res_i_round_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

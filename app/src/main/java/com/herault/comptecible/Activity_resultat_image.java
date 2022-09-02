@@ -3,6 +3,7 @@ package com.herault.comptecible;
 import android.app.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -31,6 +32,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -60,7 +63,7 @@ public class Activity_resultat_image extends AppCompatActivity {
     private ImageView imageView = null;
     private LinearLayout chartContainer = null;
     private TableLayout tableLayout = null ;
-    private EditText filter =null;
+    private TextView filter =null;
     private int numberArrow ;
     private Spinner choix_resultat ;
      View shootView;
@@ -81,17 +84,16 @@ public class Activity_resultat_image extends AppCompatActivity {
 
         filter = findViewById(R.id.res_i_round_filter);
         filter.setText(stock.getValue("filter"));
+    filter.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(getApplicationContext(), Activity_gestion_filter.class);
+            stock.updateValue("filterPrevious",filter.getText().toString());
+            someActivityResultLauncher.launch(i);
+        }
+    });
 
-        filter.addTextChangedListener(new   TextWatcher() {
-            public void afterTextChanged(Editable s) {
-                String name = filter.getText().toString().trim();
-                stock.updateValue("filter", name);
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-        });
+
         Button bpPartage  = findViewById(R.id.bp_partage);
         bpPartage.setOnClickListener(new View.OnClickListener() {
                                          @Override
@@ -845,7 +847,20 @@ public class Activity_resultat_image extends AppCompatActivity {
         return false;
     }
 
+    /* Waiting from child activity */
 
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                stock.openDB();
+                if (result.getResultCode() == 123) {
+                    // There are no request codes
+
+                    filter.setText( result.getData().getStringExtra("after") );
+                    stock.updateValue("filter", filter.getText().toString());
+
+                }
+            });
 
 
 

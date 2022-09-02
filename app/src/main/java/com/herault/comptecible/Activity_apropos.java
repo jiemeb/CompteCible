@@ -27,6 +27,7 @@ public class Activity_apropos extends AppCompatActivity {
             R.drawable.doc_page6 ,
             R.drawable.doc_page7 ,
             R.drawable.doc_page8 ,
+            R.drawable.doc_page9 ,
 
     } ;
     ImageView docView ;

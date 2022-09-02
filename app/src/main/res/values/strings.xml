@@ -67,5 +67,16 @@
     <string name="Plus10">+</string>
     <string name="archer_bow">archer bow</string>
     <string name="air_select_round_graphic">graphic round result</string>
+    <string name="bp_cancel">Cancel</string>
+    <string name="bp_valid">valid</string>
+    <string name="bp_clear_filter">clear filter</string>
+    <string name="gf_dia_input_empty">empty filter</string>
+    <string name="gf_dia_addsubject">add a new value</string>
+    <string name="gf_dia_tittle_addsubject">your new filter value</string>
+    <string name="gf_toAdd">new filter</string>
+    <string name="bp_delete">delete</string>
+    <string name="gf_dia_template">Gestion template</string>
+    <string name="gf_dia_sup_template">do you want suppress this filter</string>
+
 
 </resources>
