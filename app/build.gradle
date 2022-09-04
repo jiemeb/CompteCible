@@ -8,8 +8,8 @@ android {
         applicationId "com.herault.comptecible"
         minSdkVersion 19
         targetSdkVersion 32
-        versionCode 40
-        versionName "1.6.14"
+        versionCode 41
+        versionName "1.6.15"
 
         testInstrumentationRunner releaseApplicationIdSuffix
         allprojects {

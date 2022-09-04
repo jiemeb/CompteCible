@@ -62,20 +62,20 @@
     <string name="RoundQualifier">tag</string>
     <string name="resRoundFilter">filtre</string>
     <string name="pointageOffset">Valeur Offset</string>
-    <string name="pointageOffsetDesc">"valeur de decallage de pointage"</string>
+    <string name="pointageOffsetDesc">"valeur de décallage de pointage"</string>
     <string name="archerClean">"suppression archer "</string>
     <string name="roundClean">"suppression concours "</string>
     <string name="Plus10">+</string>
     <string name="archer_bow">"arc archer "</string>
-    <string name="air_select_round_graphic">Resultat concours archer</string>
-    <string name="bp_cancel">annulé</string>
-    <string name="bp_valid">validé</string>
-    <string name="bp_clear_filter">R A Z</string>
-    <string name="gf_dia_input_empty">empty filter</string>
+    <string name="air_select_round_graphic">Résultat concours archer</string>
+    <string name="bp_cancel">annuler</string>
+    <string name="bp_valid">valider</string>
+    <string name="bp_clear_filter">Clean</string>
+    <string name="gf_dia_input_empty">Filtre vide</string>
     <string name="gf_dia_addsubject">ajouter un nouveau filtre</string>
     <string name="gf_toAdd">nouveau filtre</string>
     <string name="gf_dia_tittle_addsubject">ajouter votre filtre</string>
-    <string name="bp_delete">supprimé</string>
+    <string name="bp_delete">supprimer</string>
     <string name="gf_dia_template">Gestion du filtre</string>
     <string name="gf_dia_sup_template">voulez vous supprimer  ce filtre du modele</string>
 

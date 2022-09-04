@@ -4,6 +4,7 @@ package com.herault.comptecible.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Environment;
 import android.view.View;
@@ -67,11 +68,11 @@ public class shareImage {
         return uri;
     }
     public static Bitmap getScreenShot(View view) {
-        View rootView = view.getRootView();
-        rootView.setDrawingCacheEnabled(true);
-        Bitmap createBitmap = Bitmap.createBitmap(rootView.getDrawingCache());
-        rootView.setDrawingCacheEnabled(false);
-        return createBitmap;
+
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
     }
 
     // For share sreenshot  -- Permission check

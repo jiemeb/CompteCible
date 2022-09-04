@@ -134,11 +134,10 @@ public class Activity_gestion_filter extends AppCompatActivity {
                                        imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
                                    }
                                });
-
                        builder.show();
                        input.requestFocus();
                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                       imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                       imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
                    }
                    else {
                        if (filter.isEmpty())
