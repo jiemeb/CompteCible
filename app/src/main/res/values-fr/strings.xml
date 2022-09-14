@@ -78,6 +78,10 @@
     <string name="bp_delete">supprimer</string>
     <string name="gf_dia_template">Gestion du filtre</string>
     <string name="gf_dia_sup_template">voulez vous supprimer  ce filtre du modele</string>
+    <string name="ar_filter_archer">Selectionner  l\'archer:</string>
+    <string name="ar_filter_or">ou</string>
+    <string name="ar_filter_round">Filtrer concour par:</string>
+    <string name="ar_text_select_round">Selectionner concours:</string>
 
 
 </resources>

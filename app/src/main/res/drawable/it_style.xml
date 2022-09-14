@@ -10,7 +10,9 @@
 
     <size
         android:width="0dp"
-        android:height="0dp" />
+        android:height="0dp"
+        android:layout_marginStart="2dp"
+        />
 
     <stroke
         android:width="1dp"

@@ -44,11 +44,11 @@
     <Spinner
         android:id="@+id/air_choix_resultat"
         android:layout_width="258dp"
-        android:layout_height="30dp"
+        android:layout_height="34dp"
         android:layout_marginTop="20dp"
         android:textSize="18sp"
         android:focusable="true"
-        android:background="@drawable/it_style"
+        android:background="@drawable/it_style_spinner"
         app:layout_constraintStart_toStartOf="@id/air_archer"
         app:layout_constraintTop_toBottomOf="@id/air_archer"
         app:layout_constraintBottom_toTopOf="@id/air_resultat"/>

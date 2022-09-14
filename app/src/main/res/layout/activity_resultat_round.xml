@@ -9,53 +9,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textFilterRound"
+        android:text="@string/ar_filter_round"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/res_round_filter" />
+    <TextView
+        android:id="@+id/res_round_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/it_style"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="@string/resRoundFilter"
+        app:layout_constraintStart_toEndOf="@id/textFilterRound"
+        app:layout_constraintTop_toBottomOf="@id/textFilterRound"
+        app:layout_constraintEnd_toEndOf="@id/textFilterOr"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textSelectRound"
+        android:text="@string/ar_text_select_round"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toEndOf="@id/res_round_filter"
+        app:layout_constraintEnd_toStartOf="@id/res_spinner_round" />
+
     <Spinner
         android:id="@+id/res_spinner_round"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="3dp"
         android:layout_weight="1"
-        android:background="@drawable/it_style"
-        app:layout_constraintEnd_toStartOf="@+id/res_spinner_archer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/res_spinner_archer" />
+        android:background="@drawable/it_style_spinner"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toStartOf="@id/textFilterOr"
+        app:layout_constraintStart_toEndOf="@id/textSelectRound"
+        app:layout_constraintBottom_toTopOf="@id/textFilterOr" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textFilterOr"
+        android:gravity="center"
+        android:text="@string/ar_filter_or"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toEndOf="@id/res_round_filter"
+        app:layout_constraintEnd_toStartOf="@id/textFilterByArcher" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textFilterByArcher"
+        android:gravity="right"
+        android:text="@string/ar_filter_archer"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/res_spinner_archer" />
     <Spinner
         android:id="@+id/res_spinner_archer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:focusedByDefault="true"
         android:layout_weight="1"
-        android:background="@drawable/it_style"
-        app:layout_constraintStart_toEndOf="@id/res_spinner_round"
-        app:layout_constraintTop_toBottomOf="@id/res_spinner_round"
+        android:background="@drawable/it_style_spinner"
+        app:layout_constraintStart_toEndOf="@id/textFilterByArcher"
+        app:layout_constraintTop_toBottomOf="@id/textFilterByArcher"
         app:layout_constraintEnd_toStartOf= "@id/res_lis_resultat"/>
 
     <ListView
         android:id="@+id/res_lis_resultat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_weight="10"
         android:background="@drawable/it_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/res_spinner_archer"
-        app:layout_constraintTop_toBottomOf="@+id/res_spinner_archer"
-        app:layout_constraintBottom_toTopOf="@id/res_round_filter"
-        app:layout_constraintEnd_toStartOf="@id/res_round_filter"
-  />
+        app:layout_constraintTop_toBottomOf="@+id/res_spinner_archer" />
 
-    <TextView
-        android:id="@+id/res_round_filter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:focusedByDefault="false"
-        android:ems="10"
-        android:hint="@string/resRoundFilter"
-        app:layout_constraintStart_toEndOf="@id/res_lis_resultat"
-        app:layout_constraintTop_toBottomOf="@id/res_lis_resultat"
-        app:layout_constraintEnd_toEndOf="parent"/>
+
 </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

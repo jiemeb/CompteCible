@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginStart="4dp"
-            android:background="@drawable/it_style"
+            android:background="@drawable/it_style_spinner"
             android:text="@string/archer"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/endNumber"

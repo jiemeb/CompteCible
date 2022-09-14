@@ -77,6 +77,10 @@
     <string name="bp_delete">delete</string>
     <string name="gf_dia_template">Gestion template</string>
     <string name="gf_dia_sup_template">do you want suppress this filter</string>
+    <string name="ar_filter_round">Filter  round by</string>
+    <string name="ar_filter_or">or</string>
+    <string name="ar_filter_archer">Select archer</string>
+    <string name="ar_text_select_round">Select round</string>
 
 
 </resources>

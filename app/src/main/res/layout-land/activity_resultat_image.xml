@@ -29,7 +29,7 @@
         android:layout_height="26dp"
         android:layout_marginTop="56dp"
         android:textSize="18sp"
-        android:background="@drawable/it_style"
+        android:background="@drawable/it_style_spinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/air_archer" />
 

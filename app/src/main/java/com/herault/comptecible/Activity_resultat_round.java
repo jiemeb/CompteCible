@@ -242,6 +242,7 @@ public class Activity_resultat_round extends AppCompatActivity {
 
 
                     //refress  listround
+
                     adapter_round.clear();
                     lRound = stock.getRounds(filter.getText().toString().split("\\s+"));
                     int selection = 0;
@@ -251,6 +252,7 @@ public class Activity_resultat_round extends AppCompatActivity {
                             selection = i;
                         adapter_round.add(lRound.get(i));
                     }
+                // Update resultat adaptateur
 
                 }
             });
