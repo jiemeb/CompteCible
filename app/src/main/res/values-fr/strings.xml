@@ -82,6 +82,7 @@
     <string name="ar_filter_or">ou</string>
     <string name="ar_filter_round">Filtrer concour par:</string>
     <string name="ar_text_select_round">Selectionner concours:</string>
+    <string name="pasRun">pas de resultat avec ce filtre</string>
 
 
 </resources>

@@ -84,14 +84,14 @@ public class Activity_resultat_image extends AppCompatActivity {
 
         filter = findViewById(R.id.res_i_round_filter);
         filter.setText(stock.getValue("filter"));
-    filter.setOnClickListener(new View.OnClickListener() {
+ /*   filter.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent i = new Intent(getApplicationContext(), Activity_gestion_filter.class);
             stock.updateValue("filterPrevious",filter.getText().toString());
             someActivityResultLauncher.launch(i);
         }
-    });
+    });*/
 
 
         Button bpPartage  = findViewById(R.id.bp_partage);

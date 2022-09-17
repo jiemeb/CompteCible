@@ -81,6 +81,7 @@
     <string name="ar_filter_or">or</string>
     <string name="ar_filter_archer">Select archer</string>
     <string name="ar_text_select_round">Select round</string>
+    <string name="pasRun">no  result run with filter</string>
 
 
 </resources>

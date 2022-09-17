@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -72,7 +73,7 @@ public class Activity_resultat_round extends AppCompatActivity {
         );
         roundName = stock.getValue("roundName");
         lRound = stock.getRounds(filter.getText().toString().split("\\s+"));
-        int selection = 0;
+        int selection = -1;
         for (int i = 0; i < lRound.size(); i++) {
             String tempo = lRound.get(i);
             if (tempo.contentEquals(roundName))
@@ -82,7 +83,14 @@ public class Activity_resultat_round extends AppCompatActivity {
 
         adapter_round.setDropDownViewResource(R.layout.spinner_generale);
         round.setAdapter(adapter_round);
-        round.setSelection(selection);                                  // Select RoundName from Round current
+        if (selection == -1)        // no round after filter
+        {
+            roundName = "";
+            Toast.makeText(this, getString(R.string.pasRun),
+                    Toast.LENGTH_SHORT).show();
+        }
+        else
+            round.setSelection(selection);                                  // Select RoundName from Round current
 // Round select ----------------------------
         round.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -184,9 +192,6 @@ public class Activity_resultat_round extends AppCompatActivity {
                     intent.putExtra("name", archer.getSelectedItem().toString());
                     startActivity(intent);
 
-
-
-
                 }
 
             }
@@ -199,8 +204,6 @@ public class Activity_resultat_round extends AppCompatActivity {
         lresultat = stock.getResultatAllRound(archer.getSelectedItem().toString(),filter.getText().toString().split("\\s+")); // regex \s = space in Java must be escape
         else
         lresultat = stock.getResultatAllRound(archer.getSelectedItem().toString());
-
-
 
         adapter_resultat.clear();
         for (int i = 0; i < lresultat.size(); i++) {
@@ -254,6 +257,14 @@ public class Activity_resultat_round extends AppCompatActivity {
                     }
                 // Update resultat adaptateur
 
+                if ( adapter_round.isEmpty())
+                    {
+                     adapter_resultat.clear();
+                     roundName="" ;
+                    Toast.makeText(this, getString(R.string.pasRun),
+                          Toast.LENGTH_SHORT).show();
+                    }
+                updateView();
                 }
             });
 
