@@ -18,17 +18,30 @@
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/res_round_filter" />
-    <TextView
+
+        <GridView
         android:id="@+id/res_round_filter"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@drawable/it_style"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:ems="10"
         android:hint="@string/resRoundFilter"
-        app:layout_constraintStart_toEndOf="@id/textFilterRound"
-        app:layout_constraintTop_toBottomOf="@id/textFilterRound"
-        app:layout_constraintEnd_toEndOf="@id/textFilterOr"/>
+
+            android:layout_marginTop="4dp"
+            android:columnWidth="60dp"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="4"
+            android:verticalSpacing="2dp"
+
+
+
+            app:layout_constraintStart_toEndOf="@id/textFilterRound"
+            app:layout_constraintTop_toBottomOf="@id/textFilterRound"
+            app:layout_constraintEnd_toStartOf="@id/textSelectRound"  />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,7 +70,7 @@
         android:gravity="center"
         android:text="@string/ar_filter_or"
         android:layout_marginTop="3dp"
-        app:layout_constraintStart_toEndOf="@id/res_round_filter"
+        app:layout_constraintStart_toEndOf="@id/res_spinner_round"
         app:layout_constraintEnd_toStartOf="@id/textFilterByArcher" />
     <TextView
         android:layout_width="wrap_content"
@@ -66,7 +79,7 @@
         android:gravity="right"
         android:text="@string/ar_filter_archer"
         android:layout_marginTop="3dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textFilterOr"
         app:layout_constraintEnd_toStartOf="@id/res_spinner_archer" />
     <Spinner
         android:id="@+id/res_spinner_archer"
@@ -83,8 +96,8 @@
         android:id="@+id/res_lis_resultat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight="10"
+        android:layout_marginTop="6dp"
+        android:layout_weight="8"
         android:background="@drawable/it_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

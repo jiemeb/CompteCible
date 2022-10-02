@@ -33,10 +33,14 @@
 
 
         <TableRow
+            android:id="@+id/table_am_bSuppresArcher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginTop="2dp">
+            android:layout_marginTop="2dp"
+            app:layout_constraintTop_toTopOf="@id/table"
+            app:layout_constraintBottom_toTopOf="@id/table_am_bSup_round"
+            >
 
             <Button
                 android:id="@+id/am_bSuppresArcher"
@@ -63,10 +67,14 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/table_am_bSup_round"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginTop="2dp">
+            android:layout_marginTop="2dp"
+            app:layout_constraintTop_toBottomOf="@id/table_am_bSuppresArcher"
+            app:layout_constraintBottom_toTopOf="@id/table_am_pointage_offset"
+            >
 
             <Button
                 android:id="@+id/am_bSup_round"
@@ -94,10 +102,15 @@
 
 
         <TableRow
+            android:id="@+id/table_am_pointage_offset"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginTop="2dp">
+            android:layout_marginTop="2dp"
+            app:layout_constraintTop_toBottomOf="@id/table_am_bSup_round"
+            app:layout_constraintBottom_toTopOf="@id/table_am_bexport_archer_rounds"
+
+            >
 
 
             <TextView
@@ -135,10 +148,14 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/table_am_bexport_archer_rounds"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginTop="2dp">
+            android:layout_marginTop="2dp"
+            app:layout_constraintTop_toBottomOf="@id/table_am_pointage_offset"
+            app:layout_constraintBottom_toTopOf="@id/am_table_bexport_round_archers"
+            >
 
             <Button
                 android:id="@+id/am_bexport_archer_rounds"
@@ -155,10 +172,13 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/am_table_bexport_round_archers"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/am_table_bexport_round_archers"
+            app:layout_constraintBottom_toTopOf="@id/table_progressBar">
 
             <Button
                 android:id="@+id/am_bexport_round_archers"
@@ -175,10 +195,15 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/am_table_bexport_round_archer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/am_table_bexport_round_archers"
+            app:layout_constraintBottom_toTopOf="@id/table_progressBar"
+            >
 
             <Button
                 android:id="@+id/am_bexport_round_archer"
@@ -195,11 +220,13 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/table_progressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/am_table_bexport_round_archer"
+            app:layout_constraintBottom_toTopOf= "@id/am_table_gridFilter">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
@@ -209,7 +236,8 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="41dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <ProgressBar
                 android:id="@+id/am_progressBar"
@@ -221,25 +249,36 @@
                 android:indeterminate="false"
                 android:max="100"
                 android:visibility="invisible"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="parent" />
+
+     />
 
 
         </TableRow>
         <TableRow
+            android:id="@+id/am_table_gridFilter"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="parent">
-            <EditText
+            app:layout_constraintTop_toBottomOf="@id/table_progressBar"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <GridView
                 android:id="@+id/r_maintenance_filter"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/resRoundFilter"
                 android:autofillHints=""
-                android:inputType="text" />
+                android:inputType="text"
+                android:layout_marginTop="4dp"
+                android:columnWidth="60dp"
+                android:gravity="center"
+                android:horizontalSpacing="5dp"
+                android:numColumns="4"
+                android:verticalSpacing="2dp"
+
+
+                />
         </TableRow>
     </TableLayout>
 

@@ -12,19 +12,27 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.herault.comptecible.utils.FilterContainer;
+import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.MyHandlerThread;
 import com.herault.comptecible.utils.Stockage;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Activity_maintenance extends AppCompatActivity  {
@@ -37,10 +45,15 @@ public class Activity_maintenance extends AppCompatActivity  {
     private Spinner archer = null;
     private Spinner round = null;
     private ArrayAdapter adapter;
+    private List<String> lRound ;
     private ArrayAdapter adapterRound;
 
     private EditText pointageOffset = null ;
-    private EditText filter =null;
+    //private EditText resultFilter =null;
+
+    private GridView resultFilter ;
+    private String SFilterResult="";
+    private FiltersContainer filtersResultContainer;
 
     private Activity_maintenance localActivity;
     private List<Resultat_archer> lresultat;
@@ -68,17 +81,18 @@ public class Activity_maintenance extends AppCompatActivity  {
         adapter.setDropDownViewResource(R.layout.spinner_generale);
         archer.setAdapter(adapter);
 // Initialize Filter
-        filter = findViewById(R.id.r_maintenance_filter);
-        filter.setText(stock.getValue("filter"));
-
-        filter.addTextChangedListener(new   TextWatcher() {
-            public void afterTextChanged(Editable s) {
-                String name = filter.getText().toString().trim();
-                stock.updateValue("filter", name);
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+        resultFilter = findViewById(R.id.r_maintenance_filter);
+        SFilterResult=stock.getValue("filter");
+        if(!(SFilterResult.trim().length() > 0))
+            SFilterResult = "";
+        filtersResultContainer= new FiltersContainer(SFilterResult);
+        updateResultValue();
+        resultFilter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), Activity_gestion_filter.class);
+                stock.updateValue("filterPrevious",filtersResultContainer.serialize());
+                someActivityResultLauncher.launch(intent);
             }
         });
 
@@ -227,7 +241,7 @@ public class Activity_maintenance extends AppCompatActivity  {
                 if (archer.getCount() != 0 && archer.getSelectedItemId() >= 0) {
                     // 3 - We create and start our AsyncTask
                     String name = new String(archer.getSelectedItem().toString());
-                    lresultat =stock.getResultatAllRound(name, filter.getText().toString().split("\\s+"));
+                    lresultat =stock.getResultatAllRound(name, filtersResultContainer.getFilter());
                     name += "_all";
                     startHandlerThread(lresultat,name);
 
@@ -238,7 +252,7 @@ public class Activity_maintenance extends AppCompatActivity  {
 //-------------------------------------------------------------------------------------------------
 
         round = findViewById(R.id.sRound);
-        List<String> lRound = stock.getRounds();
+         lRound = stock.getRounds(filtersResultContainer.getFilter());
         adapterRound = new ArrayAdapter(
                 this,
                 R.layout.spinner_generale
@@ -286,7 +300,58 @@ public class Activity_maintenance extends AppCompatActivity  {
 
 
     }
+    //--------------------------gestion Filter--------------------------
+    private void updateResultValue()
+    {
+        //       String [] table =  filterTemplate.toString().split("\\s+");
+        //listResultValue.clear();
+        arrayFilter arrayAdapter ;
+        if(filtersResultContainer.getLength() == 0)
+        {
+            ArrayList<FilterContainer> dummyFilter = new ArrayList<>();
+            dummyFilter.add(new FilterContainer("_Black_",getString(R.string.gf_no_filter)));
+            arrayAdapter = new arrayFilter(this, dummyFilter);
+        }
+        else
+        {
+            arrayAdapter = new arrayFilter(this, filtersResultContainer.getListFilterContainer());
+        }
 
+        resultFilter.setAdapter( arrayAdapter );
+
+
+    }
+    //gestion activity with return
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                stock.openDB();
+                if (result.getResultCode() == 123) {
+                    // There are no request codes
+
+                    filtersResultContainer= new FiltersContainer( result.getData().getStringExtra("after") );
+                    stock.updateValue("filter", filtersResultContainer.serialize());
+                    updateResultValue();
+
+                    //refress  listround
+                    adapterRound.clear();
+                    lRound = stock.getRounds(filtersResultContainer.getFilter());
+                    int selection = 0;
+                    for (int i = 0; i < lRound.size(); i++) {
+                        String tempo = lRound.get(i);
+                        adapterRound.add(lRound.get(i));
+                    }
+                    // Update resultat adaptateur
+
+                    if ( adapterRound.isEmpty())
+                    {
+
+                        Toast.makeText(this, getString(R.string.pasRun),
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
 
 //---------------------------------------
     // -----------------

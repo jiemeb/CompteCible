@@ -8,28 +8,36 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.herault.comptecible.utils.FilterContainer;
+import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.Stockage;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Activity_gestion_filter extends AppCompatActivity {
     private Stockage stock = null;
-    private TextView filterResult ;
+    private GridView resultFilter;
     private GridView gridFilter ;
     private Activity_gestion_filter localActivity;
-    private List<String> listGridValue;
-    private  String filterTemplate ="";
+    private ArrayList<FilterContainer> listGridValue;
+    private  ArrayList<FilterContainer> listResultValue;
 
+    private String SFilterTemplate ="";
+    private String SFilterResult="";
+    private FiltersContainer filtersContainer;
+    private FiltersContainer filtersResultContainer;
+    private String currentColor ="_blue_" ;
+
+    RadioButton r_blue,r_red, r_yellow,r_black ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -37,22 +45,28 @@ public class Activity_gestion_filter extends AppCompatActivity {
             setContentView(R.layout.activity_gestion_filter);
             stock = new Stockage();             // init de la classe interface de stockage
             stock.onCreate(this);
+            resultFilter = findViewById(R.id.filterResult);
 
-            filterResult = findViewById(R.id.filterResult);
-   /*         final Intent intent = getIntent();
-            filterResult.setText( intent.getStringExtra("before")); */
-            filterResult.setText(stock.getValue("filterPrevious"));
+//Initiate Filter Result
+        listResultValue = new ArrayList<FilterContainer>();
+        SFilterResult=stock.getValue("filterPrevious");
+        if(!(SFilterResult.trim().length() > 0))
+            SFilterResult = "";
+        filtersResultContainer= new FiltersContainer(SFilterResult);
+            // Initiate  Filter Grid
             gridFilter= findViewById(R.id.gridChoice);
-// Get All value
-           listGridValue =new ArrayList<String>();
-             filterTemplate =  stock.getValue("filterTemplate");
-             if(!(filterTemplate.trim().length() > 0))
-                 filterTemplate = "";
-            if (filterTemplate.isEmpty()) {
-                filterTemplate = "10m 18m 20m 30m 50m 60m 70m 3x10 3x20 6x6 6x12 °40 °60 °80 °122";
-                stock.updateValue("filterTemplate",filterTemplate);
-            }
+            updateResultValue();
 
+// Get All value
+           listGridValue =new ArrayList<FilterContainer>();
+           SFilterTemplate =  stock.getValue("filterTemplate");
+            if(!(SFilterTemplate.trim().length() > 0))
+                 SFilterTemplate = "";
+            if (SFilterTemplate.isEmpty()) {
+                SFilterTemplate = "_yellow_ 10m _yellow_ 18m _yellow_ 20m _yellow_ 25m _yellow_ 30m  _yellow_ 40m _yellow_ 50m _yellow_ 60m _yellow_ 70m _blue_ 3x10 _blue_ 3x20 _blue_ 6x6 _blue_ 6x12 _black_ Ø40 _black_ Ø60 _black_ Ø80 _black_ Ø122";
+                stock.updateValue("filterTemplate", SFilterTemplate);
+            }
+            filtersContainer = new FiltersContainer(SFilterTemplate);
             updateGridValue();
 
             gridFilter.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -60,13 +74,12 @@ public class Activity_gestion_filter extends AppCompatActivity {
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                    String wordToDelete = listGridValue.get(position);
-                    // dialog
-                    String result = replaceWord(filterResult.getText().toString(),wordToDelete, "");
-                    filterResult.setText(result);
-                    result = filterResult.getText().toString().replace("  ", " ");
-                    filterResult.setText(result);
-                    stock.updateValue("filterPrevious",result);
+                    String wordToDelete = listGridValue.get(position).getValue();
+                    // Delete value dans listResultValue
+                    filtersResultContainer.deleteValue( wordToDelete) ;
+                    updateResultValue();
+
+                    // Make dialog to delete fiter ?
                     // Make choice to delete from template
                     AlertDialog.Builder popupValidation = new AlertDialog.Builder(localActivity);
                     popupValidation.setMessage(getResources().getString(R.string.gf_dia_sup_template)+" "+wordToDelete);
@@ -74,9 +87,8 @@ public class Activity_gestion_filter extends AppCompatActivity {
                     popupValidation.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            filterTemplate=replaceWord(filterTemplate,wordToDelete, "");
-                            filterTemplate=filterTemplate.replace("  ", " ");
-                            stock.updateValue("filterTemplate",filterTemplate);
+                            filtersContainer.deleteValue( wordToDelete) ;
+                            stock.updateValue("filterTemplate", filtersContainer.serialize());
                             updateGridValue();
                             }
                     });
@@ -87,8 +99,6 @@ public class Activity_gestion_filter extends AppCompatActivity {
                     });
                     popupValidation.show();
 
-
-
                     return true;
                 }
             });
@@ -97,9 +107,10 @@ public class Activity_gestion_filter extends AppCompatActivity {
             gridFilter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                   String select = listGridValue.get(position);
-                   String filter = filterResult.getText().toString();
-                   if(position == (listGridValue.size()-1))
+                   String select = listGridValue.get(position).getValue();
+                   String color = currentColor;
+
+                   if(position == (listGridValue.size()-1)) // Click on new filter
                    {
                        AlertDialog.Builder builder = new AlertDialog.Builder(localActivity);
                        final EditText input = new EditText(localActivity);
@@ -110,17 +121,14 @@ public class Activity_gestion_filter extends AppCompatActivity {
                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 
                                    public void onClick(DialogInterface dialog, int which) {
+                                       String color = currentColor;
                                        String value = input.getText().toString();
                                        value=value.replace(' ','_');
                                        if (value.toString().trim().length() == 0) {
                                            Toast.makeText(Activity_gestion_filter.this, R.string.gf_dia_input_empty, Toast.LENGTH_SHORT).show();
                                        } else {
-                                            filterTemplate =  stock.getValue("filterTemplate");   // Add New data en new values in []
-                                           if (filterTemplate.isEmpty())
-                                               filterTemplate= value;
-                                           if (!findWord (filterTemplate,value)) // Don't add if already down
-                                               filterTemplate=filterTemplate+" "+value;
-                                           stock.updateValue("filterTemplate",filterTemplate);
+                                           filtersContainer.addValue(new FilterContainer(color,value));
+                                           stock.updateValue("filterTemplate", filtersContainer.serialize());
                                            updateGridValue();
                                        }
                                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -140,11 +148,9 @@ public class Activity_gestion_filter extends AppCompatActivity {
                        imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
                    }
                    else {
-                       if (filter.isEmpty())
-                           filterResult.setText(select);
-                       if (!findWord(filter,select)) // Don't add if already down
-                           filterResult.setText(filter + " " + select);
-                       stock.updateValue("filterPrevious",filterResult.getText().toString());
+
+                       filtersResultContainer.addValue(listGridValue.get(position));
+                       updateResultValue();
                    }
                 }
             });
@@ -178,17 +184,49 @@ public class Activity_gestion_filter extends AppCompatActivity {
         bpClearFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterResult.setText("");
-                stock.updateValue("filterPrevious","");
+            filtersResultContainer.clear();
+
+                updateResultValue();
             }
         });
 
+    RadioGroup r_group_color = findViewById(R.id.gf_gb_checkColor);
+        r_blue = findViewById(R.id.gf_rb_blue);
+        r_red = findViewById(R.id.gf_rb_red);
+        r_yellow = findViewById(R.id.gf_rb_yellow);
+        r_black = findViewById(R.id.gf_rb_black);
+        r_blue = new RadioButton(this);
+        r_red  = new RadioButton(this);
+        r_yellow = new RadioButton(this);
+        r_black= new RadioButton(this);
+        r_group_color.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId)
+                {
+                    case R.id.gf_rb_blue:
+                         currentColor ="_blue_" ;
+                        break;
+                    case R.id.gf_rb_red:
+                        currentColor ="_red_" ;
+                        break;
+                    case R.id.gf_rb_yellow:
+                        currentColor ="_yellow_" ;
+                        break;
+                    case R.id.gf_rb_black:
+                        currentColor ="_black_" ;
+                        break;
+                }
+            }
+        });
 
     }
+
+
     private boolean findWord (String listString,String toFind)
     {
-        String result ="" ;
-        String [] table =  listString.toString().split("\\s+");
+
+        String [] table =  listString.split("\\s+");
         for (String t:table) {
             if(toFind.equals(t))
             {
@@ -199,34 +237,35 @@ public class Activity_gestion_filter extends AppCompatActivity {
     }
 
 
-        private String replaceWord (String listString,String toFind,String toReplace)
-        {
-            String result ="" ;
-             String [] table =  listString.toString().split("\\s+");
-              for (String t:table) {
-                if(toFind.equals(t))
-                {
-                    t=toReplace;
-                }
-                if (result.isEmpty())
-                result = t ;
-                else
-                result += " "+t ;
-            }
-              return result ;
-        }
 
+    private void updateResultValue()
+    {
+        //       String [] table =  filterTemplate.toString().split("\\s+");
+        listResultValue.clear();
+        arrayFilter arrayAdapter = new arrayFilter(this, listResultValue);
+
+
+        for (int i = 0; i < filtersResultContainer.getLength(); i++)
+        {
+            String[] filter = filtersResultContainer.getTextview(i);
+            listResultValue.add(new FilterContainer(filter[0], filter[1]));
+        }
+        resultFilter.setAdapter( arrayAdapter );
+    }
         private void updateGridValue()
         {
-            String [] table =  filterTemplate.toString().split("\\s+");
+     //       String [] table =  filterTemplate.toString().split("\\s+");
             listGridValue.clear();
-            for (String t:table
-            ) {
-                listGridValue.add(t);
+            arrayFilter arrayAdapter = new arrayFilter(this,  listGridValue);
+
+
+            for (int i = 0; i < filtersContainer.getLength(); i++)
+            {
+               listGridValue.add( filtersContainer.get(i));
             }
-            listGridValue.add(getResources().getString(R.string.gf_toAdd));
-            gridFilter.setAdapter(new ArrayAdapter<String>(this,R.layout.cell_grid_view, listGridValue));
-        }
+            listGridValue.add(new FilterContainer("_white_",getResources().getString(R.string.gf_toAdd)));
+            gridFilter.setAdapter( arrayAdapter );
+           }
 
     @Override
     protected void onResume() {
@@ -245,7 +284,7 @@ public class Activity_gestion_filter extends AppCompatActivity {
     public void onBackPressed() {
 
         Intent intent = new Intent();
-        intent.putExtra("after", filterResult.getText().toString());
+        intent.putExtra("after", filtersResultContainer.serialize());
         setResult(123, intent);
         finish();
 

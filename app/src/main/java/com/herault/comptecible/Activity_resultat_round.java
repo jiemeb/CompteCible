@@ -1,12 +1,15 @@
 package com.herault.comptecible;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +19,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.herault.comptecible.utils.FilterContainer;
+import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.Stockage;
 
 import java.util.ArrayList;
@@ -35,7 +40,11 @@ public class Activity_resultat_round extends AppCompatActivity {
 
     private List<Resultat_archer> lresultat;
     private ListRound adapter_resultat;
-    private TextView filter ;
+
+    private GridView resultFilter ;
+    private String SFilterResult="";
+    private FiltersContainer filtersResultContainer;
+
     private List<String> lRound  ;
 
     @Override
@@ -46,21 +55,36 @@ public class Activity_resultat_round extends AppCompatActivity {
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
 
-        filter = findViewById(R.id.res_round_filter);
-        filter.setText(stock.getValue("filter"));
-        filter.setOnClickListener(new View.OnClickListener() {
+
+        resultFilter = findViewById(R.id.res_round_filter);
+
+
+   //     resultFilter.setText(stock.getValue("filter"));
+        SFilterResult=stock.getValue("filter");
+        if(!(SFilterResult.trim().length() > 0))
+            SFilterResult = "";
+        filtersResultContainer= new FiltersContainer(SFilterResult);
+        updateResultValue();
+
+
+
+            resultFilter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), Activity_gestion_filter.class);
-                stock.updateValue("filterPrevious",filter.getText().toString());
+                stock.updateValue("filterPrevious",filtersResultContainer.serialize());
                 someActivityResultLauncher.launch(intent);
             }
         });
 
-
-
-
-
+     /*   resultFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Activity_gestion_filter.class);
+                stock.updateValue("filterPrevious",filtersResultContainer.serialize());
+                someActivityResultLauncher.launch(intent);
+            }
+        });*/
 
 
 
@@ -72,7 +96,7 @@ public class Activity_resultat_round extends AppCompatActivity {
                 android.R.layout.simple_spinner_item
         );
         roundName = stock.getValue("roundName");
-        lRound = stock.getRounds(filter.getText().toString().split("\\s+"));
+        lRound = stock.getRounds(filtersResultContainer.getFilter());
         int selection = -1;
         for (int i = 0; i < lRound.size(); i++) {
             String tempo = lRound.get(i);
@@ -200,8 +224,8 @@ public class Activity_resultat_round extends AppCompatActivity {
 
 
     private void resultat_archer() {
-        if (filter.getText().length() != 0)
-        lresultat = stock.getResultatAllRound(archer.getSelectedItem().toString(),filter.getText().toString().split("\\s+")); // regex \s = space in Java must be escape
+        if (filtersResultContainer.getLength() != 0)
+        lresultat = stock.getResultatAllRound(archer.getSelectedItem().toString(),filtersResultContainer.getFilter()); // regex \s = space in Java must be escape
         else
         lresultat = stock.getResultatAllRound(archer.getSelectedItem().toString());
 
@@ -233,6 +257,26 @@ public class Activity_resultat_round extends AppCompatActivity {
         resultat_round();
 
     }
+    private void updateResultValue()
+    {
+        //       String [] table =  filterTemplate.toString().split("\\s+");
+        //listResultValue.clear();
+         arrayFilter arrayAdapter ;
+       if(filtersResultContainer.getLength() == 0)
+       {
+            ArrayList <FilterContainer>  dummyFilter = new ArrayList<>();
+            dummyFilter.add(new FilterContainer("_Black_",getString(R.string.gf_no_filter)));
+            arrayAdapter = new arrayFilter(this, dummyFilter);
+       }
+        else
+       {
+         arrayAdapter = new arrayFilter(this, filtersResultContainer.getListFilterContainer());
+       }
+
+        resultFilter.setAdapter( arrayAdapter );
+
+
+    }
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -240,14 +284,14 @@ public class Activity_resultat_round extends AppCompatActivity {
                 if (result.getResultCode() == 123) {
                     // There are no request codes
 
-                    filter.setText( result.getData().getStringExtra("after") );
-                    stock.updateValue("filter", filter.getText().toString());
-
+                    filtersResultContainer= new FiltersContainer( result.getData().getStringExtra("after") );
+                    stock.updateValue("filter", filtersResultContainer.serialize());
+                    updateResultValue();
 
                     //refress  listround
 
                     adapter_round.clear();
-                    lRound = stock.getRounds(filter.getText().toString().split("\\s+"));
+                    lRound = stock.getRounds(filtersResultContainer.getFilter());
                     int selection = 0;
                     for (int i = 0; i < lRound.size(); i++) {
                         String tempo = lRound.get(i);

@@ -70,19 +70,26 @@
     <string name="air_select_round_graphic">Résultat concours archer</string>
     <string name="bp_cancel">annuler</string>
     <string name="bp_valid">valider</string>
-    <string name="bp_clear_filter">Clean</string>
+    <string name="bp_clear_filter">Effacer</string>
     <string name="gf_dia_input_empty">Filtre vide</string>
     <string name="gf_dia_addsubject">ajouter un nouveau filtre</string>
     <string name="gf_toAdd">nouveau filtre</string>
     <string name="gf_dia_tittle_addsubject">ajouter votre filtre</string>
     <string name="bp_delete">supprimer</string>
     <string name="gf_dia_template">Gestion du filtre</string>
-    <string name="gf_dia_sup_template">voulez vous supprimer  ce filtre du modele</string>
+    <string name="gf_dia_sup_template">voulez vous supprimer  ce filtre du modèle</string>
     <string name="ar_filter_archer">Selectionner  l\'archer:</string>
     <string name="ar_filter_or">ou</string>
-    <string name="ar_filter_round">Filtrer concour par:</string>
+    <string name="ar_filter_round">Filtrer concours par:</string>
     <string name="ar_text_select_round">Selectionner concours:</string>
     <string name="pasRun">pas de resultat avec ce filtre</string>
+    <string name="black">noir</string>
+    <string name="yellow">jaune</string>
+    <string name="red">rouge</string>
+    <string name="blue">bleu</string>
+    <string name="filter">filtre</string>
+    <string name="gf_no_filter">"Pas de filtre "</string>
+    <string name="gf_no_tag">pas de mot clé</string>
 
 
 </resources>

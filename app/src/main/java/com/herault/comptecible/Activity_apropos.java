@@ -1,9 +1,6 @@
 package com.herault.comptecible;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +21,7 @@ public class Activity_apropos extends AppCompatActivity {
             R.drawable.doc_page3 ,
             R.drawable.doc_page4 ,
             R.drawable.doc_page5 ,
-            R.drawable.doc_page6 ,
+            R.drawable.doc_page7,
             R.drawable.doc_page7 ,
             R.drawable.doc_page8 ,
             R.drawable.doc_page9 ,

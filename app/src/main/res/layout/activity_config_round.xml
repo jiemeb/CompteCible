@@ -188,7 +188,7 @@
         android:id="@+id/tableArcherInRound"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="6"
+        android:layout_weight="5"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/tableFilter"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -249,24 +249,30 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:stretchColumns="*"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tableArcherInRound">
 
-        <TextView
+        <GridView
             android:id="@+id/roundQualifier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/RoundQualifier"
-            android:inputType="none"
-            android:shrinkColumns="*"
             android:text="@string/RoundQualifier"
-            app:layout_constraintRight_toRightOf="parent"/>
 
+            android:layout_marginTop="4dp"
+            android:columnWidth="60dp"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="4"
+            android:verticalSpacing="2dp"
+            app:layout_constraintRight_toRightOf="parent"
+
+
+        />
     </TableRow>
 </TableLayout>
 

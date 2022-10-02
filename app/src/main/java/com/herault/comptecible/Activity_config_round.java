@@ -19,14 +19,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.herault.comptecible.utils.FilterContainer;
+import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.Stockage;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +47,14 @@ public class Activity_config_round extends AppCompatActivity {
     private EditText roundName = null;
     private EditText INumberArrow = null;
     private EditText INumberEndByRound = null;
-    private TextView roundQualifier = null ;
+
+    private GridView roundQualifier = null ;
+
+   // private GridView resultFilter ;
+    private String SFilterResult="";
+    private FiltersContainer filtersResultContainer;
+
+
 
     private Button bAddArcher;
     private ListView lArcherRound, lArcherBase;
@@ -72,12 +83,17 @@ public class Activity_config_round extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // sauvegarde archer_round database and test value before ending
+
+                onBackPressed();
+
+                /*
+
                 if (adapterRound.getCount() != 0 && roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
                     cleanSelectedArcherRound();
                     stock.dropArchers(true);
                     stock.insertArrayArchers(adapterRound._archers, true);
-                    if (roundQualifier.getText().length() != 0) {
-                        stock.updateRound(roundName.getText().toString(), roundQualifier.getText().toString());
+                    if (filtersResultContainer.getLength()!= 0) {
+                        stock.updateRound(roundName.getText().toString(),filtersResultContainer.serialize());
                     }
                     Activity_config_round.this.finish(); // Kill config_run
                 } else {
@@ -102,7 +118,7 @@ public class Activity_config_round extends AppCompatActivity {
                     else
                         INumberEndByRound.setBackgroundColor(Color.WHITE);
 
-                }
+                } */
             }
         });
 
@@ -175,7 +191,11 @@ public class Activity_config_round extends AppCompatActivity {
                 if (!name.isEmpty())
                     stock.updateValue("roundName", name);
                 String qualif =stock.getRoundQualifier(name.toString());
-                roundQualifier.setText(stock.getRoundQualifier(name.toString()));
+                if(qualif != null)
+                  filtersResultContainer =new FiltersContainer (stock.getRoundQualifier(name.toString()));
+                else
+                   filtersResultContainer.clear();
+                updateRoundQualifierValue();
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -336,18 +356,19 @@ public class Activity_config_round extends AppCompatActivity {
 
 
         roundQualifier = findViewById(R.id.roundQualifier);
-        roundQualifier.setText(stock.getRoundQualifier(roundName.toString()));
-        roundQualifier.setOnClickListener(new View.OnClickListener() {
+        SFilterResult = stock.getRoundQualifier(roundName.toString());
+        filtersResultContainer = new FiltersContainer(SFilterResult);
+        updateRoundQualifierValue();
+        roundQualifier.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getApplicationContext(), Activity_gestion_filter.class);
-   //             i.putExtra("before",roundQualifier.getText().toString());
-                stock.updateValue("filterPrevious",roundQualifier.getText().toString());
+                stock.updateValue("filterPrevious",filtersResultContainer.serialize());
                 someActivityResultLauncher.launch(i);
-
             }
         });
+
+
 
     }
 
@@ -359,7 +380,6 @@ public class Activity_config_round extends AppCompatActivity {
             archer = archer.replace("*", "");
             adapterRound._archers.set(i, archer);
         }
-
 
         }
 
@@ -405,11 +425,29 @@ public class Activity_config_round extends AppCompatActivity {
                 if (result.getResultCode() == 123) {
                     // There are no request codes
 
-                    roundQualifier.setText( result.getData().getStringExtra("after") );
-                    stock.updateRound(roundName.getText().toString(), roundQualifier.getText().toString());
-
+                    filtersResultContainer= new FiltersContainer( result.getData().getStringExtra("after") );
+                    stock.updateRound(roundName.getText().toString(), filtersResultContainer.serialize());
+                    updateRoundQualifierValue();
                 }
             });
+
+    private void updateRoundQualifierValue()
+    {
+        //       String [] table =  filterTemplate.toString().split("\\s+");
+        //listResultValue.clear();
+        arrayFilter arrayAdapter ;
+        if(filtersResultContainer.getLength() == 0)
+        {
+            ArrayList<FilterContainer> dummyFilter = new ArrayList<>();
+            dummyFilter.add(new FilterContainer("_Black_",getString(R.string.gf_no_tag)));
+            arrayAdapter = new arrayFilter(this, dummyFilter);
+        }
+        else
+        {
+            arrayAdapter = new arrayFilter(this, filtersResultContainer.getListFilterContainer());
+        }
+        roundQualifier.setAdapter( arrayAdapter );
+    }
 
     /*********************************************************************************/
     /** Managing LifeCycle and database open/close operations ************************/
@@ -440,8 +478,8 @@ public class Activity_config_round extends AppCompatActivity {
             cleanSelectedArcherRound();
             stock.dropArchers(true);
             stock.insertArrayArchers(adapterRound._archers, true);
-            if (roundQualifier.getText().length() != 0) {
-                stock.updateRound(roundName.getText().toString(), roundQualifier.getText().toString());
+            if (filtersResultContainer.getLength() != 0) {
+                stock.updateRound(roundName.getText().toString(), filtersResultContainer.serialize());
             }
             Activity_config_round.this.finish(); // Kill config_run
         } else {
@@ -467,8 +505,7 @@ public class Activity_config_round extends AppCompatActivity {
                 INumberEndByRound.setBackgroundColor(Color.WHITE);
 
         }
-        //     Toast.makeText(this, getResources().getString(R.string.useButton) + " : \"" + getResources().getString(R.string.let_sgo) + "\"",
-        //            Toast.LENGTH_SHORT).show();
+
     }
 
 }

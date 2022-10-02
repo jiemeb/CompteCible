@@ -24,7 +24,7 @@ public class Stockage {
     private Activity context;
     private SQLiteDatabase db = null;
     private Db_resultat base;
-
+     void initDB (SQLiteDatabase db) { this.db = db ;}
     public void onCreate(AppCompatActivity mainActivity) {
         this.context = mainActivity;
         base = new Db_resultat(mainActivity, Db_resultat.Constants.DATABASE_NAME, null, Db_resultat.Constants.DATABASE_VERSION);

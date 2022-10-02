@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -39,6 +40,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
+import com.herault.comptecible.utils.FilterContainer;
+import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.Stockage;
 import com.herault.comptecible.utils.shareImage;
 
@@ -63,10 +66,16 @@ public class Activity_resultat_image extends AppCompatActivity {
     private ImageView imageView = null;
     private LinearLayout chartContainer = null;
     private TableLayout tableLayout = null ;
-    private TextView filter =null;
+    // Variable for filter
+    private GridView resultFilter;
+  //  private  ArrayList<FilterContainer> listResultValue;
+    private String SFilterResult="";
+    private FiltersContainer filtersResultContainer;
+
     private int numberArrow ;
     private Spinner choix_resultat ;
      View shootView;
+
      private Context main_context ;
 
     @Override
@@ -82,16 +91,15 @@ public class Activity_resultat_image extends AppCompatActivity {
         round = this.getIntent().getStringExtra("round");
         name = this.getIntent().getStringExtra("name");
 
-        filter = findViewById(R.id.res_i_round_filter);
-        filter.setText(stock.getValue("filter"));
- /*   filter.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(getApplicationContext(), Activity_gestion_filter.class);
-            stock.updateValue("filterPrevious",filter.getText().toString());
-            someActivityResultLauncher.launch(i);
-        }
-    });*/
+        resultFilter = findViewById(R.id.res_i_round_filter);
+        //listResultValue = new ArrayList<FilterContainer>();
+        SFilterResult=stock.getValue("filter");
+        if(!(SFilterResult.trim().length() > 0))
+            SFilterResult = "";
+        filtersResultContainer= new FiltersContainer(SFilterResult);
+        updateResultValue();
+
+
 
 
         Button bpPartage  = findViewById(R.id.bp_partage);
@@ -534,8 +542,8 @@ public class Activity_resultat_image extends AppCompatActivity {
         // Creating an XYSeries for Height
         XYSeries expenseSeries = new XYSeries(getResources().getString(R.string.air_Tittle_Axe_X_round));
         // Adding data to Height Series
-        if (filter.getText().length() != 0)
-            lresultat = stock.getResultatAllRound(archer, filter.getText().toString().split("\\s+")); // regex \s = space in Java must be escape
+        if (filtersResultContainer.getLength() != 0)
+            lresultat = stock.getResultatAllRound(archer, filtersResultContainer.getFilter()); // regex \s = space in Java must be escape
         else
             lresultat = stock.getResultatAllRound(archer);
         int i = 0;
@@ -824,6 +832,8 @@ public class Activity_resultat_image extends AppCompatActivity {
         chartContainer.addView(chart);
 
 
+
+
     }
 
     String[] permissions ;
@@ -847,20 +857,25 @@ public class Activity_resultat_image extends AppCompatActivity {
         return false;
     }
 
+    private void updateResultValue()
+    {
+        //       String [] table =  filterTemplate.toString().split("\\s+");
+        //listResultValue.clear();
+        arrayFilter arrayAdapter = new arrayFilter(this, filtersResultContainer.getListFilterContainer());
+
+
+     /*   for (int i = 0; i < filtersResultContainer.getLength(); i++)
+        {
+            String[] filter = filtersResultContainer.getTextview(i);
+            listResultValue.add(new FilterContainer(filter[0], filter[1]));
+        }*/
+        resultFilter.setAdapter( arrayAdapter );
+    }
+
+
     /* Waiting from child activity */
 
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                stock.openDB();
-                if (result.getResultCode() == 123) {
-                    // There are no request codes
 
-                    filter.setText( result.getData().getStringExtra("after") );
-                    stock.updateValue("filter", filter.getText().toString());
-
-                }
-            });
 
 
 
@@ -874,8 +889,11 @@ public class Activity_resultat_image extends AppCompatActivity {
         super.onResume();
         // Open stockage
         stock.openDB();
-        filter.setText(stock.getValue("filter"));
-        filter.setFocusableInTouchMode(true);
+        SFilterResult=stock.getValue("filter");
+        if(!(SFilterResult.trim().length() > 0))
+            SFilterResult = "";
+        filtersResultContainer= new FiltersContainer(SFilterResult);
+        resultFilter.setFocusableInTouchMode(true);
     }
 
     @Override

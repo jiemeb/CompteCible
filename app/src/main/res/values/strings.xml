@@ -82,6 +82,13 @@
     <string name="ar_filter_archer">Select archer</string>
     <string name="ar_text_select_round">Select round</string>
     <string name="pasRun">no  result run with filter</string>
+    <string name="black">black</string>
+    <string name="yellow">yellow</string>
+    <string name="red">red</string>
+    <string name="blue">blue</string>
+    <string name="filter">filter</string>
+    <string name="gf_no_filter">No filter click to add</string>
+    <string name="gf_no_tag">no tag</string>
 
 
 </resources>

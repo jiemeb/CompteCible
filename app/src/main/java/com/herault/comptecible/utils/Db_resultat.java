@@ -5,6 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Db_resultat extends SQLiteOpenHelper {
 
 
@@ -53,6 +56,7 @@ class Db_resultat extends SQLiteOpenHelper {
             + Constants.KEY_COL_X + " REAL, "
             + Constants.KEY_COL_Y + " REAL, "
             + Constants.KEY_COL_PLUS + " BIT, "
+            + Constants.KEY_COL_ARROW_NUMBER + "INTEGER DEFAULT NULL,"
             + Constants.KEY_COL_ID_NAME + " INTEGER ,"
             + "CONSTRAINT a "
             + " FOREIGN KEY ( " + Constants.KEY_COL_ID_ROUND + " ) REFERENCES " + Constants.ROUNDS
@@ -113,6 +117,35 @@ class Db_resultat extends SQLiteOpenHelper {
             case 26 :
                 db.execSQL("alter table "+ Constants.RESULTATS +" ADD "+ Constants.KEY_COL_PLUS+" BIT DEFAULT 0");
             case 27 :
+                db.execSQL("alter table "+ Constants.RESULTATS +" ADD "+ Constants.KEY_COL_ARROW_NUMBER + "INTEGER DEFAULT NULL" );
+                // We must transform all Round qualifier
+                Stockage stock = null;
+                stock = new Stockage();
+                stock.initDB(db);
+                List<String> allRound = stock.getRounds() ;
+                for (String roundName:allRound
+                     ) {
+
+                    String  oldFilter = "";
+                    oldFilter =stock.getRoundQualifier (roundName);
+                    if (oldFilter != null) {
+                        String[] oldFilterArray = oldFilter.split("\\s+");
+                        String newFilter = "";
+                        for (String currentFilter : oldFilterArray
+                        ) {
+
+                            if (!currentFilter.isEmpty()) {
+                                if (newFilter.isEmpty())
+                                    newFilter = newFilter + "_black_" + " " + currentFilter;
+                                else
+                                    newFilter = newFilter + " _black_" + " " + currentFilter;
+                            }
+                        }
+                        stock.updateRound(roundName, newFilter);
+                    }
+                }
+            case 28 :
+
             break;
             default:
                 // Drop the old database
@@ -138,7 +171,7 @@ class Db_resultat extends SQLiteOpenHelper {
         // The database name
         public static final String DATABASE_NAME = "resultat.db";
         // The database version
-        public static final int DATABASE_VERSION = 27;
+        public static final int DATABASE_VERSION = 28;
 // -----------------------
         // The table Name
         public static final String ARCHERS = "archers";
@@ -205,7 +238,8 @@ class Db_resultat extends SQLiteOpenHelper {
         public static final String KEY_COL_X = "X";
         // My Column Value of Arrow
         public static final String KEY_COL_Y = "Y";
-        // My column arroc plus
+        public static final String KEY_COL_ARROW_NUMBER = "arrow_name" ;
+        // My column arrow plus
         public static final String KEY_COL_PLUS = "plus";
         // My Column id_Name
         public static final String KEY_COL_ID_NAME = "id_name";

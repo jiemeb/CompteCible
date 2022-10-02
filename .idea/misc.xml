@@ -51,17 +51,18 @@
         <entry key="app/src/main/res/layout/activity_archer.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_config_round.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_edit_note.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_gestion_filter.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_gestion_filter.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10548738922972052" />
-        <entry key="app/src/main/res/layout/activity_maintenance.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_resultat_image.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/activity_resultat_round.xml" value="0.3162393162393162" />
+        <entry key="app/src/main/res/layout/activity_maintenance.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_resultat_image.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_resultat_round.xml" value="0.1" />
         <entry key="app/src/main/res/layout/archer.xml" value="0.18" />
         <entry key="app/src/main/res/layout/cell_grid_view.xml" value="0.1393758016246259" />
         <entry key="app/src/main/res/layout/chart_arrow_nb.xml" value="0.16979166666666667" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/layout/resultat.xml" value="0.2497733454215775" />
         <entry key="app/src/main/res/layout/resultat_round_archer.xml" value="0.16875" />
+        <entry key="app/src/main/res/layout/spinner_generale.xml" value="0.23300090661831369" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2127147766323024" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_spinner_arrow_down.xml" value="0.1" />
       </map>

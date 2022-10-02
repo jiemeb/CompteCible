@@ -140,7 +140,7 @@
         app:layout_constraintGuide_percent="0.05124451" />
 
 
-    <EditText
+    <GridView
         android:id="@+id/r_maintenance_filter"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -150,6 +150,11 @@
         android:autofillHints=""
         android:hint="@string/resRoundFilter"
         android:inputType="text"
+        android:columnWidth="60dp"
+        android:gravity="center"
+        android:horizontalSpacing="5dp"
+        android:numColumns="4"
+        android:verticalSpacing="2dp"
         app:layout_constraintStart_toStartOf="@+id/TextOffset"
         app:layout_constraintTop_toBottomOf="@+id/TextOffset" />
 
