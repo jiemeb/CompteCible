@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.view.View;
@@ -70,7 +71,9 @@ public class shareImage {
     public static Bitmap getScreenShot(View view) {
 
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),view.getHeight(), Bitmap.Config.ARGB_8888);
+        bitmap.eraseColor(Color.WHITE);
         Canvas canvas = new Canvas(bitmap);
+
         view.draw(canvas);
         return bitmap;
     }
