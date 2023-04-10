@@ -51,8 +51,10 @@ public class Activity_apropos extends AppCompatActivity {
         bp_next.setOnClickListener(v -> {
 
         index ++ ;
-        if  (index >= pageId.length)
-                index = pageId.length -1 ;
+        if  (index >= pageId.length) {
+            index = pageId.length - 1;
+        }
+
             docView.setBackground(ContextCompat.getDrawable(_context,pageId[index]));
 
         });

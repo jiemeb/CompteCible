@@ -59,7 +59,7 @@
         <entry key="app/src/main/res/layout/archer.xml" value="0.18" />
         <entry key="app/src/main/res/layout/cell_grid_view.xml" value="0.1393758016246259" />
         <entry key="app/src/main/res/layout/chart_arrow_nb.xml" value="0.16979166666666667" />
-        <entry key="app/src/main/res/layout/content_main.xml" value="0.21041666666666667" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.75" />
         <entry key="app/src/main/res/layout/resultat.xml" value="0.2497733454215775" />
         <entry key="app/src/main/res/layout/resultat_round_archer.xml" value="0.16875" />
         <entry key="app/src/main/res/layout/spinner_generale.xml" value="0.23300090661831369" />
@@ -68,7 +68,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
