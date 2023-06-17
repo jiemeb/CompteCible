@@ -328,28 +328,93 @@ public class Activity_resultat_image extends AppCompatActivity {
         Resultat_archer resultat_archer;
 
         double moyX = 0, moyY = 0, nb_valeur_moyenne = 0.;
+        Resultat_arrow resultatG = new Resultat_arrow();
+        Resultat_arrow resultatArrow1 = new Resultat_arrow();
+        Resultat_arrow resultatArrow2 = new Resultat_arrow();
+        Resultat_arrow resultatArrow3 = new Resultat_arrow();
+        Resultat_arrow resultatArrow4 = new Resultat_arrow();
+        Resultat_arrow resultatArrow5 = new Resultat_arrow();
+        Resultat_arrow resultatArrow6 = new Resultat_arrow();
+
         long boucle = stock.getarrowIndex(archer, round);
         for (int i = 0; i < boucle; i++) {
 
             resultat_archer = stock.getResultatArrow(archer, round, i + 1);
             if (resultat_archer.x < 100) {
-                nb_valeur_moyenne += 1;
-                moyX += resultat_archer.x;
-                moyY += resultat_archer.y;
-                paint.setColor(Color.BLACK);
+
+                int arrowNameTemp =resultat_archer.arrowName;
+                resultatG.addArrowMoy(resultat_archer.x, resultat_archer.y, 0);
+
+                switch (resultat_archer.arrowName)
+                {
+                    case 1:
+                        resultatArrow1.addArrowMoy(resultat_archer.x, resultat_archer.y, arrowNameTemp);
+                        break;
+                    case 2:
+                        resultatArrow2.addArrowMoy(resultat_archer.x, resultat_archer.y, arrowNameTemp);
+                        break;
+                    case 3:
+                        resultatArrow3.addArrowMoy(resultat_archer.x, resultat_archer.y, arrowNameTemp);
+                        break;
+                    case 4:
+                        resultatArrow4.addArrowMoy(resultat_archer.x, resultat_archer.y, arrowNameTemp);
+                    break;
+                    case 5:
+                        resultatArrow5.addArrowMoy(resultat_archer.x, resultat_archer.y, arrowNameTemp);
+                        break;
+                    case 6:
+                        resultatArrow6.addArrowMoy(resultat_archer.x, resultat_archer.y, arrowNameTemp);
+                        break;
+                }
+
+                paint.setColor(ContextCompat.getColor(this,resultat_archer.getColorArrow()));
                 canvas.drawCircle((float) (resultat_archer.x / Xscale), (float) (resultat_archer.y / Yscale), (float) (0.20 / Xscale), paint);
 //                Log.d("CompteCible","trace"+Long.toString(resultat_archer.arrow)+" "+Double.toString(resultat_archer.x)+" "+Double.toString(resultat_archer.y));
             }
         }
-        paint.setColor(Color.GREEN);
-        canvas.drawCircle((float) (moyX / nb_valeur_moyenne / Xscale), (float) (moyY / nb_valeur_moyenne / Yscale), (float) (0.20 / Xscale), paint);
+        paint.setColor(Color.BLACK);
+        canvas.drawCircle((float) (resultatG.getMoyenX() / Xscale), (float) (resultatG.getMoyenY()  / Yscale), (float) (0.35 / Xscale), paint);
+        paint.setTextSize(40);
+
+
+        paint.setColor(ContextCompat.getColor(this,resultatArrow1.getColorArrow()));
+        canvas.drawCircle((float) (resultatArrow1.getMoyenX() / Xscale), (float) (resultatArrow1.getMoyenY()  / Yscale), (float) (0.35 / Xscale), paint);
+        paint.setColor(Color.WHITE);
+        canvas.drawText("1", (float) ((resultatArrow1.getMoyenX() / Xscale) -10), (float) ((resultatArrow1.getMoyenY()  / Yscale) +10), paint);
+
+        paint.setColor(ContextCompat.getColor(this,resultatArrow2.getColorArrow()));
+        canvas.drawCircle((float) (resultatArrow2.getMoyenX() / Xscale), (float) (resultatArrow2.getMoyenY()  / Yscale), (float) (0.35 / Xscale), paint);
+        paint.setColor(Color.BLACK);
+        canvas.drawText("2", (float) ((resultatArrow2.getMoyenX() / Xscale) -10), (float) ((resultatArrow2.getMoyenY()  / Yscale) +10), paint);
+
+        paint.setColor(ContextCompat.getColor(this,resultatArrow3.getColorArrow()));
+        canvas.drawCircle((float) (resultatArrow3.getMoyenX() / Xscale), (float) (resultatArrow3.getMoyenY()  / Yscale), (float) (0.35 / Xscale), paint);
+        paint.setColor(Color.BLACK);
+        canvas.drawText("3", (float) ((resultatArrow3.getMoyenX() / Xscale) -10), (float) ((resultatArrow3.getMoyenY()  / Yscale) +10), paint);
+
+        paint.setColor(ContextCompat.getColor(this,resultatArrow4.getColorArrow()));
+        canvas.drawCircle((float) (resultatArrow4.getMoyenX() / Xscale), (float) (resultatArrow4.getMoyenY()  / Yscale), (float) (0.35 / Xscale), paint);
+        paint.setColor(Color.WHITE);
+        canvas.drawText("4", (float) ((resultatArrow4.getMoyenX() / Xscale) -10), (float) ((resultatArrow4.getMoyenY()  / Yscale) +10), paint);
+
+
+        paint.setColor(ContextCompat.getColor(this,resultatArrow5.getColorArrow()));
+        canvas.drawCircle((float) (resultatArrow5.getMoyenX() / Xscale), (float) (resultatArrow5.getMoyenY()  / Yscale), (float) (0.35 / Xscale), paint);
+        paint.setColor(Color.BLACK);
+        canvas.drawText("5", (float) ((resultatArrow5.getMoyenX() / Xscale) -10), (float) ((resultatArrow5.getMoyenY()  / Yscale) +10), paint);
+
+        paint.setColor(ContextCompat.getColor(this,resultatArrow6.getColorArrow()));
+        canvas.drawCircle((float) (resultatArrow6.getMoyenX() / Xscale), (float) (resultatArrow6.getMoyenY()  / Yscale), (float) (0.35 / Xscale), paint);
+        paint.setColor(Color.WHITE);
+        canvas.drawText("6", (float) ((resultatArrow6.getMoyenX() / Xscale) -10), (float) ((resultatArrow6.getMoyenY()  / Yscale) +10), paint);
+
         imageView.setImageBitmap(bitmap);
 
     }
 
     //graphe Impact by arrow
 
-
+    // Repartition Fleche
     private void drawResultImpact(String round, String archer) {
         // Get density in dpi
 

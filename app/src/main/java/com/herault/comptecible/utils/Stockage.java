@@ -74,7 +74,8 @@ public class Stockage {
                 Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ARROW,
                 Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_X,
                 Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_Y,
-                Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_PLUS};
+                Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_PLUS ,
+                Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_ARROW_NUMBER };
 
         String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =? AND "
                 + Db_resultat.Constants.ARCHERS + "." + Db_resultat.Constants.KEY_COL_NAME + " = ? AND "
@@ -107,6 +108,9 @@ public class Stockage {
         int indexX = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_X);
         int indexY = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_Y);
         int indexPlus = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_PLUS);
+        int indexArrowName = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ARROW_NUMBER);
+
+
         if (cursor.moveToFirst()) {
             // Browse the results list:
 
@@ -118,6 +122,7 @@ public class Stockage {
                 rArcher.x = cursor.getDouble(indexX);
                 rArcher.y = cursor.getDouble(indexY);
                 rArcher.dixPlus = cursor.getInt(indexPlus);
+                rArcher.arrowName = cursor.getInt(indexArrowName);
                 rValue.add(rArcher);
                 count++;
             } while (cursor.moveToNext());
@@ -134,7 +139,7 @@ public class Stockage {
         int value = 0;
         long Id = getArcherId(archer);
         // The projection define what are the column you want to retrieve
-        String[] projections = new String[]{Db_resultat.Constants.KEY_COL_VALUE, Db_resultat.Constants.KEY_COL_X, Db_resultat.Constants.KEY_COL_Y};
+        String[] projections = new String[]{Db_resultat.Constants.KEY_COL_VALUE, Db_resultat.Constants.KEY_COL_X, Db_resultat.Constants.KEY_COL_Y, Db_resultat.Constants.KEY_COL_ARROW_NUMBER};
         final int cursorIdColNumber = 0;
 
         String selection = Db_resultat.Constants.ROUNDS + "." + Db_resultat.Constants.KEY_COL_ROUND_NAME + " =? AND "
@@ -166,12 +171,14 @@ public class Stockage {
             int indexValue = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_VALUE);
             int indexX = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_X);
             int indexY = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_Y);
+            int indexArrowName = cursor.getColumnIndex(Db_resultat.Constants.KEY_COL_ARROW_NUMBER);
             // Browse the results list:
             int count = 0;
             do {
                 rArcher.value = cursor.getInt(indexValue);
                 rArcher.x = cursor.getDouble(indexX);
                 rArcher.y = cursor.getDouble(indexY);
+                rArcher.arrowName= cursor.getInt(indexArrowName);
                 count++;
             } while (cursor.moveToNext());
 
@@ -250,7 +257,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
 // ------------------------------
 // get for all archer all result for one round
 
-    public int getResultatRoundCompte(String roundName, String Archer_ID, String RefValue) {
+    public int getResultatRoundCompte(String roundName, String Archer_ID, @NonNull String RefValue) {
         int value = 0;
         // The projection define what are the column you want to retrieve
         String[] projections = new String[]{"COUNT (" + Db_resultat.Constants.RESULTATS + "." + Db_resultat.Constants.KEY_COL_VALUE + " )"};
@@ -458,7 +465,11 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
     }
 
     //----------------------------- add resultat for on archer for one round
-    public long addResultat(String archer, String roundName, int value, double X, double Y,int dixPlus) {
+    public long addResultat(String archer, String roundName, int value, double X, double Y,int dixPlus)
+    {
+        return(addResultat( archer,  roundName,  value,  X,  Y, dixPlus,0));
+    }
+    public long addResultat(String archer, String roundName, int value, double X, double Y,int dixPlus,int arrow_name) {
         int arrow = 0;
         // get flecheIndex
         //select round from resultat where round=roundname and _id1 =archer(id)
@@ -506,6 +517,7 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
         contentValues.put(Db_resultat.Constants.KEY_COL_X, X);
         contentValues.put(Db_resultat.Constants.KEY_COL_Y, Y);
         contentValues.put(Db_resultat.Constants.KEY_COL_PLUS, dixPlus);
+        contentValues.put(Db_resultat.Constants.KEY_COL_ARROW_NUMBER, arrow_name);
         contentValues.put(Db_resultat.Constants.KEY_COL_ID_NAME, Id);
 
 

@@ -88,8 +88,17 @@
     <string name="red">rouge</string>
     <string name="blue">bleu</string>
     <string name="filter">filtre</string>
-    <string name="gf_no_filter">"Pas de filtre "</string>
+    <string name="gf_no_filter">pas de filtre</string>
     <string name="gf_no_tag">pas de mot clé</string>
+    <string name="nameArrow">nom flèche</string>
+    <string name="arrowName1">flèche une</string>
+    <string name="arrowName3">flèche trois</string>
+    <string name="arrowName4">flèche quatre</string>
+    <string name="arrowName5">flèche cinq</string>
+    <string name="arrowName6">flèche six</string>
+    <string name="arrowName2">flèche deux</string>
+    <string name="arrowNameDefault">flèche défault</string>
+    <string name="tittleChoiceArrow">selectionner votre flèche</string>
 
 
 </resources>

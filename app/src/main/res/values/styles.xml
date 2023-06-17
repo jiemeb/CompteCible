@@ -19,6 +19,6 @@
 
     <style name="spinner_style" parent="Widget.AppCompat.Spinner">
         <item name="background">@drawable/it_style</item>
-</style>
+    </style>
 
 </resources>

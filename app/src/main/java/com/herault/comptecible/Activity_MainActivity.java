@@ -2,6 +2,8 @@ package com.herault.comptecible;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -68,6 +70,7 @@ public class Activity_MainActivity extends AppCompatActivity {
     private String roundName = null;
     private int NumberArrow = 0;
     private int NumberEndByRound = 0;
+    private int arrowNumber = 0;
     private boolean orientationLand = false;
     int APROPOS = 1 ;
     boolean pulleyBow  = false;
@@ -297,7 +300,8 @@ public class Activity_MainActivity extends AppCompatActivity {
                         Cible.setBackgroundResource(R.drawable.ic_ciblecompound);
                      else
                          Cible.setBackgroundResource(R.drawable.ic_cible);
-                        updateviewOnly();
+
+                     updateviewOnly();
                     } else
                         Log.d("CompteCible", "onItemSelected: archer count " + String.valueOf(spinnerCountElement));
                 }
@@ -433,6 +437,37 @@ public class Activity_MainActivity extends AppCompatActivity {
         long arrowIndex = stock.getarrowIndex(archer.getSelectedItem().toString(), roundName);
 
         //     Log.d("CompteCible","Stock"+Integer.toString(value)+" "+Double.toString(X)+" "+Double.toString(Y));
+        // test if you want get arrow number and stock value
+        if( stock.getValue("NamedArrow").compareTo("true")==0 && X != 100. && Y !=100. ) {
+
+            final CharSequence[] options = {getResources().getString(R.string.arrowNameDefault), getResources().getString(R.string.arrowName1),getResources().getString(R.string.arrowName2),getResources().getString(R.string.arrowName3),getResources().getString(R.string.arrowName4),getResources().getString(R.string.arrowName5),getResources().getString(R.string.arrowName6)};
+            AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+            builder2.setTitle(getResources().getString(R.string.tittleChoiceArrow))
+                    .setIcon(R.drawable.am_arrow_style_blue)
+                    .setSingleChoiceItems(options, 0, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("Selection", "Something selected");
+                            //Save Wich in global variable
+                            arrowNumber = which ;
+                            if (arrowIndex < NumberArrow * NumberEndByRound) {
+                                stock.addResultat(archer.getSelectedItem().toString(), roundName, value, X, Y,dixPlus,arrowNumber);
+                            }
+                            updateviewOnly();
+                            dialog.dismiss();
+                        }
+                    })
+
+                    .setNegativeButton(getResources().getString(R.string.am_bAnnul), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(Activity_MainActivity.this, "Toast2", Toast.LENGTH_SHORT).show();
+                        }
+                    }).create();
+
+                    builder2.show();
+
+        } else
         if (arrowIndex < NumberArrow * NumberEndByRound) {
             stock.addResultat(archer.getSelectedItem().toString(), roundName, value, X, Y,dixPlus);
         }
@@ -610,7 +645,8 @@ public class Activity_MainActivity extends AppCompatActivity {
                 nb_valeur_moyenne += 1;
                 moyX += resultat_archer.x;
                 moyY += resultat_archer.y;
-                paint.setColor(Color.BLACK);
+                int arrowColor = ContextCompat.getColor(this,resultat_archer.getColorArrow());
+                paint.setColor( arrowColor);
                 canvas.drawCircle((float) (resultat_archer.x / Xscale), (float) (resultat_archer.y / Yscale), (float) (arrowRadius / Xscale), paint);
 //                Log.d("CompteCible","trace"+Long.toString(resultat_archer.arrow)+" "+Double.toString(resultat_archer.x)+" "+Double.toString(resultat_archer.y));
             }

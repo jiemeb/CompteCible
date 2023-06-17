@@ -56,7 +56,7 @@ class Db_resultat extends SQLiteOpenHelper {
             + Constants.KEY_COL_X + " REAL, "
             + Constants.KEY_COL_Y + " REAL, "
             + Constants.KEY_COL_PLUS + " BIT, "
-            + Constants.KEY_COL_ARROW_NUMBER + "INTEGER DEFAULT NULL,"
+            + Constants.KEY_COL_ARROW_NUMBER + "  INTEGER DEFAULT NULL,"
             + Constants.KEY_COL_ID_NAME + " INTEGER ,"
             + "CONSTRAINT a "
             + " FOREIGN KEY ( " + Constants.KEY_COL_ID_ROUND + " ) REFERENCES " + Constants.ROUNDS
@@ -117,7 +117,7 @@ class Db_resultat extends SQLiteOpenHelper {
             case 26 :
                 db.execSQL("alter table "+ Constants.RESULTATS +" ADD "+ Constants.KEY_COL_PLUS+" BIT DEFAULT 0");
             case 27 :
-                db.execSQL("alter table "+ Constants.RESULTATS +" ADD "+ Constants.KEY_COL_ARROW_NUMBER + "INTEGER DEFAULT NULL" );
+                db.execSQL("alter table "+ Constants.RESULTATS +" ADD "+ Constants.KEY_COL_ARROW_NUMBER + " INTEGER DEFAULT NULL" );
                 // We must transform all Round qualifier
                 Stockage stock = null;
                 stock = new Stockage();
@@ -145,7 +145,39 @@ class Db_resultat extends SQLiteOpenHelper {
                     }
                 }
             case 28 :
+                db.execSQL("alter table "+ Constants.RESULTATS +" RENAME TO TEMPO" );
+                db.execSQL( "create table "
+                        + Constants.RESULTATS + "("
+                        + Constants.KEY_COL_ID1
+                        + " INTEGER primary key autoincrement, "
+                        + Constants.KEY_COL_ID_ROUND + " INTEGER ,"
+                        + Constants.KEY_COL_ARROW + " INTEGER, "
+                        + Constants.KEY_COL_VALUE + " INTEGER, "
+                        + Constants.KEY_COL_X + " REAL, "
+                        + Constants.KEY_COL_Y + " REAL, "
+                        + Constants.KEY_COL_PLUS + " BIT, "
+                        + Constants.KEY_COL_ARROW_NUMBER + "  INTEGER DEFAULT NULL,"
+                        + Constants.KEY_COL_ID_NAME + " INTEGER ,"
+                        + "CONSTRAINT a "
+                        + " FOREIGN KEY ( " + Constants.KEY_COL_ID_ROUND + " ) REFERENCES " + Constants.ROUNDS
+                        + " ( " + Constants.KEY_ID_ROUNDS + " ) ON DELETE CASCADE,"
+                        + "CONSTRAINT b"
+                        + " FOREIGN KEY ( " + Constants.KEY_COL_ID_NAME + " ) REFERENCES " + Constants.ARCHERS
+                        + " ( " + Constants.KEY_ID_ARCHERS + " ) ON DELETE CASCADE)" );
 
+                db.execSQL("INSERT INTO "+Constants.RESULTATS+" ( "
+                                + Constants.KEY_COL_ID1 +" , "
+                                + Constants.KEY_COL_ID_ROUND +" , "
+                                + Constants.KEY_COL_ARROW + " , "
+                                + Constants.KEY_COL_VALUE + " , "
+                                + Constants.KEY_COL_X + " , "
+                                + Constants.KEY_COL_Y + " , "
+                                + Constants.KEY_COL_PLUS + " , "
+                                + Constants.KEY_COL_ARROW_NUMBER +" , "
+                                + Constants.KEY_COL_ID_NAME +
+                        " ) SELECT * FROM TEMPO " );
+                db.execSQL("DROP TABLE TEMPO");
+            case 29 :
             break;
             default:
                 // Drop the old database
@@ -171,7 +203,7 @@ class Db_resultat extends SQLiteOpenHelper {
         // The database name
         public static final String DATABASE_NAME = "resultat.db";
         // The database version
-        public static final int DATABASE_VERSION = 28;
+        public static final int DATABASE_VERSION = 29;
 // -----------------------
         // The table Name
         public static final String ARCHERS = "archers";

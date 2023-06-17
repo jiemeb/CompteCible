@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.herault.comptecible"
         minSdkVersion 19
-        targetSdkVersion 32
-        versionCode 45
-        versionName "1.7.2"
+        targetSdkVersion 33
+        versionCode 46
+        versionName "1.7.3"
 
         testInstrumentationRunner releaseApplicationIdSuffix
         allprojects {
@@ -38,9 +38,9 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.documentfile:documentfile:1.0.1'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation files('libs/achartengine-1.2.0.jar')
 }

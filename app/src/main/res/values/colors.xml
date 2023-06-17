@@ -4,6 +4,13 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <color name="arrowDefault">#000000</color>
+    <color name="arrowOne">#0A0AF1</color>
+    <color name="arrowTwo">#87ED87</color>
+    <color name="arrowThree">#B56F0B</color>
+    <color name="arrowFour">#640303</color>
+    <color name="arrowFive">#018000</color>
+    <color name="arrowSix">#640574</color>
 
     <color name="JauneCible">#fafa0a</color>
     <color name="RougeCible">#ff0005</color>

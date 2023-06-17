@@ -15,9 +15,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -52,7 +55,6 @@ public class Activity_maintenance extends AppCompatActivity  {
     //private EditText resultFilter =null;
 
     private GridView resultFilter ;
-    private String SFilterResult="";
     private FiltersContainer filtersResultContainer;
 
     private Activity_maintenance localActivity;
@@ -82,7 +84,7 @@ public class Activity_maintenance extends AppCompatActivity  {
         archer.setAdapter(adapter);
 // Initialize Filter
         resultFilter = findViewById(R.id.r_maintenance_filter);
-        SFilterResult=stock.getValue("filter");
+        String SFilterResult = stock.getValue("filter");
         if(!(SFilterResult.trim().length() > 0))
             SFilterResult = "";
         filtersResultContainer= new FiltersContainer(SFilterResult);
@@ -157,7 +159,25 @@ public class Activity_maintenance extends AppCompatActivity  {
 
             }
         });
+// Set or getValue of Optimisation Arrow
+         CheckBox arrowNamed = findViewById(R.id.RadioArrow);
+         String sNamedArrow = stock.getValue("NamedArrow");
+       if(sNamedArrow.compareTo("true")==0)
+         {
+             arrowNamed.setChecked(true);
+         }
+         arrowNamed.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
 
+                 if (!arrowNamed.isChecked()) {
+                     stock.updateValue("NamedArrow", "false");
+                 }
+                 else {
+                     stock.updateValue("NamedArrow", "true");
+                 }
+             }
+         });
 // Set pointing Offset
         // Get Offset of Pointer
         pointageOffset = findViewById(R.id.pointageOffset);

@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/spinPointingOffset"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity_maintenance">
@@ -111,19 +110,21 @@
             app:layout_constraintBottom_toTopOf="@id/table_am_bexport_archer_rounds"
 
             >
-
-
-            <TextView
-                android:id="@+id/TextOffset"
+            <CheckBox
+                android:id="@+id/RadioArrow"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="2"
                 android:layout_marginStart="20dp"
-                android:gravity="center"
-                android:text="@string/pointageOffsetDesc"
+
+                android:textAlignment="textStart"
+                android:layout_gravity="start"
+                android:text="@string/nameArrow"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/pointageOffsetDesc" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
 
             <EditText
                 android:id="@+id/pointageOffset"
@@ -142,8 +143,20 @@
 
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/TextOffset"
+                app:layout_constraintLeft_toRightOf="@id/RadioArrow"
                 app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/TextOffset"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="2"
+
+                android:gravity="center"
+                android:text="@string/pointageOffsetDesc"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/TextOffset"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/pointageOffsetDesc" />
 
         </TableRow>
 

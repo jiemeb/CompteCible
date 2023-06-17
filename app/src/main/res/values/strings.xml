@@ -89,6 +89,15 @@
     <string name="filter">filter</string>
     <string name="gf_no_filter">No filter click to add</string>
     <string name="gf_no_tag">no tag</string>
+    <string name="nameArrow">named arrow</string>
+    <string name="arrowName1">arrow one</string>
+    <string name="arrowName2">arrow two</string>
+    <string name="arrowName3">arrow three</string>
+    <string name="arrowName4">arrow four</string>
+    <string name="arrowName5">arrow five</string>
+    <string name="arrowName6">arrow six</string>
+    <string name="arrowNameDefault">arrow Default</string>
+    <string name="tittleChoiceArrow">select arrow number</string>
 
 
 </resources>

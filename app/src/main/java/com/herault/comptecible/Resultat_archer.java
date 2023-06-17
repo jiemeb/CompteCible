@@ -1,5 +1,8 @@
 package com.herault.comptecible;
 
+import android.graphics.Color;
+import android.support.v4.os.IResultReceiver;
+
 public class Resultat_archer {
     public String name = "";
     public long value;
@@ -7,11 +10,14 @@ public class Resultat_archer {
     public double y;
     public int dixPlus;
     public String information = "";
+    public int arrowName = 0 ;
+
 
     public Resultat_archer() {
         value = 0;
         x = 0.;
         y = 0.;
+        arrowName = 0 ;
     }
 
     Resultat_archer(long Value, double X, double Y, int dixPlusR) {
@@ -20,6 +26,14 @@ public class Resultat_archer {
         y = Y;
         dixPlus=dixPlusR;
 
+    }
+
+    Resultat_archer(long Value, double X, double Y, int dixPlusR, int arrowName) {
+        value = Value;
+        x = X;
+        y = Y;
+        dixPlus=dixPlusR;
+        this.arrowName = arrowName ;
     }
 
     Resultat_archer(long Value, double X, double Y, String Information) {
@@ -37,7 +51,35 @@ public class Resultat_archer {
         y = Y;
 
     }
-
+    public int getColorArrow ()
+    {
+        int color = 0;
+        switch (arrowName)
+        {
+            case 0 :
+                color = (R.color.arrowDefault) ;
+                break;
+            case  1 :
+                color = (R.color.arrowOne) ;
+                break;
+            case  2 :
+                color = (R.color.arrowTwo) ;
+                break;
+            case  3 :
+                color = (R.color.arrowThree) ;
+                break;
+            case  4 :
+                color = (R.color.arrowFour) ;
+                break;
+            case  5 :
+                color = (R.color.arrowFive) ;
+                break;
+            case  6 :
+                color = (R.color.arrowSix) ;
+                break;
+        }
+        return (color);
+    }
     public long getValue() {
         return value;
     }
@@ -50,8 +92,12 @@ public class Resultat_archer {
         return y;
     }
 
+    public int getArrowName() {
+        return this.arrowName;
+    }
+
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getInformation() {
