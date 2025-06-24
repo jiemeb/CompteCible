@@ -1,21 +1,23 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion '30.0.3'
+
+    buildToolsVersion '35.0.0'
 
     defaultConfig {
         applicationId "com.herault.comptecible"
-        minSdkVersion 19
-        targetSdkVersion 33
-        versionCode 46
-        versionName "1.7.3"
+        minSdkVersion 21
+
+        versionCode 50
+        versionName '1.7.6'
 
         testInstrumentationRunner releaseApplicationIdSuffix
         allprojects {
-            tasks.withType(JavaCompile) {
- //               options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-                options.compilerArgs <<  "-Xlint:deprecation"
+            tasks.withType(JavaCompile).tap {
+                configureEach {
+                    //               options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+                    options.compilerArgs << "-Xlint:deprecation"
+                }
             }
         }
     }
@@ -28,19 +30,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+
     }
     namespace 'com.herault.comptecible'
+    compileSdk 35
 
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.documentfile:documentfile:1.0.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'androidx.documentfile:documentfile:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     implementation files('libs/achartengine-1.2.0.jar')
 }

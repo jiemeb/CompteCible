@@ -106,7 +106,7 @@ public class EditNoteActivity extends AppCompatActivity {
         stock.closeDB();
     }
 
-    public void onBackPressed() {
+    public void OnBackPressedDispatcher() {
         Intent i2 = new Intent();
         i2.putExtra("retour", "valeur de retour");
         EditNoteActivity.this.setResult(0, i2);

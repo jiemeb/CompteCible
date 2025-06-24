@@ -145,7 +145,7 @@ public class Activity_gestion_filter extends AppCompatActivity {
                        builder.show();
                        input.requestFocus();
                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                       imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
+                       imm.showSoftInput(view,0);
                    }
                    else {
 
@@ -281,7 +281,7 @@ public class Activity_gestion_filter extends AppCompatActivity {
         //Close stockage
         stock.closeDB();
     }
-    public void onBackPressed() {
+    public void OnBackPressedDispatcher() {
 
         Intent intent = new Intent();
         intent.putExtra("after", filtersResultContainer.serialize());

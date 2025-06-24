@@ -173,9 +173,17 @@ class Db_resultat extends SQLiteOpenHelper {
                                 + Constants.KEY_COL_X + " , "
                                 + Constants.KEY_COL_Y + " , "
                                 + Constants.KEY_COL_PLUS + " , "
-                                + Constants.KEY_COL_ARROW_NUMBER +" , "
                                 + Constants.KEY_COL_ID_NAME +
-                        " ) SELECT * FROM TEMPO " );
+                        " ) SELECT  "
+                        + Constants.KEY_COL_ID1 +" , "
+                        + Constants.KEY_COL_ID_ROUND +" , "
+                        + Constants.KEY_COL_ARROW + " , "
+                        + Constants.KEY_COL_VALUE + " , "
+                        + Constants.KEY_COL_X + " , "
+                        + Constants.KEY_COL_Y + " , "
+                        + Constants.KEY_COL_PLUS + " , "
+                        + Constants.KEY_COL_ID_NAME +
+                                " FROM TEMPO " );
                 db.execSQL("DROP TABLE TEMPO");
             case 29 :
             break;

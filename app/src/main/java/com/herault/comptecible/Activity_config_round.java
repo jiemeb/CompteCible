@@ -468,9 +468,9 @@ public class Activity_config_round extends AppCompatActivity {
         stock.closeDB();
     }
 
-    public void onBackPressed() {
+    public void OnBackPressedDispatcher() {
 
-        if (roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
+        if (!roundName.getText().toString().trim().isEmpty() && !INumberArrow.getText().toString().trim().isEmpty() && INumberEndByRound.getText().toString().trim().length() != 0) {
             if (adapterRound.isEmpty()) {
                 stock.addArcher(getResources().getString(R.string.me), false); //If Ok in Base
                 adapterRound.add(getResources().getString(R.string.me));  // put in list
@@ -489,17 +489,17 @@ public class Activity_config_round extends AppCompatActivity {
             else
                 lArcherRound.setBackgroundColor(Color.WHITE);
 
-            if (roundName.getText().toString().trim().length() == 0)
+            if (roundName.getText().toString().trim().isEmpty())
                 roundName.setBackgroundColor(Color.YELLOW);
             else
                 roundName.setBackgroundColor(Color.WHITE);
 
-            if (INumberArrow.getText().toString().trim().length() == 0)
+            if (INumberArrow.getText().toString().trim().isEmpty())
                 INumberArrow.setBackgroundColor(Color.YELLOW);
             else
                 INumberArrow.setBackgroundColor(Color.WHITE);
 
-            if (INumberEndByRound.getText().toString().trim().length() == 0)
+            if (INumberEndByRound.getText().toString().trim().isEmpty())
                 INumberEndByRound.setBackgroundColor(Color.YELLOW);
             else
                 INumberEndByRound.setBackgroundColor(Color.WHITE);
