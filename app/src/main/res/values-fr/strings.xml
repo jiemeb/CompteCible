@@ -98,6 +98,7 @@
     <string name="arrowName6">flèche six</string>
     <string name="arrowName2">flèche deux</string>
     <string name="arrowNameDefault">flèche défault</string>
+    <string name="arrowNameStart">offset  Premiere Flèche 0u 0</string>
     <string name="tittleChoiceArrow">selectionner votre flèche</string>
 
 

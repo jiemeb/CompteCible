@@ -1,12 +1,11 @@
 package com.herault.comptecible;
 
 
-import android.app.Activity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,6 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.herault.comptecible.utils.FilterContainer;
@@ -40,7 +38,7 @@ public class Activity_config_round extends AppCompatActivity {
 
 
     private Stockage stock = null;
-    private Button bLertGo;
+    private Button bLetGo;
     private ListArchers adapterBase;
     private ListArchers adapterRound;
     private EditText newArcher = null;
@@ -75,17 +73,28 @@ public class Activity_config_round extends AppCompatActivity {
 
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
+//------------------------
+         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                myOnBackPressed() ;
+                setEnabled(false);
+            }
+        };
+
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
+
+//------------------------
 
 
-
-        bLertGo = findViewById(R.id.bLetGo);
-        bLertGo.setOnClickListener(new View.OnClickListener() {
+        bLetGo = findViewById(R.id.bLetGo);
+        bLetGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // sauvegarde archer_round database and test value before ending
-
-                onBackPressed();
-
+onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
                 /*
 
                 if (adapterRound.getCount() != 0 && roundName.getText().toString().trim().length() != 0 && INumberArrow.getText().toString().trim().length() != 0 && INumberEndByRound.getText().toString().trim().length() != 0) {
@@ -468,7 +477,7 @@ public class Activity_config_round extends AppCompatActivity {
         stock.closeDB();
     }
 
-    public void OnBackPressedDispatcher() {
+    public void myOnBackPressed() {
 
         if (!roundName.getText().toString().trim().isEmpty() && !INumberArrow.getText().toString().trim().isEmpty() && INumberEndByRound.getText().toString().trim().length() != 0) {
             if (adapterRound.isEmpty()) {

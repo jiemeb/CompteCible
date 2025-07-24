@@ -97,6 +97,8 @@
     <string name="arrowName5">arrow five</string>
     <string name="arrowName6">arrow six</string>
     <string name="arrowNameDefault">arrow Default</string>
+    <string name="arrowNameStart">arrow Default</string>
+
     <string name="tittleChoiceArrow">select arrow number</string>
 
 

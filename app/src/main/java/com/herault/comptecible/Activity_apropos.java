@@ -97,14 +97,15 @@ public class Activity_apropos extends AppCompatActivity {
     }
 /* Override some function like exit     */
 
-public void onBackPressed() {
+/*public void onBackPressed() {
 setResult(RESULT_OK) ;
 finish();
-}
+}*/
 
-    /*********************************************************************************/
-    /** Managing LifeCycle and database open/close operations ************************/
-    /*********************************************************************************/
+    //*******************************************************************************/
+    /* Managing LifeCycle and database open/close operations ************************/
+    //********************************************************************************/
+
     @Override
     protected void onResume() {
         super.onResume();

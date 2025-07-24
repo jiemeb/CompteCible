@@ -54,29 +54,18 @@ public class Resultat_archer {
     public int getColorArrow ()
     {
         int color = 0;
-        switch (arrowName)
-        {
-            case 0 :
-                color = (R.color.arrowDefault) ;
-                break;
-            case  1 :
-                color = (R.color.arrowOne) ;
-                break;
-            case  2 :
-                color = (R.color.arrowTwo) ;
-                break;
-            case  3 :
-                color = (R.color.arrowThree) ;
-                break;
-            case  4 :
-                color = (R.color.arrowFour) ;
-                break;
-            case  5 :
-                color = (R.color.arrowFive) ;
-                break;
-            case  6 :
-                color = (R.color.arrowSix) ;
-                break;
+        if(arrowName == 0)
+           color = (R.color.arrowDefault) ;
+        else {
+            color = switch ((arrowName % 6) + 1) {
+                case 1 -> (R.color.arrowOne);
+                case 2 -> (R.color.arrowTwo);
+                case 3 -> (R.color.arrowThree);
+                case 4 -> (R.color.arrowFour);
+                case 5 -> (R.color.arrowFive);
+                case 6 -> (R.color.arrowSix);
+                default -> color;
+            };
         }
         return (color);
     }

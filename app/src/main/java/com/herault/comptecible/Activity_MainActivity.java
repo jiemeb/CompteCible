@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Activity_MainActivity extends AppCompatActivity {
 
@@ -438,9 +439,10 @@ public class Activity_MainActivity extends AppCompatActivity {
 
         //     Log.d("CompteCible","Stock"+Integer.toString(value)+" "+Double.toString(X)+" "+Double.toString(Y));
         // test if you want get arrow number and stock value
-        if( stock.getValue("NamedArrow").compareTo("true")==0 && X != 100. && Y !=100. ) {
+        String sNameArrowOffset = stock.getValue("NamedArrow");
+        if( sNameArrowOffset.compareTo("0")!=0 && X != 100. && Y !=100. ) {
 
-            final CharSequence[] options = {getResources().getString(R.string.arrowNameDefault), getResources().getString(R.string.arrowName1),getResources().getString(R.string.arrowName2),getResources().getString(R.string.arrowName3),getResources().getString(R.string.arrowName4),getResources().getString(R.string.arrowName5),getResources().getString(R.string.arrowName6)};
+            final CharSequence[] options = {getResources().getString(R.string.arrowNameDefault),String.valueOf(Integer.parseInt(sNameArrowOffset)),String.valueOf(Integer.parseInt(sNameArrowOffset)+1),String.valueOf(Integer.parseInt(sNameArrowOffset)+2),String.valueOf(Integer.parseInt(sNameArrowOffset)+3),String.valueOf(Integer.parseInt(sNameArrowOffset)+4),String.valueOf(Integer.parseInt(sNameArrowOffset)+5),String.valueOf(Integer.parseInt(sNameArrowOffset)+6)};
             AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
             builder2.setTitle(getResources().getString(R.string.tittleChoiceArrow))
                     .setIcon(R.drawable.am_arrow_style_blue)
@@ -449,7 +451,10 @@ public class Activity_MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Log.d("Selection", "Something selected");
                             //Save Wich in global variable
-                            arrowNumber = which ;
+                            if(which != 0) {
+                                arrowNumber = which + Integer.parseInt(sNameArrowOffset) - 1;
+                            }  else
+                                arrowNumber = 0 ;
                             if (arrowIndex < NumberArrow * NumberEndByRound) {
                                 stock.addResultat(archer.getSelectedItem().toString(), roundName, value, X, Y,dixPlus,arrowNumber);
                             }
@@ -715,6 +720,13 @@ public class Activity_MainActivity extends AppCompatActivity {
             String snumberArrow = stock.getValue("numberArrow");
             String snumberEnd = stock.getValue("numberEnd");
             String sPointerOffset = stock.getValue("pointageOffset");
+            String snamedArrow = stock.getValue("NamedArrow");
+            Pattern patternInt = Pattern.compile("\\d+");
+            if (!patternInt.matcher(snamedArrow).matches())
+                {
+                    stock.updateValue("NamedArrow","0") ;
+                }
+
             if (sPointerOffset.isEmpty()) {
                 sPointerOffset = "2";
                 stock.updateValue("pointageOffset", sPointerOffset);

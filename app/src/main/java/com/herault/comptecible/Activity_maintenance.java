@@ -19,8 +19,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -52,7 +50,7 @@ public class Activity_maintenance extends AppCompatActivity  {
     private ArrayAdapter adapterRound;
 
     private EditText pointageOffset = null ;
-    //private EditText resultFilter =null;
+    private EditText arrowNamed =null;
 
     private GridView resultFilter ;
     private FiltersContainer filtersResultContainer;
@@ -160,23 +158,35 @@ public class Activity_maintenance extends AppCompatActivity  {
             }
         });
 // Set or getValue of Optimisation Arrow
-         CheckBox arrowNamed = findViewById(R.id.RadioArrow);
+         arrowNamed = findViewById(R.id.nameFirstArrow);
          String sNamedArrow = stock.getValue("NamedArrow");
-       if(sNamedArrow.compareTo("true")==0)
-         {
-             arrowNamed.setChecked(true);
-         }
-         arrowNamed.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
 
-                 if (!arrowNamed.isChecked()) {
-                     stock.updateValue("NamedArrow", "false");
-                 }
-                 else {
-                     stock.updateValue("NamedArrow", "true");
-                 }
-             }
+
+
+       if(sNamedArrow.isEmpty() )
+         {
+             sNamedArrow="0";
+             stock.updateValue("NamedArrow", "0");
+
+         }
+       arrowNamed.setText(sNamedArrow ) ;
+       arrowNamed.addTextChangedListener(new TextWatcher() {
+                                               public void afterTextChanged(Editable s) {
+                                                   String sArrowFirstOffset = arrowNamed.getText().toString().trim();
+                                                   if (!sArrowFirstOffset.isEmpty()) {
+                                                   try {
+                                                       int intValue = Integer.parseInt(sArrowFirstOffset);
+                                                   } catch (ArithmeticException e) {
+                                                       sArrowFirstOffset= "0" ;
+                                                   }
+                                                          stock.updateValue("NamedArrow", sArrowFirstOffset);
+                                                   }
+                                               }
+           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+           }
+
+           public void onTextChanged(CharSequence s, int start, int before, int count) {
+           }
          });
 // Set pointing Offset
         // Get Offset of Pointer
