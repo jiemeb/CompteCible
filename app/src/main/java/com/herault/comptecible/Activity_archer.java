@@ -20,6 +20,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.herault.comptecible.utils.ActivityLayouts;
 import com.herault.comptecible.utils.Stockage;
 
 import org.w3c.dom.Text;
@@ -43,6 +44,8 @@ public class Activity_archer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_archer);
+        ActivityLayouts.applyEdgeToEdge(this, R.id.activity_archer);
+
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
 

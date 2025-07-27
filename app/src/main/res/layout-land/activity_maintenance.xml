@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_maintenance"
     tools:context=".Activity_maintenance">
 
     <Button
@@ -62,16 +63,16 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:layout_marginStart="20dp"
-        android:textAlignment="textStart"
-        android:layout_gravity="start"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:background="@drawable/it_style"
         android:ems="1"
         android:hint="1"
         android:inputType="number"
         android:singleLine="true"
         android:text="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toLeftOf="@id/am_bSup_round"
+        app:layout_constraintTop_toBottomOf="@id/am_bSup_round" />
 
     <TextView
         android:id="@+id/TextNameArrow"
@@ -80,9 +81,8 @@
         android:layout_weight="2"
         android:gravity="center"
         android:text="@string/arrowNameStart"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintLeft_toRightOf="@id/nameFirstArrow"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/nameFirstArrow"
         tools:text="@string/arrowNameStart" />
 
 
@@ -102,18 +102,17 @@
         android:text="@string/pointageOffset"
         android:textAlignment="center"
         android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/nameFirstArrow"
-        app:layout_constraintTop_toTopOf="@+id/nameFirstArrow" />
+        app:layout_constraintStart_toEndOf="@id/TextNameArrow"
+        app:layout_constraintTop_toTopOf="@id/TextNameArrow" />
     <TextView
         android:id="@+id/TextOffset"
         android:layout_width="0dp"
         android:layout_height="53dp"
-
         android:layout_weight="2"
         android:gravity="center"
         android:text="@string/pointageOffsetDesc"
-        app:layout_constraintStart_toEndOf="@+id/pointageOffset"
-        app:layout_constraintTop_toTopOf="@+id/pointageOffset"
+        app:layout_constraintStart_toEndOf="@id/pointageOffset"
+        app:layout_constraintTop_toTopOf="@id/pointageOffset"
         tools:text="@string/pointageOffsetDesc" />
 
 
@@ -124,8 +123,8 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/am_buttonshape_grey"
         android:text="@string/am_bexport_archer_round"
-        app:layout_constraintStart_toStartOf="@id/am_bSup_round"
-        app:layout_constraintTop_toBottomOf="@id/am_bSup_round" />
+        app:layout_constraintStart_toStartOf="@id/nameFirstArrow"
+        app:layout_constraintTop_toBottomOf="@id/nameFirstArrow" />
 
     <Button
         android:id="@+id/am_bexport_round_archers"
@@ -184,8 +183,9 @@
         android:horizontalSpacing="5dp"
         android:numColumns="4"
         android:verticalSpacing="2dp"
-        app:layout_constraintStart_toStartOf="@+id/TextOffset"
-        app:layout_constraintTop_toBottomOf="@+id/TextOffset" />
+        app:layout_constraintStart_toStartOf="@id/TextOffset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

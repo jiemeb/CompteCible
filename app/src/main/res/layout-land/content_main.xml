@@ -11,7 +11,7 @@
         android:id="@+id/result"
         android:layout_width="0dp"
         android:layout_height="156dp"
-        android:layout_marginStart="34dp"
+        android:layout_marginStart="56dp"
         android:background="@drawable/it_style"
         android:ems="10"
         android:layout_weight="1.5"

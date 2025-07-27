@@ -15,8 +15,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.herault.comptecible.utils.ActivityLayouts;
 import com.herault.comptecible.utils.FilterContainer;
 import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.Stockage;
@@ -43,6 +45,21 @@ public class Activity_gestion_filter extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             localActivity = this;
             setContentView(R.layout.activity_gestion_filter);
+        ActivityLayouts.applyEdgeToEdge(this, R.id.activity_gestion_filter);
+
+        //---- modif onBackPressed
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                myOnBackPressed() ;
+                setEnabled(false);
+            }
+        };
+
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
+        //-------fin
+
             stock = new Stockage();             // init de la classe interface de stockage
             stock.onCreate(this);
             resultFilter = findViewById(R.id.filterResult);
@@ -164,7 +181,8 @@ public class Activity_gestion_filter extends AppCompatActivity {
                 intent.putExtra("after", filterResult.getText().toString());
                 setResult(123, intent);
                 finish(); */
-                onBackPressed();
+                //onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
             }
         });
 
@@ -281,7 +299,7 @@ public class Activity_gestion_filter extends AppCompatActivity {
         //Close stockage
         stock.closeDB();
     }
-    public void OnBackPressedDispatcher() {
+    public void myOnBackPressed() {
 
         Intent intent = new Intent();
         intent.putExtra("after", filtersResultContainer.serialize());

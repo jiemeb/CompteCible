@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.herault.comptecible.utils.ActivityLayouts;
 import com.herault.comptecible.utils.FilterContainer;
 import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.Stockage;
@@ -69,6 +70,7 @@ public class Activity_config_round extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_config_round);
+        ActivityLayouts.applyEdgeToEdge(this, R.id.activity_config_round);
 
 
         stock = new Stockage();             // init de la classe interface de stockage

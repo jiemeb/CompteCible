@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.herault.comptecible.utils.ActivityLayouts;
 import com.herault.comptecible.utils.Stockage;
 
 public class Activity_apropos extends AppCompatActivity {
@@ -38,6 +39,7 @@ public class Activity_apropos extends AppCompatActivity {
         String version = "CompteCible version : ";
         _context = this ;
         setContentView(R.layout.activity_apropos);
+        ActivityLayouts.applyEdgeToEdge(this, R.id.activity_apropos);
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
 
@@ -95,12 +97,7 @@ public class Activity_apropos extends AppCompatActivity {
         });
 
     }
-/* Override some function like exit     */
 
-/*public void onBackPressed() {
-setResult(RESULT_OK) ;
-finish();
-}*/
 
     //*******************************************************************************/
     /* Managing LifeCycle and database open/close operations ************************/

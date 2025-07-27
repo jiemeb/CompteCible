@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.herault.comptecible.utils.ActivityLayouts;
 import com.herault.comptecible.utils.FilterContainer;
 import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.Stockage;
@@ -51,6 +52,8 @@ public class Activity_resultat_round extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultat_round);
+        ActivityLayouts.applyEdgeToEdge(this, R.id.activity_resultat_round);
+
 
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);

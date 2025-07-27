@@ -40,6 +40,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
+import com.herault.comptecible.utils.ActivityLayouts;
 import com.herault.comptecible.utils.FilterContainer;
 import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.Stockage;
@@ -84,6 +85,8 @@ public class Activity_resultat_image extends AppCompatActivity {
         main_context = this ;
         setContentView(R.layout.activity_resultat_image);
         this.shootView =findViewById(R.id.activity_image_resultat) ;
+        ActivityLayouts.applyEdgeToEdge(this, R.id.activity_image_resultat);
+
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
         String snumberArrow = stock.getValue("numberArrow");

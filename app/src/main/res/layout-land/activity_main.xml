@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_main"
     tools:context=".Activity_MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -23,7 +24,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="38dp"
+        android:layout_width="52dp"
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary"
         android:orientation="vertical"

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.herault.comptecible.utils.ActivityLayouts;
 import com.herault.comptecible.utils.Stockage;
 
 public class EditNoteActivity extends AppCompatActivity {
@@ -32,6 +33,8 @@ public class EditNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_note);
+        ActivityLayouts.applyEdgeToEdge(this, R.id.activity_edit_note);
+
 
         stock = new Stockage();              // init de la classe interface de stockage
         stock.onCreate(this);

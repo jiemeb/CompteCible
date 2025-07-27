@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.herault.comptecible.Activity_MainActivity">
     <item
         android:id="@+id/config_round"
@@ -14,12 +14,12 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/maintenance"
-        android:orderInCategory="101"
+        android:orderInCategory="102"
         android:title="@string/activity_maintenance"
         app:showAsAction="never" />
     <item
         android:id="@+id/resultat_round"
-        android:orderInCategory="102"
+        android:orderInCategory="103"
         android:title="@string/Activity_resultat_round"
         app:showAsAction="never" />
     <item
@@ -29,7 +29,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/apropos"
-        android:orderInCategory="104"
+        android:orderInCategory="105"
         android:title="@string/Apropos"
         app:showAsAction="never" />
 </menu>

@@ -27,6 +27,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.herault.comptecible.utils.ActivityLayouts;
 import com.herault.comptecible.utils.FilterContainer;
 import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.MyHandlerThread;
@@ -64,6 +65,8 @@ public class Activity_maintenance extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         localActivity = this;
         setContentView(R.layout.activity_maintenance);
+        ActivityLayouts.applyEdgeToEdge(this, R.id.activity_maintenance);
+
         progressBarExport = findViewById(R.id.am_progressBar);
         this.configureHandlerThread();
         archer = findViewById(R.id.am_sArcher);
