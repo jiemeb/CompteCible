@@ -109,12 +109,7 @@ public class Activity_resultat_image extends AppCompatActivity {
         bpPartage.setOnClickListener(new View.OnClickListener() {
                                          @Override
                                          public void onClick(View v) {
-                                             if (checkPermission() ) {
-                                                 new shareImage(main_context).shareInt(shootView, "Resultat", "screenCompteCible");
-                                             } else
-                                             if (checkPermission() ) {
-                                                 new shareImage(main_context).shareInt(shootView, "Resultat", "screenCompteCible");
-                                             }
+                                             new shareImage(main_context).shareInt(shootView, "Resultat", "screenCompteCible");
                                          }
                                      }
         );
@@ -274,7 +269,7 @@ public class Activity_resultat_image extends AppCompatActivity {
                      if(value == 11)
                          textView.setText(" + ");
                      else
-                     textView.setText(Integer.toString(value));
+                        textView.setText(Integer.toString(value));
                 TextView Space = new TextView(this);
                 Space.setLayoutParams(lp);
                 Space.setText(" ");
@@ -872,26 +867,6 @@ public class Activity_resultat_image extends AppCompatActivity {
 
     }
 
-    String[] permissions ;
-    private boolean checkPermission() {
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
-            permissions = new String[]{"android.permission.READ_EXTERNAL_STORAGE","android.permission.WRITE_EXTERNAL_STORAGE"};
-        else
-           permissions = new String[]{"android.permission.READ_EXTERNAL_STORAGE"};
-
-        List arrayList = new ArrayList();
-        for (String str : this.permissions) {
-            if (ContextCompat.checkSelfPermission(this, str) != 0) {
-                arrayList.add(str);
-            }
-        }
-        if (arrayList.isEmpty()) {
-            return true;
-        }
-        ActivityCompat.requestPermissions(this, (String[]) arrayList.toArray(new String[arrayList.size()]), 100);
-        return false;
-    }
 
     private void updateResultValue()
     {

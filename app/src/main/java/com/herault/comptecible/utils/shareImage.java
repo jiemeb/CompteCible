@@ -8,12 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 
 import androidx.core.content.FileProvider;
-
 
 import com.herault.comptecible.BuildConfig;
 
@@ -23,11 +23,14 @@ import java.io.FileOutputStream;
 
 public class shareImage {
     final Context c;
-    public shareImage(Context c) {this.c = c;   }
-    private static final String AUTHORITY="com.herault.comptecible.fileprovider";
-    public void shareInt(View  view, String msg, String name) {
 
-        Bitmap bitmap = getScreenShot(view) ;
+    public shareImage(Context c) {
+        this.c = c;
+    }
+
+    public void shareInt(View view, String msg, String name) {
+
+        Bitmap bitmap = getScreenShot(view);
         Uri uri = getmageToShare(bitmap, name);
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
@@ -39,32 +42,28 @@ public class shareImage {
     // Retrieving the url to share
     private Uri getmageToShare(Bitmap bitmap, String name) {
 
-      //  String str = Environment.getExternalStorageDirectory()+ "/Pictures/Screenshots";
-       //   String str = c.getExternalFilesDir(Environment.DIRECTORY_PICTURES)+ "/Pictures/Screenshots";
-     //   File imagefolder =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES); // OK exept 10 api 29
-        File imagefolder =   c.getExternalFilesDir (Environment.DIRECTORY_PICTURES); // OK exept 10 api 29
-
-        //  File imagefolder = new File(str);
-     //  File imagefolder = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),"Screenshot");
+        File imagefolder = c.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         Uri uri = null;
 
         try {
-            if (! imagefolder.exists()) {
-                imagefolder.mkdirs();
+            if (imagefolder != null && !imagefolder.exists()) {
+                if (!imagefolder.mkdirs()) {
+                    Log.e("shareImage", "Failed to create directory: " + imagefolder);
+                }
             }
 
-            File file = new File(imagefolder, name+".png");
+            File file = new File(imagefolder, name + ".png");
             FileOutputStream outputStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 70, outputStream);
             outputStream.flush();
             outputStream.close();
-            uri = FileProvider.getUriForFile(c.getApplicationContext(),   BuildConfig.APPLICATION_ID + ".fileprovider",file);
+            uri = FileProvider.getUriForFile(c.getApplicationContext(), BuildConfig.APPLICATION_ID + ".fileprovider", file);
 
         } catch (Exception e) {
-            String error = "Erreur acces: verifier les droits de l'application" ;
+            String error = "Erreur acces: verifier les droits de l'application";
             Toast.makeText(c, error + e.getMessage(), Toast.LENGTH_LONG).show();
-            error ="ou supprimer le fichier "+ imagefolder+name;
-            Toast.makeText(c, error , Toast.LENGTH_LONG).show();
+            error = "ou supprimer le fichier " + imagefolder + name;
+            Toast.makeText(c, error, Toast.LENGTH_LONG).show();
         }
         return uri;
     }
