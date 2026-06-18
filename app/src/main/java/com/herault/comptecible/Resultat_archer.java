@@ -1,8 +1,5 @@
 package com.herault.comptecible;
 
-import android.graphics.Color;
-import android.support.v4.os.IResultReceiver;
-
 public class Resultat_archer {
     public String name = "";
     public long value;

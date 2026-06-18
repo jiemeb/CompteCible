@@ -32,7 +32,7 @@ public class Stockage {
     }
 
     public boolean showDB() {
-        if (db == null) {
+        if (db == null || !db.isOpen()) {
             return (false);
         } else {
             return (true);
@@ -532,6 +532,12 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
     /*---------------------------------------Fonction Member of CompteCible Value ---------------*/
 // Store Value for all Activity
     public void updateValue(String name, String value) {
+        if (db == null)
+            openDB();
+
+        if (db == null)
+            return;
+
         ContentValues cv = new ContentValues();
         cv.put(Db_resultat.Constants.KEY_COL_COMPTE_VALUE, value);
 
@@ -545,6 +551,11 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
 
     //  get Value
     public String getValue(String name) {
+        if (db == null)
+            openDB();
+
+        if (db == null)
+            return "";
 
         //select value fron Comptecible where name=name
         //Using man made query
@@ -784,8 +795,14 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
 
     // Get archers from database or current round
     //
-    public ArrayList getArchers(Boolean round) {
-        ArrayList retour = new ArrayList();
+    public ArrayList<String> getArchers(Boolean round) {
+        if (db == null)
+            openDB();
+
+        if (db == null)
+            return new ArrayList<>();
+
+        ArrayList<String> retour = new ArrayList<>();
         Cursor cursor = null;
 
 // Using man made query
@@ -831,8 +848,8 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
 
     // Get all archers for one round
     //----------------------------------------------------------------------------------------------------------------------------------
-    public ArrayList getArchers(String round) {
-        ArrayList retour = new ArrayList();
+    public ArrayList<String> getArchers(String round) {
+        ArrayList<String> retour = new ArrayList<>();
         Cursor cursor = null;
 
 // Using man made query
@@ -964,14 +981,19 @@ public List<Resultat_archer> getResultatAllRound(String name_archer , String[] f
 
     // return an array of round name
 
-    public ArrayList getRounds() {
-        String filter[] = new String[] {""};
-        return getRounds( filter);
+    public ArrayList<String> getRounds() {
+        String[] filter = new String[]{""};
+        return getRounds(filter);
     }
 
-    public ArrayList getRounds(@NonNull String[] filter) {
+    public ArrayList<String> getRounds(@NonNull String[] filter) {
+        if (db == null)
+            openDB();
 
-        ArrayList retour = new ArrayList();
+        if (db == null)
+            return new ArrayList<>();
+
+        ArrayList<String> retour = new ArrayList<>();
         Cursor cursor = null;
         String filterRound ="";
         if (filter.length > 0) {

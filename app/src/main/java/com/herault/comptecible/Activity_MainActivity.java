@@ -17,7 +17,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -71,13 +70,12 @@ public class Activity_MainActivity extends AppCompatActivity {
     private Stockage stock = null;
     private List<String> lArcher;
     private boolean must_config = false;
-    private ArrayAdapter adapter_archer;
+    private ArrayAdapter<String> adapter_archer;
     private String roundName = null;
     private int NumberArrow = 0;
     private int NumberEndByRound = 0;
     private int arrowNumber = 0;
     private boolean orientationLand = false;
-    int APROPOS = 1 ;
     boolean pulleyBow  = false;
                                 //
     private final View.OnTouchListener onTouchCible = new View.OnTouchListener() {
@@ -154,27 +152,16 @@ public class Activity_MainActivity extends AppCompatActivity {
 
                 switch (resultat_fleche) {
                     case 0:
-                    case 1:
-                    case 2:
                         //   arrowValue.setBackgroundColor(Color.WHITE);
                         sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                        sd.setColor(ContextCompat.getColor(getBaseContext(),R.color.BlancCible));
+                        sd.setColor(ContextCompat.getColor(getBaseContext(), R.color.BlancCible));
                         sd.invalidateSelf();
                         break;
 
-                    case 3:
-                    case 4:
-                        //    arrowValue.setBackgroundColor(Color.BLACK);
-                        sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                        sd.setColor(ContextCompat.getColor(getBaseContext(),R.color.NoirCible));
-                        sd.invalidateSelf();
-                        break;
-
-                    case 5:
                     case 6:
                         //arrowValue.setBackgroundColor(getResources().getColor(R.color.BleuCible));
                         sd = (GradientDrawable) arrowValue.getBackground().mutate();
-                        sd.setColor(ContextCompat.getColor(getBaseContext(),R.color.BleuCible));
+                        sd.setColor(ContextCompat.getColor(getBaseContext(), R.color.BleuCible));
                         sd.invalidateSelf();
                         break;
 
@@ -264,14 +251,14 @@ public class Activity_MainActivity extends AppCompatActivity {
             stock.updateValue("numberArrow", snumberArrow);
             snumberEnd = "20";
             stock.updateValue("numberEnd", snumberEnd);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 1");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 1", java.util.Locale.getDefault());
             roundName = sdf.format(new Date());
             stock.updateValue("roundName", roundName);
 
             must_config = true;
         }
 
-        adapter_archer = new ArrayAdapter(
+        adapter_archer = new ArrayAdapter<>(
                 this,
                 R.layout.spinner_generale
         );
@@ -417,19 +404,17 @@ public class Activity_MainActivity extends AppCompatActivity {
             Intent i = new Intent(this, Activity_config_round.class);
             someActivityResultLauncher.launch(i);
         }
-        String newVersion = "";
-        String oldVersion = "";
+        String newVersion;
+        String oldVersion;
         try {
             PackageManager manager = getApplicationContext().getPackageManager();
-            PackageInfo info = null;
-            info = manager.getPackageInfo(getApplicationContext().getPackageName(), 0);
+            PackageInfo info = manager.getPackageInfo(getApplicationContext().getPackageName(), 0);
 
-          newVersion =  info.versionName;
-          oldVersion =   stock.getValue("version");
-            if(! newVersion.equals(oldVersion))
-            {
+            newVersion = info.versionName;
+            oldVersion = stock.getValue("version");
+            if (!java.util.Objects.equals(newVersion, oldVersion)) {
                 Intent i = new Intent(this, Activity_apropos.class);
-                stock.updateValue("version",newVersion);
+                stock.updateValue("version", newVersion);
                 someActivityResultLauncher.launch(i);
             }
 
@@ -642,7 +627,7 @@ public class Activity_MainActivity extends AppCompatActivity {
         Yscale = 10.00 / ymax;
         bitmap = Bitmap.createBitmap((int) xmax, (int) ymax, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.translate((int) xmax / 2, (int) ymax / 2);
+        canvas.translate((float) (xmax / 2.0), (float) (ymax / 2.0));
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         Resultat_archer resultat_archer;
 
@@ -691,16 +676,13 @@ public class Activity_MainActivity extends AppCompatActivity {
     }
 
 /* Waiting from child activity */
-   ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
-        result -> {
-            if (result.getResultCode() != Activity.RESULT_OK) {
-                // There are no request codes
-                Intent data = result.getData();
-                //    doSomeOperations();
-//                Toast.makeText(Activity_MainActivity.this, "retour de l'activité appelante", Toast.LENGTH_SHORT).show();
-            }
-        });
+            result -> {
+                if (result.getResultCode() != Activity.RESULT_OK) {
+                    // There are no request codes
+                }
+            });
 
     /*********************************************************************************
     ** Managing LifeCycle and database open/close operations ************************

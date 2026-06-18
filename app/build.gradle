@@ -2,24 +2,18 @@ apply plugin: 'com.android.application'
 
 android {
 
-    buildToolsVersion '36.0.0'
-
     defaultConfig {
         applicationId "com.herault.comptecible"
         minSdkVersion 23
-        targetSdkVersion 35
-        versionCode 53
-        versionName '1.7.9'
+        targetSdk 35
+        versionCode 55
+        versionName '1.7.11'
 
-        testInstrumentationRunner releaseApplicationIdSuffix
-        allprojects {
-            tasks.withType(JavaCompile).tap {
-                configureEach {
-                    //               options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-                    options.compilerArgs << "-Xlint:deprecation"
-                }
-            }
-        }
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs << "-Xlint:deprecation"
     }
 
     buildTypes {
@@ -35,16 +29,19 @@ android {
 
     }
     namespace 'com.herault.comptecible'
-    compileSdk 36
+    compileSdk 35
 
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.documentfile:documentfile:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.7.1'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'com.google.android.material:material:1.14.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
     implementation files('libs/achartengine-1.2.0.jar')
 }

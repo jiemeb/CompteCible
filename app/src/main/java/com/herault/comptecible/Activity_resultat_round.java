@@ -64,7 +64,7 @@ public class Activity_resultat_round extends AppCompatActivity {
 
    //     resultFilter.setText(stock.getValue("filter"));
         SFilterResult=stock.getValue("filter");
-        if(!(SFilterResult.trim().length() > 0))
+        if(SFilterResult.trim().isEmpty())
             SFilterResult = "";
         filtersResultContainer= new FiltersContainer(SFilterResult);
         updateResultValue();
