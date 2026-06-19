@@ -42,7 +42,6 @@ public class Activity_maintenance extends AppCompatActivity  {
 
     protected Activity context;
 
-
     private ProgressBar progressBarExport;
     private Stockage stock = null;
     private Spinner archer = null;
