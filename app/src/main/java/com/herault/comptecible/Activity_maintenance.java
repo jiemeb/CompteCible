@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.text.Editable;
@@ -28,6 +28,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.herault.comptecible.utils.ActivityLayouts;
+import com.herault.comptecible.utils.DatabaseBackup;
 import com.herault.comptecible.utils.FilterContainer;
 import com.herault.comptecible.utils.FiltersContainer;
 import com.herault.comptecible.utils.MyHandlerThread;
@@ -60,6 +61,36 @@ public class Activity_maintenance extends AppCompatActivity  {
     private List<Resultat_archer> lresultat;
     private MyHandlerThread handlerThread;
 
+    private final ActivityResultLauncher<Intent> filePickerLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    Uri selectedFileUri = result.getData().getData();
+                    if (selectedFileUri != null) {
+                        confirmRestore(selectedFileUri);
+                    }
+                }
+            }
+    );
+
+    private void confirmRestore(Uri uri) {
+        AlertDialog.Builder popupValidation = new AlertDialog.Builder(this);
+        popupValidation.setMessage(R.string.dataInBaseDestrut);
+        popupValidation.setTitle(R.string.dataInBaseDestrutTitlle);
+        popupValidation.setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> {
+            stock.closeDB();
+            if (DatabaseBackup.restoreDatabase(this, uri)) {
+                Toast.makeText(this, R.string.dataInBaseDestrutSucces, Toast.LENGTH_SHORT).show();
+                recreate();
+            } else {
+                stock.openDB();
+                Toast.makeText(this, R.string.dataInBaseDestrutFail, Toast.LENGTH_SHORT).show();
+            }
+        });
+        popupValidation.setNegativeButton(getResources().getString(R.string.no), null);
+        popupValidation.show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +103,20 @@ public class Activity_maintenance extends AppCompatActivity  {
         archer = findViewById(R.id.am_sArcher);
         stock = new Stockage();             // init de la classe interface de stockage
         stock.onCreate(this);
+
+        // Backup (Export/Share) & Restore
+        Button bBackup = findViewById(R.id.am_bBackup);
+        bBackup.setOnClickListener(v -> {
+            DatabaseBackup.shareBackup(this);
+        });
+
+        Button bRestore = findViewById(R.id.am_bRestore);
+        bRestore.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("*/*"); // You can use "application/x-sqlite3" if the provider supports it
+            filePickerLauncher.launch(intent);
+        });
 
         List<String> lArcher = stock.getArchers(false);
         adapter = new ArrayAdapter(
@@ -146,9 +191,11 @@ public class Activity_maintenance extends AppCompatActivity  {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         stock.dropArchers(false);
-                        Intent j = new Intent(Activity_maintenance.this, Activity_config_round.class);
+                        Intent j = new Intent(Activity_maintenance.this, Activity_MainActivity.class);
                         startActivity(j);
                         Activity_maintenance.this.finish();
+                        recreate();
+
                     }
                 });
                 popupValidation.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {

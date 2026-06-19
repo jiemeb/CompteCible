@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CompteCible</string>
-    <string name="action_settings">Configuration</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Suivant</string>
-    <string name="previous">Précédent</string>
     <string name="config_round">Configuration concours</string>
     <string name="activity_maintenance">Maintenance</string>
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="let_sgo">Allons-y</string>
-    <string name="useButton">Utiliser le bouton</string>
     <string name="roundName">Nom concours</string>
     <string name="round">Volée</string>
     <string name="Activity_resultat_round">Résultat Concours</string>
@@ -28,10 +20,8 @@
     <string name="air_Tittle_Axe_X_round">Nom concours</string>
     <string name="air_Tittle_Axe_Y_Score">Score</string>
     <string name="EndRound">concours fini</string>
-    <string name="All">Tous</string>
     <string name="End">Volée</string>
     <string name="missing_archer">Archer manquant</string>
-    <string name="noElement">Pas d\'élément</string>
     <string name="addArcher">Ajout archer</string>
     <string name="ArcherToRound">Archers en concours</string>
     <string name="Noelement">Pas d\' enregistrement</string>
@@ -57,7 +47,6 @@
     <string name="Exit">Sortie</string>
     <string name="me">Moi</string>
     <string name="note">note</string>
-    <string name="archers">archers</string>
     <string name="archersNotes">Notes de l\'archer</string>
     <string name="RoundQualifier">tag</string>
     <string name="resRoundFilter">filtre</string>
@@ -75,7 +64,6 @@
     <string name="gf_dia_addsubject">ajouter un nouveau filtre</string>
     <string name="gf_toAdd">nouveau filtre</string>
     <string name="gf_dia_tittle_addsubject">ajouter votre filtre</string>
-    <string name="bp_delete">supprimer</string>
     <string name="gf_dia_template">Gestion du filtre</string>
     <string name="gf_dia_sup_template">voulez vous supprimer  ce filtre du modèle</string>
     <string name="ar_filter_archer">Selectionner  l\'archer:</string>
@@ -90,16 +78,15 @@
     <string name="filter">filtre</string>
     <string name="gf_no_filter">pas de filtre</string>
     <string name="gf_no_tag">pas de mot clé</string>
-    <string name="nameArrow">nom flèche</string>
-    <string name="arrowName1">flèche une</string>
-    <string name="arrowName3">flèche trois</string>
-    <string name="arrowName4">flèche quatre</string>
-    <string name="arrowName5">flèche cinq</string>
-    <string name="arrowName6">flèche six</string>
-    <string name="arrowName2">flèche deux</string>
     <string name="arrowNameDefault">flèche défault</string>
     <string name="arrowNameStart">offset  Premiere Flèche 0u 0</string>
     <string name="tittleChoiceArrow">selectionner votre flèche</string>
+    <string name="dataInBaseDestrut">Voulez-vous restaurer cette sauvegarde ? Les données actuelles seront écrasées.</string>
+    <string name="dataInBaseDestrutTitlle">Confirmation de restauration</string>
+    <string name="dataInBaseDestrutSucces">Restauration réussie !</string>
+    <string name="dataInBaseDestrutFail">Échec de la restauration</string>
+    <string name="exportBase">Exportation</string>
+    <string name="restorBase">Restauration</string>
 
 
 </resources>

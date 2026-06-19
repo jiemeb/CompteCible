@@ -95,7 +95,7 @@ public class Activity_config_round extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // sauvegarde archer_round database and test value before ending
-onBackPressed();
+//onBackPressed();
                 getOnBackPressedDispatcher().onBackPressed();
                 /*
 
