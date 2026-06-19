@@ -17,6 +17,26 @@
         android:text="@string/ClearDataBase"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/am_bBackup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/am_buttonshape_grey"
+        android:text="@string/exportBase"
+        app:layout_constraintStart_toEndOf="@id/am_bCleaDataBase"
+        app:layout_constraintTop_toTopOf="@id/am_bCleaDataBase" />
+
+    <Button
+        android:id="@+id/am_bRestore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/am_buttonshape_grey"
+        android:text="@string/restorBase"
+        app:layout_constraintStart_toEndOf="@id/am_bBackup"
+        app:layout_constraintTop_toTopOf="@id/am_bCleaDataBase" />
+
 
     <Button
         android:id="@+id/am_bSuppresArcher"
@@ -161,7 +181,6 @@
         app:layout_constraintTop_toTopOf="@+id/TextOffset" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -170,22 +189,20 @@
 
     <GridView
         android:id="@+id/r_maintenance_filter"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
+
+        android:layout_width="703dp"
+        android:layout_height="124dp"
         android:layout_weight="1"
         android:autofillHints=""
-        android:hint="@string/resRoundFilter"
-        android:inputType="text"
         android:columnWidth="60dp"
         android:gravity="center"
+        android:hint="@string/resRoundFilter"
         android:horizontalSpacing="5dp"
+        android:inputType="text"
         android:numColumns="4"
         android:verticalSpacing="2dp"
-        app:layout_constraintStart_toStartOf="@id/TextOffset"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="@id/am_bexport_archer_rounds" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

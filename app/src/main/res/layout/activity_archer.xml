@@ -56,7 +56,6 @@
         app:layout_constraintTop_toBottomOf="@id/layout1" />
 
     <TableLayout
-        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
@@ -87,7 +86,6 @@
 
             <TextView
 
-                android:id="@+id/dummy1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="7"
