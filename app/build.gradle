@@ -8,8 +8,8 @@ android {
         targetSdk 35
         versionCode 56
         versionName '1.8.1'
+        applicationIdSuffix releaseApplicationIdSuffix
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     tasks.withType(JavaCompile).configureEach {
@@ -20,8 +20,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            applicationIdSuffix = releaseApplicationIdSuffix
-            signingConfig signingConfigs.debug
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
         }
     }
     compileOptions {
