@@ -213,27 +213,17 @@ public class Activity_gestion_filter extends AppCompatActivity {
         r_red = findViewById(R.id.gf_rb_red);
         r_yellow = findViewById(R.id.gf_rb_yellow);
         r_black = findViewById(R.id.gf_rb_black);
-        r_blue = new RadioButton(this);
-        r_red  = new RadioButton(this);
-        r_yellow = new RadioButton(this);
-        r_black= new RadioButton(this);
         r_group_color.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId)
-                {
-                    case R.id.gf_rb_blue:
-                         currentColor ="_blue_" ;
-                        break;
-                    case R.id.gf_rb_red:
-                        currentColor ="_red_" ;
-                        break;
-                    case R.id.gf_rb_yellow:
-                        currentColor ="_yellow_" ;
-                        break;
-                    case R.id.gf_rb_black:
-                        currentColor ="_black_" ;
-                        break;
+                if (checkedId == R.id.gf_rb_blue) {
+                    currentColor = "_blue_";
+                } else if (checkedId == R.id.gf_rb_red) {
+                    currentColor = "_red_";
+                } else if (checkedId == R.id.gf_rb_yellow) {
+                    currentColor = "_yellow_";
+                } else if (checkedId == R.id.gf_rb_black) {
+                    currentColor = "_black_";
                 }
             }
         });

@@ -5,9 +5,9 @@ android {
     defaultConfig {
         applicationId "com.herault.comptecible"
         minSdkVersion 23
-        targetSdk 35
-        versionCode 56
-        versionName '1.8.1'
+        targetSdk 37
+        versionCode 58
+        versionName '1.8.3'
         applicationIdSuffix releaseApplicationIdSuffix
 
     }
@@ -32,7 +32,7 @@ android {
 
     }
     namespace 'com.herault.comptecible'
-    compileSdk 35
+    compileSdk 37
 
     buildFeatures {
         buildConfig = true
